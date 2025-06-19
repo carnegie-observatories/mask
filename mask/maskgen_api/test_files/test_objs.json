@@ -1,0 +1,31 @@
+[
+  {
+    "name": "GS1",
+    "type": "GUIDE",
+    "ra": 10.0,
+    "dec": 20.0,
+    "priority": 1
+  },
+  {
+    "name": "ALIGN1",
+    "type": "ALIGN",
+    "ra": 15.5,
+    "dec": 25.3,
+    "priority": 0
+  },
+  {
+    "name": "TARGET1",
+    "type": "TARGET",
+    "ra": 30.0,
+    "dec": -10.0,
+    "priority": -2.0,
+    "a_len": 1.2,
+    "b_len": 0.8
+  },
+  {
+    "name": "GS2",
+    "type": "GUIDE",
+    "ra": 12.1,
+    "dec": 18.4
+  }
+]
