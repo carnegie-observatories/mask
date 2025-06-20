@@ -39,7 +39,7 @@ class InstrumentConfig(models.Model):
 class Mask(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
     status = models.CharField(max_length=100)
-    features = models.JSONField()
+    features = models.JSONField() # slits and holes
     objects_list = models.ManyToManyField('Object', blank=True)
     instrument_config = models.ForeignKey('InstrumentConfig', on_delete=models.SET_NULL, null=True)
     instrument_setup = models.JSONField()

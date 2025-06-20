@@ -2,7 +2,7 @@
   {
     "name": "GS1",
     "type": "GUIDE",
-    "ra": 10.0,
+    "ra": 20.0,
     "dec": 20.0,
     "priority": 1
   },

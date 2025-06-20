@@ -14,7 +14,7 @@ def convert_to_json(filepath):
 
         # DataFrame to JSON
         df.to_json('output.json', orient='records', lines=True)
-# Create your views here.
+
 class UploadObjectsView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
@@ -34,7 +34,7 @@ class UploadObjectsView(APIView):
                 a_len = float(row['a_len'])
             if 'b_len' in row and row['b_len'] != '':
                 b_len = float(row['b_len'])
-            obj = Object.objects.create(
+            obj, created_object = Object.objects.get_or_create(
                 name=row['name'],
                 type=row['type'],
                 right_ascension=float(row['ra']),
@@ -43,9 +43,25 @@ class UploadObjectsView(APIView):
                 a_len=a_len,
                 b_len=b_len,
             )
+            print(created_object);
             created_objects.append(obj.id)
 
         return Response({"created": created_objects}, status=status.HTTP_201_CREATED)
+
+class UploadInstrumSetup(APIView):
+    def post(self, request, format=None):
+        data = request.data
+        # create obj files for objects
+
+        # create obs file
+
+        # start maskgen docker container
+
+        # cp files to docker container
+
+        # run mask gen and cp .smf to local directory
+
+        # use smf to generate a Mask + features + objects (using ids included in the request)
 
 
 class MaskView(APIView):
