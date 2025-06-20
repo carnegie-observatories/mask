@@ -1,18 +1,30 @@
 from rest_framework.views import APIView
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
-import csv
 import json
+from .serializers import UploadObjectSerializer
 from .models import Object, Mask
+import pandas as pd
 
+def convert_to_json(filepath):
+    if filepath.split(".")[1] == "csv":
+        # Read CSV file
+        df = pd.read_csv(filepath)
+
+        # DataFrame to JSON
+        df.to_json('output.json', orient='records', lines=True)
 # Create your views here.
 class UploadObjectsView(APIView):
-    parser_classes = [MultiPartParser]
+    parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, format=None):
-        json_file = request.data.get('file')
-        data = json.load(json_file)
+        uploaded_file_bytes = request.data.get("file").read()
+        # Decode from bytes to string
+        data_str = uploaded_file_bytes.decode('utf-8')
+
+        # Load JSON string into Python objects (list of dicts)
+        data = json.loads(data_str)
         
         created_objects = []
         for row in data:
