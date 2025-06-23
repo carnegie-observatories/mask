@@ -5,7 +5,7 @@ from rest_framework import status
 import json
 from .serializers import UploadObjectSerializer
 from .models import Object, Mask
-from .obs_file_formatting import generate_obj_file
+from .obs_file_formatting import generate_obj_file, generate_obs_file
 import pandas as pd
 
 def convert_to_json(filepath):
@@ -53,9 +53,13 @@ class UploadInstrumSetup(APIView):
         # validator
 
         # create obj files for objects
-        generate_obj_file(data['objects'])
-        
+        obj_path = generate_obj_file(data['filename'], data['objects'])
+
         # create obs file
+        obs_path = generate_obs_file(data, [obj_path])
+
+        return Response({"created": obs_path}, status=status.HTTP_201_CREATED)
+
 
         # start maskgen docker container
 

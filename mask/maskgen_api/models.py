@@ -81,7 +81,7 @@ class Object(models.Model):
     right_ascension = models.FloatField()
     declination = models.FloatField()
     priority = models.IntegerField(default=0.0)
-    aux = models.JSONField() # a_len, b_len
+    aux = models.JSONField(null=True) # a_len, b_len
 
     def __str__(self):
         return f"{self.type} Object {self.name}"
