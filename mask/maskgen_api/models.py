@@ -12,11 +12,16 @@ class Instrument(models.TextChoices):
     IMACS_F4 = 'IMACS f/4'
     IMACS_F2 = 'IMACS f/2'
 
+class Status(models.TextChoices):
+    OBS = 'obs', 'OBS'
+    SMF = 'smf', 'SMF'
+    FINALIZED = 'finalized', 'Finalized (sent to be cut)'
+    COMPLETED = 'completed', 'Completed (mask has been cut successfully)'
 # Models
 # add more info later 
 class Filter(models.Model):
     name = models.CharField(max_length=50, choices=Filters.choices)
-
+ 
     def __str__(self):
         return self.name
 
@@ -38,9 +43,13 @@ class InstrumentConfig(models.Model):
 
 class Mask(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
-    status = models.CharField(max_length=100)
+    status = models.CharField(
+        max_length=100,
+        choices=Status.choices,
+        default=Status.OBS
+    )
     features = models.JSONField() # slits and holes
-    objects_list = models.ManyToManyField('Object', blank=True)
+    objects_list = models.ManyToManyField('Object', blank=True) # guide and alignment stars
     instrument_config = models.ForeignKey('InstrumentConfig', on_delete=models.SET_NULL, null=True)
     instrument_setup = models.JSONField()
 
@@ -72,8 +81,7 @@ class Object(models.Model):
     right_ascension = models.FloatField()
     declination = models.FloatField()
     priority = models.IntegerField(default=0.0)
-    a_len = models.FloatField(null=True, blank=True)
-    b_len = models.FloatField(null=True, blank=True)
+    aux = models.JSONField() # a_len, b_len
 
     def __str__(self):
         return f"{self.type} Object {self.name}"

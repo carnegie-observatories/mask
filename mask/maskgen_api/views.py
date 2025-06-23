@@ -5,6 +5,7 @@ from rest_framework import status
 import json
 from .serializers import UploadObjectSerializer
 from .models import Object, Mask
+from .obs_file_formatting import generate_obj_file
 import pandas as pd
 
 def convert_to_json(filepath):
@@ -27,32 +28,33 @@ class UploadObjectsView(APIView):
         data = json.loads(data_str)
         
         created_objects = []
-        for row in data:
-            a_len = None
-            b_len = None
-            if 'a_len' in row and row['a_len'] != '':
-                a_len = float(row['a_len'])
-            if 'b_len' in row and row['b_len'] != '':
-                b_len = float(row['b_len'])
+        for row in data: # switch to pop
             obj, created_object = Object.objects.get_or_create(
-                name=row['name'],
-                type=row['type'],
-                right_ascension=float(row['ra']),
-                declination=float(row['dec']),
-                priority=int(row.get('priority', 0)),
-                a_len=a_len,
-                b_len=b_len,
+                name=row.pop('name'),
+                type=row.pop('type'),
+                right_ascension=float(row.pop('ra')),
+                declination=float(row.pop('dec')),
+                priority=int(row.pop('priority')),
+                aux=row
             )
-            print(created_object);
+            print(created_object)
             created_objects.append(obj.id)
 
         return Response({"created": created_objects}, status=status.HTTP_201_CREATED)
 
+class ValidateInstrumentSetup(APIView):
+    def post(self,request, instument, format=None):
+        print(instument)
+        return True
+    
 class UploadInstrumSetup(APIView):
     def post(self, request, format=None):
         data = request.data
-        # create obj files for objects
+        # validator
 
+        # create obj files for objects
+        generate_obj_file(data['objects'])
+        
         # create obs file
 
         # start maskgen docker container
@@ -80,13 +82,12 @@ class MaskView(APIView):
                     "right_ascension": obj.right_ascension,
                     "declination": obj.declination,
                     "priority": obj.priority,
-                    "a_len": obj.a_len,
-                    "b_len": obj.b_len
-                }
+                } | obj.aux
                 for obj in mask.objects_list.all()
             ]
         })
 
+# future
 class MakeFeatureView(APIView):
     def post(self, request, name):
         mask = Mask.objects.get(pk=name)
