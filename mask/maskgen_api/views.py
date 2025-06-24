@@ -7,6 +7,9 @@ from .serializers import UploadObjectSerializer
 from .models import Object, Mask
 from .obs_file_formatting import generate_obj_file, generate_obs_file
 import pandas as pd
+from mask.docker_helper import docker_copy_file_to, docker_run_command, docker_get_file
+
+MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
 
 def convert_to_json(filepath):
     if filepath.split(".")[1] == "csv":
@@ -57,18 +60,17 @@ class UploadInstrumSetup(APIView):
 
         # create obs file
         obs_path = generate_obs_file(data, [obj_path])
-
-        return Response({"created": obs_path}, status=status.HTTP_201_CREATED)
-
-
-        # start maskgen docker container
-
+        
         # cp files to docker container
-
+        docker_copy_file_to(MASKGEN_CONTAINER_NAME, obj_path, f"app/linux")
+        docker_copy_file_to(MASKGEN_CONTAINER_NAME, obs_path, f"app/linux")
+        
         # run mask gen and cp .smf to local directory
+        docker_run_command(MASKGEN_CONTAINER_NAME, f"maskgen {data['filename']}")
 
         # use smf to generate a Mask + features + objects (using ids included in the request)
-
+        docker_get_file(MASKGEN_CONTAINER_NAME, f"/masks/{data['filename']}.SMF", "maskgen_api/smf_files")
+        return Response({"created": obs_path}, status=status.HTTP_201_CREATED)
 
 class MaskView(APIView):
     def get(self, request, name):
