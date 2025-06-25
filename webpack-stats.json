@@ -1,0 +1,44 @@
+{
+  "status": "done",
+  "assets": {
+    "1561b91d7b75f3ca2814.png": {
+      "name": "1561b91d7b75f3ca2814.png",
+      "path": "/app/frontend/webpack_bundles/1561b91d7b75f3ca2814.png",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/1561b91d7b75f3ca2814.png",
+      "sourceFilename": "frontend/assets/images/django-logo-negative.png"
+    },
+    "4c677b78d12c96ea7add.png": {
+      "name": "4c677b78d12c96ea7add.png",
+      "path": "/app/frontend/webpack_bundles/4c677b78d12c96ea7add.png",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/4c677b78d12c96ea7add.png",
+      "sourceFilename": "frontend/assets/images/django-logo-positive.png"
+    },
+    "main.js": {
+      "name": "main.js",
+      "path": "/app/frontend/webpack_bundles/main.js",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/main.js"
+    },
+    "main.js.map": {
+      "name": "main.js.map",
+      "path": "/app/frontend/webpack_bundles/main.js.map",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/main.js.map"
+    },
+    "vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js": {
+      "name": "vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js",
+      "path": "/app/frontend/webpack_bundles/vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js"
+    },
+    "vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js.map": {
+      "name": "vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js.map",
+      "path": "/app/frontend/webpack_bundles/vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js.map",
+      "publicPath": "http://localhost:3000/frontend/webpack_bundles/vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js.map"
+    }
+  },
+  "chunks": {
+    "main": [
+      "vendors-node_modules_style-loader_dist_runtime_injectStylesIntoStyleTag_js-node_modules_style-af08fe.js",
+      "main.js"
+    ]
+  },
+  "publicPath": "http://localhost:3000/frontend/webpack_bundles/"
+}
