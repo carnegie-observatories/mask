@@ -47,7 +47,7 @@ class ObjectViewSet(viewsets.ViewSet):
         list_name = request.query_params.get('list_name')
         print(list_name)
         list = ObjectList.objects.get(name=list_name)
-        serialized = ObjectSerializer(list.objects_list.all(), many=True)  # replace with your actual serializer
+        serialized = ObjectSerializer(list.objects_list.all(), many=True)
         return Response(serialized.data)
     
     # delete obj
