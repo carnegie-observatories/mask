@@ -1,0 +1,11 @@
+[project]
+name = "mask"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "django>=4.2.23",
+    "djangorestframework>=3.16.0",
+    "pandas>=2.3.0",
+]
