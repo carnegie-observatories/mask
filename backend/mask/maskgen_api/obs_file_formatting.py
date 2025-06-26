@@ -19,29 +19,30 @@ def generate_obj_file(filename, objects):
         file.write("&RADEGREE\n")
         for id in objects: 
             obj = Object.objects.get(id=id)
-            new_line = f"{obj.name} {obj.right_ascension} {obj.declination} Pri={float(obj.priority)}"
-            if obj.aux:
-                if hasattr(obj.aux, 'use'):
-                    new_line += f" use={obj.aux.use}"
-                if hasattr(obj.aux, 'width'):
-                    new_line += f" width={obj.aux.width}"
-                if hasattr(obj.aux, 'shape'):
-                    new_line += f" shape={obj.aux.shape}"
-                if hasattr(obj.aux, 'a_len'):
-                    new_line += f" a_len={obj.aux.a_len}"
-                if hasattr(obj.aux, 'b_len'):
-                    new_line += f" b_len={obj.aux.b_len}"
-                if hasattr(obj.aux, 'tilt'):
-                    new_line += f" tilt={obj.aux.tilt}"
-                if hasattr(obj.aux, 'pa'):
-                    new_line += f" pa={obj.aux.pa}"
-            
-            if obj.type == "ALIGN":
-                new_line = "*" + new_line
-            elif obj.type == "TARGET":
-                new_line = "@" + new_line
-            
-            file.write(new_line + "\n")
+            if obj.type != 'GUIDE':
+                new_line = f"{obj.name} {obj.right_ascension} {obj.declination} Pri={float(obj.priority)}"
+                if obj.aux:
+                    if hasattr(obj.aux, 'use'):
+                        new_line += f" use={obj.aux.use}"
+                    if hasattr(obj.aux, 'width'):
+                        new_line += f" width={obj.aux.width}"
+                    if hasattr(obj.aux, 'shape'):
+                        new_line += f" shape={obj.aux.shape}"
+                    if hasattr(obj.aux, 'a_len'):
+                        new_line += f" a_len={obj.aux.a_len}"
+                    if hasattr(obj.aux, 'b_len'):
+                        new_line += f" b_len={obj.aux.b_len}"
+                    if hasattr(obj.aux, 'tilt'):
+                        new_line += f" tilt={obj.aux.tilt}"
+                    if hasattr(obj.aux, 'pa'):
+                        new_line += f" pa={obj.aux.pa}"
+                
+                if obj.type == "ALIGN":
+                    new_line = "*" + new_line
+                elif obj.type == "TARGET":
+                    new_line = "@" + new_line
+                
+                file.write(new_line + "\n")
     return path
 
 

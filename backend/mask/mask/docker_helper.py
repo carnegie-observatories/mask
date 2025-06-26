@@ -10,21 +10,25 @@ def docker_copy_file_to(container_name, local_file, container_dest_path):
     except subprocess.CalledProcessError as e:
         print("Error copying file to container:", e)
 
-def docker_run_command(container_name, command):
+def run_command(command):
     """
     Runs a command in a selected docker container
     Args:
         container_name (str): name of the docker container
         command (str): string containing the whole command seperated by spaces. ex: "ls -a mask"
+
+    Returns:
+    bool: if command was successfully executed
+    error string
     """
     try:
         subprocess.run(
-            ["docker", "exec", container_name] + command.split(" "),
+            command.split(" "),
             check=True
         )
-        print(f"Command `{command}` executed successfully in {container_name}")
+        return True, f"Command `{command}` executed successfully"
     except subprocess.CalledProcessError as e:
-        print("Error running command:", e)
+        return False, f"Error running command: {e}"
 
 def docker_get_file(container_name, container_file_path, host_destination_path):
     try:

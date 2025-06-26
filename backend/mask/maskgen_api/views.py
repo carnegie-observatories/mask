@@ -3,24 +3,29 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from .models import Object, Mask
+
+from .models import Object, Mask, ObjectList
+from .serializers import ObjectSerializer
 from .obs_file_formatting import generate_obj_file, generate_obs_file
-from mask.docker_helper import docker_copy_file_to, docker_run_command, docker_get_file
+from mask.docker_helper import run_command
 
 import pandas as pd
 import json
+import os
 
+MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64"
 MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
+OBS_DIRECTORY = "/Users/maylinchen/Downloads/mask/backend/mask/maskgen_api/obs_files"
 
 
 class ObjectViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="upload")
     def upload(self, request):
+        # add name input + store in a list
         uploaded_file_bytes = request.data.get("file").read()
         data_str = uploaded_file_bytes.decode('utf-8')
         data = json.loads(data_str)
-
+        obj_list = ObjectList.objects.create(name=request.data.get("list_name"))
         created_objects = []
         for row in data:
             obj, _ = Object.objects.get_or_create(
@@ -32,7 +37,20 @@ class ObjectViewSet(viewsets.ViewSet):
                 aux=row
             )
             created_objects.append(obj.id)
-        return Response({"created": created_objects}, status=status.HTTP_201_CREATED)
+            obj_list.objects_list.add(obj)
+        return Response({"created": created_objects, "obj_list": obj_list.name}, status=status.HTTP_201_CREATED)
+    
+    # get lists of objects
+    @action(detail=False, methods=["get"], url_path="viewlist")
+    def view_list(self, request):
+        ObjectList.objects.all()
+        list_name = request.query_params.get('list_name')
+        print(list_name)
+        list = ObjectList.objects.get(name=list_name)
+        serialized = ObjectSerializer(list.objects_list.all(), many=True)  # replace with your actual serializer
+        return Response(serialized.data)
+    
+    # delete obj
 
 
 class MaskViewSet(viewsets.ViewSet):
@@ -60,18 +78,19 @@ class MaskViewSet(viewsets.ViewSet):
         data = request.data
         obj_path = generate_obj_file(data['filename'], data['objects'])
         obs_path = generate_obs_file(data, [obj_path])
-
-        docker_copy_file_to(MASKGEN_CONTAINER_NAME, obj_path, f"app/linux")
-        docker_copy_file_to(MASKGEN_CONTAINER_NAME, obs_path, f"app/linux")
-
-        docker_run_command(MASKGEN_CONTAINER_NAME, f"maskgen {data['filename']}")
-        docker_get_file(MASKGEN_CONTAINER_NAME, f"/masks/{data['filename']}.SMF", "maskgen_api/smf_files")
-
-        return Response({"created": obs_path}, status=status.HTTP_201_CREATED)
+        os.getcwd()
+        os.environ["MGPATH"] = MASKGEN_DIRECTORY
+        result, feedback = run_command(f"cp {OBS_DIRECTORY}/{data['filename']}.obs {MASKGEN_DIRECTORY}")
+        print(feedback)
+        if result:
+            result, feedback = run_command(f"{MASKGEN_DIRECTORY}/maskgen {data['filename']}.obs")
+        if result:
+            return Response({"created": obs_path}, status=status.HTTP_201_CREATED)
+        else:
+            return  Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["get"], url_path="preview")
     def preview(self, request, pk=None):
-        docker_run_command(MASKGEN_CONTAINER_NAME, f"maskgen {pk}")
         return Response({"message": f"Preview generated for {pk}"})
 
     @action(detail=True, methods=["post"], url_path="validate")

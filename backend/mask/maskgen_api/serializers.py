@@ -10,6 +10,6 @@ class UploadObjectSerializer(serializers.ModelSerializer):
 class ObjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Object
-        fields = '__all__'
+        fields = ['id', 'name', 'type', 'right_ascension', 'declination', 'priority', 'aux']
 
 

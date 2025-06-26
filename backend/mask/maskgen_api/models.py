@@ -85,3 +85,9 @@ class Object(models.Model):
 
     def __str__(self):
         return f"{self.type} Object {self.name}"
+
+# object list: user_id, name, id, objects
+class ObjectList(models.Model):
+    user_id = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
+    objects_list = models.ManyToManyField('Object', blank=True)
