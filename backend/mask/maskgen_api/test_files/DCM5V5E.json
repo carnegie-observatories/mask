@@ -1,0 +1,8669 @@
+[
+  {
+    "name": "DC-1033218",
+    "type": "TARGET",
+    "ra": 149.93254,
+    "dec": 2.19948,
+    "priority": 3.2766,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1199328",
+    "type": "TARGET",
+    "ra": 150.2870175,
+    "dec": 2.4454816,
+    "priority": 4.1381,
+    "a_len": 6.0,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1005910",
+    "type": "TARGET",
+    "ra": 150.1947,
+    "dec": 2.214939,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-982733",
+    "type": "TARGET",
+    "ra": 150.25645,
+    "dec": 2.197538,
+    "priority": 3.2242,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1281435",
+    "type": "TARGET",
+    "ra": 149.86468,
+    "dec": 2.385147,
+    "priority": 2.4189,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1276328",
+    "type": "TARGET",
+    "ra": 149.86115,
+    "dec": 2.424363,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1024888",
+    "type": "TARGET",
+    "ra": 150.00149,
+    "dec": 2.251221,
+    "priority": 3.7232,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1463297",
+    "type": "TARGET",
+    "ra": 150.19129,
+    "dec": 2.480418,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1267427",
+    "type": "TARGET",
+    "ra": 149.9695365,
+    "dec": 2.3158195,
+    "priority": 2.5091,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1233914",
+    "type": "TARGET",
+    "ra": 150.2198691,
+    "dec": 2.3749479,
+    "priority": 2.8545,
+    "a_len": 2.7,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1028632",
+    "type": "TARGET",
+    "ra": 149.92791,
+    "dec": 2.229246,
+    "priority": 4.2928,
+    "a_len": 3.6,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1269264",
+    "type": "TARGET",
+    "ra": 150.04755,
+    "dec": 2.306755,
+    "priority": 2.7464,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1249657",
+    "type": "TARGET",
+    "ra": 149.97007,
+    "dec": 2.434929,
+    "priority": 1.5965,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1244033",
+    "type": "TARGET",
+    "ra": 150.07981,
+    "dec": 2.306852,
+    "priority": 1.5622,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1009002",
+    "type": "TARGET",
+    "ra": 150.1656085,
+    "dec": 2.1944515,
+    "priority": 4.1674,
+    "a_len": 2.0,
+    "b_len": 5.8
+  },
+  {
+    "name": "DC-1028075",
+    "type": "TARGET",
+    "ra": 149.9129604,
+    "dec": 2.2341049,
+    "priority": 4.0462,
+    "a_len": 3.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1230361",
+    "type": "TARGET",
+    "ra": 150.13692,
+    "dec": 2.398432,
+    "priority": 3.388,
+    "a_len": 2.0,
+    "b_len": 3.45
+  },
+  {
+    "name": "DC-1228225",
+    "type": "TARGET",
+    "ra": 150.07319,
+    "dec": 2.412589,
+    "priority": 2.5753,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-994355",
+    "type": "TARGET",
+    "ra": 150.07807,
+    "dec": 2.289941,
+    "priority": 2.7821,
+    "a_len": 2.85,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1243781",
+    "type": "TARGET",
+    "ra": 150.06841,
+    "dec": 2.297897,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1047325",
+    "type": "TARGET",
+    "ra": 149.88937,
+    "dec": 2.263482,
+    "priority": 4.0121,
+    "a_len": 4.6,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1259501",
+    "type": "TARGET",
+    "ra": 149.9560617,
+    "dec": 2.3675259,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1219589",
+    "type": "TARGET",
+    "ra": 150.31918,
+    "dec": 2.306678,
+    "priority": 2.5641,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-997749",
+    "type": "TARGET",
+    "ra": 150.18447,
+    "dec": 2.266263,
+    "priority": 2.0051,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1209237",
+    "type": "TARGET",
+    "ra": 150.23546,
+    "dec": 2.372747,
+    "priority": 2.9222,
+    "a_len": 4.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1465225",
+    "type": "TARGET",
+    "ra": 150.1952281,
+    "dec": 2.4696563,
+    "priority": 4.275,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1019783",
+    "type": "TARGET",
+    "ra": 149.9224186,
+    "dec": 2.2896891,
+    "priority": 3.9709,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1233928",
+    "type": "TARGET",
+    "ra": 150.2041057,
+    "dec": 2.3756156,
+    "priority": 2.2874,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1234608",
+    "type": "TARGET",
+    "ra": 150.0620679,
+    "dec": 2.3692841,
+    "priority": 3.384,
+    "a_len": 3.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1021014",
+    "type": "TARGET",
+    "ra": 149.9534021,
+    "dec": 2.2822763,
+    "priority": 3.4665,
+    "a_len": 4.5,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-997025",
+    "type": "TARGET",
+    "ra": 150.22641,
+    "dec": 2.261669,
+    "priority": 2.9283,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-982232",
+    "type": "TARGET",
+    "ra": 150.26153,
+    "dec": 2.202387,
+    "priority": 3.4834,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1026614",
+    "type": "TARGET",
+    "ra": 149.9964807,
+    "dec": 2.2445307,
+    "priority": 4.1226,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1019710",
+    "type": "TARGET",
+    "ra": 149.91465,
+    "dec": 2.279753,
+    "priority": 2.9688,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1025571",
+    "type": "TARGET",
+    "ra": 149.92193,
+    "dec": 2.25112,
+    "priority": 2.7154,
+    "a_len": 5.0,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-1259695",
+    "type": "TARGET",
+    "ra": 149.9287894,
+    "dec": 2.3626475,
+    "priority": 2.7124,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1045328",
+    "type": "TARGET",
+    "ra": 149.87265,
+    "dec": 2.285685,
+    "priority": 3.7458,
+    "a_len": 2.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1457420",
+    "type": "TARGET",
+    "ra": 150.09344,
+    "dec": 2.522569,
+    "priority": -2.0,
+    "a_len": 3.6,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1248710",
+    "type": "TARGET",
+    "ra": 150.0478442,
+    "dec": 2.4419491,
+    "priority": 3.4912,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1456352",
+    "type": "TARGET",
+    "ra": 150.06852,
+    "dec": 2.530707,
+    "priority": 3.5872,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1003273",
+    "type": "TARGET",
+    "ra": 150.10586,
+    "dec": 2.230359,
+    "priority": 3.42,
+    "a_len": 2.85,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-996764",
+    "type": "TARGET",
+    "ra": 150.09343,
+    "dec": 2.273707,
+    "priority": 1.6435,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1287899",
+    "type": "TARGET",
+    "ra": 149.82844,
+    "dec": 2.343249,
+    "priority": 2.5443,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1234418",
+    "type": "TARGET",
+    "ra": 150.11198,
+    "dec": 2.372683,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1257022",
+    "type": "TARGET",
+    "ra": 149.90075,
+    "dec": 2.382256,
+    "priority": 2.6276,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1214211",
+    "type": "TARGET",
+    "ra": 150.3182813,
+    "dec": 2.3417291,
+    "priority": 2.816,
+    "a_len": 4.4,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1271235",
+    "type": "TARGET",
+    "ra": 149.95929,
+    "dec": 2.459261,
+    "priority": 3.3929,
+    "a_len": 4.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1275122",
+    "type": "TARGET",
+    "ra": 149.86628,
+    "dec": 2.430782,
+    "priority": 4.2531,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1218152",
+    "type": "TARGET",
+    "ra": 150.3137,
+    "dec": 2.315593,
+    "priority": 3.4404,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1461651",
+    "type": "TARGET",
+    "ra": 150.16131,
+    "dec": 2.495772,
+    "priority": 3.5446,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1213115",
+    "type": "TARGET",
+    "ra": 150.25416,
+    "dec": 2.348246,
+    "priority": 3.5741,
+    "a_len": 3.0,
+    "b_len": 5.25
+  },
+  {
+    "name": "DC-1267244",
+    "type": "TARGET",
+    "ra": 150.0430127,
+    "dec": 2.3169085,
+    "priority": 1.6113,
+    "a_len": 4.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1488291",
+    "type": "TARGET",
+    "ra": 150.0262,
+    "dec": 2.477484,
+    "priority": 3.6805,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1259701",
+    "type": "TARGET",
+    "ra": 149.92681,
+    "dec": 2.36056,
+    "priority": 2.254,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1483497",
+    "type": "TARGET",
+    "ra": 149.95006,
+    "dec": 2.50528,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1263717",
+    "type": "TARGET",
+    "ra": 149.93243,
+    "dec": 2.33778,
+    "priority": 3.1715,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1207537",
+    "type": "TARGET",
+    "ra": 150.31864,
+    "dec": 2.384156,
+    "priority": 3.1191,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1045031",
+    "type": "TARGET",
+    "ra": 149.85341,
+    "dec": 2.279364,
+    "priority": 2.9435,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-996605",
+    "type": "TARGET",
+    "ra": 150.16284,
+    "dec": 2.275205,
+    "priority": 3.5025,
+    "a_len": 2.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1282107",
+    "type": "TARGET",
+    "ra": 149.88471,
+    "dec": 2.379578,
+    "priority": 2.4924,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1233002",
+    "type": "TARGET",
+    "ra": 150.06244,
+    "dec": 2.379853,
+    "priority": 2.9068,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1441132",
+    "type": "TARGET",
+    "ra": 150.25191,
+    "dec": 2.465363,
+    "priority": -2.0,
+    "a_len": 2.85,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1211669",
+    "type": "TARGET",
+    "ra": 150.2687,
+    "dec": 2.357394,
+    "priority": 2.2309,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-994477",
+    "type": "TARGET",
+    "ra": 150.09535,
+    "dec": 2.287227,
+    "priority": 4.107,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1212525",
+    "type": "TARGET",
+    "ra": 150.2664,
+    "dec": 2.351084,
+    "priority": 2.4137,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1513421",
+    "type": "TARGET",
+    "ra": 149.86563,
+    "dec": 2.473857,
+    "priority": 3.6821,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1022569",
+    "type": "TARGET",
+    "ra": 149.9106208,
+    "dec": 2.2664793,
+    "priority": 3.4842,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1048381",
+    "type": "TARGET",
+    "ra": 149.85773,
+    "dec": 2.264508,
+    "priority": 4.1609,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1488962",
+    "type": "TARGET",
+    "ra": 150.01368,
+    "dec": 2.472003,
+    "priority": 2.3393,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1030802",
+    "type": "TARGET",
+    "ra": 149.93787,
+    "dec": 2.215169,
+    "priority": 3.4079,
+    "a_len": 4.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1003365",
+    "type": "TARGET",
+    "ra": 150.0781685,
+    "dec": 2.2294934,
+    "priority": 4.5349,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1457412",
+    "type": "TARGET",
+    "ra": 150.1575284,
+    "dec": 2.5226149,
+    "priority": -2.0,
+    "a_len": 4.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1246802",
+    "type": "TARGET",
+    "ra": 149.94649,
+    "dec": 2.454947,
+    "priority": 3.6506,
+    "a_len": 5.8,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1217784",
+    "type": "TARGET",
+    "ra": 150.23929,
+    "dec": 2.3176,
+    "priority": 2.7184,
+    "a_len": 2.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1221588",
+    "type": "TARGET",
+    "ra": 150.27441,
+    "dec": 2.458835,
+    "priority": 3.4314,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1439094",
+    "type": "TARGET",
+    "ra": 150.23073,
+    "dec": 2.479462,
+    "priority": 4.0228,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1286886",
+    "type": "TARGET",
+    "ra": 149.86726,
+    "dec": 2.349575,
+    "priority": 3.2599,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1007558",
+    "type": "TARGET",
+    "ra": 150.1978,
+    "dec": 2.203437,
+    "priority": 4.222,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1237918",
+    "type": "TARGET",
+    "ra": 150.2127,
+    "dec": 2.347274,
+    "priority": 2.7465,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1255380",
+    "type": "TARGET",
+    "ra": 149.94456,
+    "dec": 2.396237,
+    "priority": 2.529,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1232419",
+    "type": "TARGET",
+    "ra": 150.1488921,
+    "dec": 2.3839096,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1264915",
+    "type": "TARGET",
+    "ra": 149.9742469,
+    "dec": 2.3338199,
+    "priority": 2.684,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1245061",
+    "type": "TARGET",
+    "ra": 150.13022,
+    "dec": 2.300095,
+    "priority": 1.7087,
+    "a_len": 2.25,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1440852",
+    "type": "TARGET",
+    "ra": 150.2773863,
+    "dec": 2.4679823,
+    "priority": 3.749,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265448",
+    "type": "TARGET",
+    "ra": 149.9522292,
+    "dec": 2.3304008,
+    "priority": 2.427,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1484829",
+    "type": "TARGET",
+    "ra": 149.9740226,
+    "dec": 2.4994419,
+    "priority": -2.0,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1466247",
+    "type": "TARGET",
+    "ra": 150.20857,
+    "dec": 2.462737,
+    "priority": -2.0,
+    "a_len": 5.4,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1287347",
+    "type": "TARGET",
+    "ra": 149.86312,
+    "dec": 2.346986,
+    "priority": 2.9285,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1488629",
+    "type": "TARGET",
+    "ra": 149.9253137,
+    "dec": 2.4756031,
+    "priority": 3.5943,
+    "a_len": 2.85,
+    "b_len": 5.85
+  },
+  {
+    "name": "DC-1439131",
+    "type": "TARGET",
+    "ra": 150.24656,
+    "dec": 2.481316,
+    "priority": 2.075,
+    "a_len": 2.0,
+    "b_len": 4.65
+  },
+  {
+    "name": "DC-1269735",
+    "type": "TARGET",
+    "ra": 149.93804,
+    "dec": 2.298929,
+    "priority": 3.0052,
+    "a_len": 5.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1001464",
+    "type": "TARGET",
+    "ra": 150.0960152,
+    "dec": 2.2429938,
+    "priority": 2.2473,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1249817",
+    "type": "TARGET",
+    "ra": 149.92295,
+    "dec": 2.43387,
+    "priority": 2.8051,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-995214",
+    "type": "TARGET",
+    "ra": 150.20986,
+    "dec": 2.284085,
+    "priority": 2.9312,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-978155",
+    "type": "TARGET",
+    "ra": 150.27214,
+    "dec": 2.230096,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1214270",
+    "type": "TARGET",
+    "ra": 150.258482,
+    "dec": 2.3408615,
+    "priority": 3.1469,
+    "a_len": 3.8,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1022545",
+    "type": "TARGET",
+    "ra": 149.99079,
+    "dec": 2.27185,
+    "priority": 2.7855,
+    "a_len": 3.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1292439",
+    "type": "TARGET",
+    "ra": 149.88523,
+    "dec": 2.312242,
+    "priority": 3.1908,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1006749",
+    "type": "TARGET",
+    "ra": 150.09265,
+    "dec": 2.209764,
+    "priority": 3.7353,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1263317",
+    "type": "TARGET",
+    "ra": 149.9686997,
+    "dec": 2.3437775,
+    "priority": 2.6972,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1252644",
+    "type": "TARGET",
+    "ra": 150.030622,
+    "dec": 2.4142402,
+    "priority": 3.51,
+    "a_len": 2.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1034155",
+    "type": "TARGET",
+    "ra": 149.99606,
+    "dec": 2.194606,
+    "priority": 4.4303,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1439274",
+    "type": "TARGET",
+    "ra": 150.2937771,
+    "dec": 2.4755633,
+    "priority": 3.1038,
+    "a_len": 5.4,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1231768",
+    "type": "TARGET",
+    "ra": 150.1816705,
+    "dec": 2.3902,
+    "priority": 2.4367,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1236742",
+    "type": "TARGET",
+    "ra": 150.0880904,
+    "dec": 2.3503266,
+    "priority": 1.3144,
+    "a_len": 2.85,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-970937",
+    "type": "TARGET",
+    "ra": 150.2611445,
+    "dec": 2.2758616,
+    "priority": 3.3025,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1462773",
+    "type": "TARGET",
+    "ra": 150.22174,
+    "dec": 2.486667,
+    "priority": 3.6725,
+    "a_len": 3.0,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1249729",
+    "type": "TARGET",
+    "ra": 149.95417,
+    "dec": 2.433634,
+    "priority": 2.9504,
+    "a_len": 5.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1292473",
+    "type": "TARGET",
+    "ra": 149.8849694,
+    "dec": 2.3103917,
+    "priority": 4.3605,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1028862",
+    "type": "TARGET",
+    "ra": 150.0577781,
+    "dec": 2.2297428,
+    "priority": 3.548,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1251554",
+    "type": "TARGET",
+    "ra": 149.96205,
+    "dec": 2.42168,
+    "priority": 3.6018,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1240563",
+    "type": "TARGET",
+    "ra": 150.18837,
+    "dec": 2.329189,
+    "priority": 2.7658,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1207581",
+    "type": "TARGET",
+    "ra": 150.25431,
+    "dec": 2.382061,
+    "priority": 2.4022,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1459588",
+    "type": "TARGET",
+    "ra": 150.13777,
+    "dec": 2.507578,
+    "priority": 3.9906,
+    "a_len": 2.85,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1237683",
+    "type": "TARGET",
+    "ra": 150.15383,
+    "dec": 2.34734,
+    "priority": 2.7345,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1029875",
+    "type": "TARGET",
+    "ra": 150.04518,
+    "dec": 2.215441,
+    "priority": 4.1947,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1261540",
+    "type": "TARGET",
+    "ra": 149.9767054,
+    "dec": 2.3536533,
+    "priority": 3.6021,
+    "a_len": 6.0,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-970147",
+    "type": "TARGET",
+    "ra": 150.25124,
+    "dec": 2.284052,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1033511",
+    "type": "TARGET",
+    "ra": 149.94157,
+    "dec": 2.198657,
+    "priority": 3.9941,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-971662",
+    "type": "TARGET",
+    "ra": 150.27962,
+    "dec": 2.271973,
+    "priority": 3.2902,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-971698",
+    "type": "TARGET",
+    "ra": 150.30623,
+    "dec": 2.271784,
+    "priority": 3.9801,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1282414",
+    "type": "TARGET",
+    "ra": 149.83438,
+    "dec": 2.376223,
+    "priority": 2.9181,
+    "a_len": 2.4,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-973909",
+    "type": "TARGET",
+    "ra": 150.28325,
+    "dec": 2.25679,
+    "priority": 3.6287,
+    "a_len": 4.65,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1267595",
+    "type": "TARGET",
+    "ra": 149.99943,
+    "dec": 2.315837,
+    "priority": 2.5096,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1483863",
+    "type": "TARGET",
+    "ra": 150.02712,
+    "dec": 2.507874,
+    "priority": 3.1184,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1204981",
+    "type": "TARGET",
+    "ra": 150.3194,
+    "dec": 2.402543,
+    "priority": 2.6483,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1457095",
+    "type": "TARGET",
+    "ra": 150.0672756,
+    "dec": 2.5246979,
+    "priority": 4.4319,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031089",
+    "type": "TARGET",
+    "ra": 150.03786,
+    "dec": 2.215211,
+    "priority": 3.1975,
+    "a_len": 2.85,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1219078",
+    "type": "TARGET",
+    "ra": 150.26415,
+    "dec": 2.309564,
+    "priority": 2.5825,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485715",
+    "type": "TARGET",
+    "ra": 149.97403,
+    "dec": 2.495302,
+    "priority": 2.9522,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1200732",
+    "type": "TARGET",
+    "ra": 150.3105784,
+    "dec": 2.432312,
+    "priority": 2.2336,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248791",
+    "type": "TARGET",
+    "ra": 149.91127,
+    "dec": 2.438809,
+    "priority": 3.0769,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1487315",
+    "type": "TARGET",
+    "ra": 150.00795,
+    "dec": 2.481648,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1023025",
+    "type": "TARGET",
+    "ra": 149.91608,
+    "dec": 2.268835,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1265072",
+    "type": "TARGET",
+    "ra": 149.92667,
+    "dec": 2.332876,
+    "priority": 4.0677,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1227998",
+    "type": "TARGET",
+    "ra": 150.14479,
+    "dec": 2.412601,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1269324",
+    "type": "TARGET",
+    "ra": 149.9908046,
+    "dec": 2.305405,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1238602",
+    "type": "TARGET",
+    "ra": 150.06563,
+    "dec": 2.342474,
+    "priority": 1.5684,
+    "a_len": 5.85,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1022793",
+    "type": "TARGET",
+    "ra": 150.0199136,
+    "dec": 2.269824,
+    "priority": 2.8794,
+    "a_len": 2.4,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1457335",
+    "type": "TARGET",
+    "ra": 150.09851,
+    "dec": 2.523038,
+    "priority": 3.9218,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1002178",
+    "type": "TARGET",
+    "ra": 150.1893781,
+    "dec": 2.2381588,
+    "priority": -2.0,
+    "a_len": 3.8,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1023128",
+    "type": "TARGET",
+    "ra": 150.02871,
+    "dec": 2.266842,
+    "priority": 2.8946,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1001461",
+    "type": "TARGET",
+    "ra": 150.07292,
+    "dec": 2.242744,
+    "priority": 2.4657,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1227736",
+    "type": "TARGET",
+    "ra": 150.22559,
+    "dec": 2.418001,
+    "priority": 1.3929,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1263274",
+    "type": "TARGET",
+    "ra": 150.05323,
+    "dec": 2.335626,
+    "priority": 1.6075,
+    "a_len": 4.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1019930",
+    "type": "TARGET",
+    "ra": 149.9406829,
+    "dec": 2.2897331,
+    "priority": 2.9818,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265068",
+    "type": "TARGET",
+    "ra": 149.92781,
+    "dec": 2.330882,
+    "priority": 3.1862,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1008001",
+    "type": "TARGET",
+    "ra": 150.09665,
+    "dec": 2.196326,
+    "priority": 4.0654,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1256042",
+    "type": "TARGET",
+    "ra": 149.94805,
+    "dec": 2.390103,
+    "priority": 3.3587,
+    "a_len": 3.2,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1237677",
+    "type": "TARGET",
+    "ra": 150.12421,
+    "dec": 2.348904,
+    "priority": 1.4266,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1045025",
+    "type": "TARGET",
+    "ra": 149.85773,
+    "dec": 2.278118,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1291840",
+    "type": "TARGET",
+    "ra": 149.84625,
+    "dec": 2.315957,
+    "priority": 2.5536,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1268604",
+    "type": "TARGET",
+    "ra": 150.04001,
+    "dec": 2.310756,
+    "priority": 3.3919,
+    "a_len": 2.55,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1050971",
+    "type": "TARGET",
+    "ra": 149.88338,
+    "dec": 2.245164,
+    "priority": 4.2298,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1025855",
+    "type": "TARGET",
+    "ra": 150.00786,
+    "dec": 2.249383,
+    "priority": -2.0,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1027238",
+    "type": "TARGET",
+    "ra": 149.9951886,
+    "dec": 2.2372806,
+    "priority": 3.1695,
+    "a_len": 2.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1460398",
+    "type": "TARGET",
+    "ra": 150.0855017,
+    "dec": 2.5041574,
+    "priority": 4.4077,
+    "a_len": 4.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1052260",
+    "type": "TARGET",
+    "ra": 149.87165,
+    "dec": 2.226433,
+    "priority": 4.3452,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1229008",
+    "type": "TARGET",
+    "ra": 150.08548,
+    "dec": 2.386954,
+    "priority": 4.2316,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1208130",
+    "type": "TARGET",
+    "ra": 150.29515,
+    "dec": 2.377493,
+    "priority": 2.7518,
+    "a_len": 6.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1259986",
+    "type": "TARGET",
+    "ra": 150.01693,
+    "dec": 2.364064,
+    "priority": 2.8223,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1231113",
+    "type": "TARGET",
+    "ra": 150.1383415,
+    "dec": 2.394493,
+    "priority": 2.3655,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270092",
+    "type": "TARGET",
+    "ra": 149.9424747,
+    "dec": 2.3006499,
+    "priority": 4.0096,
+    "a_len": 4.2,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-999927",
+    "type": "TARGET",
+    "ra": 150.1984692,
+    "dec": 2.2532833,
+    "priority": 3.4382,
+    "a_len": 5.55,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1288804",
+    "type": "TARGET",
+    "ra": 149.8554425,
+    "dec": 2.3299279,
+    "priority": 3.1206,
+    "a_len": 2.4,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1270079",
+    "type": "TARGET",
+    "ra": 149.97266,
+    "dec": 2.300733,
+    "priority": 2.7028,
+    "a_len": 2.7,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1198665",
+    "type": "TARGET",
+    "ra": 150.25644,
+    "dec": 2.449806,
+    "priority": 3.8341,
+    "a_len": 5.7,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1219720",
+    "type": "TARGET",
+    "ra": 150.29673,
+    "dec": 2.305797,
+    "priority": 3.0934,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1025506",
+    "type": "TARGET",
+    "ra": 149.94941,
+    "dec": 2.251967,
+    "priority": 2.7069,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1034130",
+    "type": "TARGET",
+    "ra": 149.99922,
+    "dec": 2.194475,
+    "priority": 4.3334,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1440346",
+    "type": "TARGET",
+    "ra": 150.23535,
+    "dec": 2.471197,
+    "priority": 3.2545,
+    "a_len": 5.7,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1263051",
+    "type": "TARGET",
+    "ra": 149.9453887,
+    "dec": 2.3449415,
+    "priority": 2.3531,
+    "a_len": 2.55,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-979294",
+    "type": "TARGET",
+    "ra": 150.2776931,
+    "dec": 2.2199435,
+    "priority": 2.4716,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1215577",
+    "type": "TARGET",
+    "ra": 150.2477641,
+    "dec": 2.3326126,
+    "priority": 3.4159,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1252352",
+    "type": "TARGET",
+    "ra": 149.98282,
+    "dec": 2.416442,
+    "priority": 2.8574,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-999207",
+    "type": "TARGET",
+    "ra": 150.21219,
+    "dec": 2.256614,
+    "priority": 3.0802,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1263389",
+    "type": "TARGET",
+    "ra": 149.9048973,
+    "dec": 2.3427694,
+    "priority": 3.0821,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-977050",
+    "type": "TARGET",
+    "ra": 150.2277,
+    "dec": 2.236016,
+    "priority": 2.3913,
+    "a_len": 2.55,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1228215",
+    "type": "TARGET",
+    "ra": 150.0714913,
+    "dec": 2.4145339,
+    "priority": 1.5855,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1212170",
+    "type": "TARGET",
+    "ra": 150.32113,
+    "dec": 2.353416,
+    "priority": 2.1354,
+    "a_len": 2.25,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1257738",
+    "type": "TARGET",
+    "ra": 150.02038,
+    "dec": 2.379846,
+    "priority": 2.3873,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1480113",
+    "type": "TARGET",
+    "ra": 149.94543,
+    "dec": 2.532394,
+    "priority": 3.9449,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1050489",
+    "type": "TARGET",
+    "ra": 149.86877,
+    "dec": 2.247194,
+    "priority": 4.0572,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1435102",
+    "type": "TARGET",
+    "ra": 150.23699,
+    "dec": 2.508738,
+    "priority": 3.0865,
+    "a_len": 4.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1214398",
+    "type": "TARGET",
+    "ra": 150.24633,
+    "dec": 2.337816,
+    "priority": 2.2871,
+    "a_len": 5.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1019399",
+    "type": "TARGET",
+    "ra": 150.12075,
+    "dec": 2.291591,
+    "priority": 3.5788,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1460229",
+    "type": "TARGET",
+    "ra": 150.10351,
+    "dec": 2.505041,
+    "priority": 3.3366,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485710",
+    "type": "TARGET",
+    "ra": 149.9374059,
+    "dec": 2.4937709,
+    "priority": 2.9476,
+    "a_len": 2.1,
+    "b_len": 5.8
+  },
+  {
+    "name": "DC-1255226",
+    "type": "TARGET",
+    "ra": 149.9571,
+    "dec": 2.394827,
+    "priority": 3.3129,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1237482",
+    "type": "TARGET",
+    "ra": 150.17753,
+    "dec": 2.350644,
+    "priority": 3.9107,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-972485",
+    "type": "TARGET",
+    "ra": 150.2339,
+    "dec": 2.265249,
+    "priority": 2.9069,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-977464",
+    "type": "TARGET",
+    "ra": 150.2678953,
+    "dec": 2.2309028,
+    "priority": 3.825,
+    "a_len": 2.0,
+    "b_len": 5.85
+  },
+  {
+    "name": "DC-973927",
+    "type": "TARGET",
+    "ra": 150.23943,
+    "dec": 2.256832,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1259015",
+    "type": "TARGET",
+    "ra": 150.0216168,
+    "dec": 2.3711152,
+    "priority": 2.4441,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-995209",
+    "type": "TARGET",
+    "ra": 150.20875,
+    "dec": 2.282793,
+    "priority": 3.8712,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1267383",
+    "type": "TARGET",
+    "ra": 150.00194,
+    "dec": 2.318865,
+    "priority": 3.3423,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1020654",
+    "type": "TARGET",
+    "ra": 149.93483,
+    "dec": 2.285236,
+    "priority": 4.4466,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1024939",
+    "type": "TARGET",
+    "ra": 149.9562408,
+    "dec": 2.2535685,
+    "priority": 3.8217,
+    "a_len": 2.85,
+    "b_len": 5.8
+  },
+  {
+    "name": "DC-1268367",
+    "type": "TARGET",
+    "ra": 149.93183,
+    "dec": 2.308331,
+    "priority": 3.197,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1006380",
+    "type": "TARGET",
+    "ra": 150.1239114,
+    "dec": 2.2103689,
+    "priority": 4.3726,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1280475",
+    "type": "TARGET",
+    "ra": 149.8430876,
+    "dec": 2.3937577,
+    "priority": 3.5168,
+    "a_len": 2.25,
+    "b_len": 3.45
+  },
+  {
+    "name": "DC-1261843",
+    "type": "TARGET",
+    "ra": 150.01382,
+    "dec": 2.347213,
+    "priority": 2.4363,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1462115",
+    "type": "TARGET",
+    "ra": 150.111,
+    "dec": 2.492678,
+    "priority": 3.93,
+    "a_len": 4.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1509036",
+    "type": "TARGET",
+    "ra": 149.86814,
+    "dec": 2.502837,
+    "priority": 3.3983,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1254734",
+    "type": "TARGET",
+    "ra": 149.99679,
+    "dec": 2.394891,
+    "priority": 3.3041,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1024428",
+    "type": "TARGET",
+    "ra": 149.9165431,
+    "dec": 2.2586052,
+    "priority": 4.3545,
+    "a_len": 3.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1022769",
+    "type": "TARGET",
+    "ra": 149.993,
+    "dec": 2.270259,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1201320",
+    "type": "TARGET",
+    "ra": 150.2835,
+    "dec": 2.431474,
+    "priority": 2.5292,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1240532",
+    "type": "TARGET",
+    "ra": 150.10912,
+    "dec": 2.329419,
+    "priority": 1.432,
+    "a_len": 5.6,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1228846",
+    "type": "TARGET",
+    "ra": 150.10358,
+    "dec": 2.411735,
+    "priority": 1.6762,
+    "a_len": 2.4,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1243968",
+    "type": "TARGET",
+    "ra": 150.16273,
+    "dec": 2.307457,
+    "priority": 3.2305,
+    "a_len": 4.8,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1259037",
+    "type": "TARGET",
+    "ra": 149.9632341,
+    "dec": 2.370985,
+    "priority": 2.4433,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1263956",
+    "type": "TARGET",
+    "ra": 149.9714941,
+    "dec": 2.3391112,
+    "priority": 2.4467,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1269130",
+    "type": "TARGET",
+    "ra": 149.94077,
+    "dec": 2.306436,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1431036",
+    "type": "TARGET",
+    "ra": 150.25632,
+    "dec": 2.541413,
+    "priority": 2.9922,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1203678",
+    "type": "TARGET",
+    "ra": 150.2926019,
+    "dec": 2.4128566,
+    "priority": 3.7448,
+    "a_len": 4.6,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1255097",
+    "type": "TARGET",
+    "ra": 149.8997,
+    "dec": 2.398278,
+    "priority": 3.6114,
+    "a_len": 5.4,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1212058",
+    "type": "TARGET",
+    "ra": 150.28853,
+    "dec": 2.354371,
+    "priority": 2.6945,
+    "a_len": 3.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1441096",
+    "type": "TARGET",
+    "ra": 150.2678775,
+    "dec": 2.4659418,
+    "priority": 3.1748,
+    "a_len": 2.0,
+    "b_len": 5.7
+  },
+  {
+    "name": "DC-1029745",
+    "type": "TARGET",
+    "ra": 149.909501,
+    "dec": 2.2226878,
+    "priority": 4.0161,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1201738",
+    "type": "TARGET",
+    "ra": 150.25309,
+    "dec": 2.427954,
+    "priority": 3.1531,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270059",
+    "type": "TARGET",
+    "ra": 149.98522,
+    "dec": 2.301005,
+    "priority": 2.9944,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1457868",
+    "type": "TARGET",
+    "ra": 150.22356,
+    "dec": 2.519437,
+    "priority": 3.5285,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1465082",
+    "type": "TARGET",
+    "ra": 150.10566,
+    "dec": 2.471851,
+    "priority": 3.3099,
+    "a_len": 4.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1199212",
+    "type": "TARGET",
+    "ra": 150.2309257,
+    "dec": 2.4466542,
+    "priority": 3.6302,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1242729",
+    "type": "TARGET",
+    "ra": 150.21654,
+    "dec": 2.315078,
+    "priority": 3.406,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1019799",
+    "type": "TARGET",
+    "ra": 150.00619,
+    "dec": 2.290803,
+    "priority": 3.021,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1247225",
+    "type": "TARGET",
+    "ra": 149.97718,
+    "dec": 2.451052,
+    "priority": 3.9975,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-979830",
+    "type": "TARGET",
+    "ra": 150.26698,
+    "dec": 2.21729,
+    "priority": 3.3284,
+    "a_len": 4.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1253970",
+    "type": "TARGET",
+    "ra": 149.93596,
+    "dec": 2.405271,
+    "priority": 3.1583,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1457323",
+    "type": "TARGET",
+    "ra": 150.1467681,
+    "dec": 2.5235318,
+    "priority": 3.4541,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1454709",
+    "type": "TARGET",
+    "ra": 150.1983599,
+    "dec": 2.5401957,
+    "priority": 3.1695,
+    "a_len": 2.4,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1458678",
+    "type": "TARGET",
+    "ra": 150.113403,
+    "dec": 2.5147408,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1282327",
+    "type": "TARGET",
+    "ra": 149.83472,
+    "dec": 2.372383,
+    "priority": 2.2798,
+    "a_len": 2.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-993843",
+    "type": "TARGET",
+    "ra": 150.2691516,
+    "dec": 2.2836941,
+    "priority": 3.6859,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1202891",
+    "type": "TARGET",
+    "ra": 150.23028,
+    "dec": 2.418308,
+    "priority": 3.3927,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1441651",
+    "type": "TARGET",
+    "ra": 150.2891464,
+    "dec": 2.4629809,
+    "priority": 3.2691,
+    "a_len": 2.1,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1253775",
+    "type": "TARGET",
+    "ra": 149.96505,
+    "dec": 2.405353,
+    "priority": 2.889,
+    "a_len": 2.1,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1268783",
+    "type": "TARGET",
+    "ra": 149.97025,
+    "dec": 2.309179,
+    "priority": 3.2207,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1243020",
+    "type": "TARGET",
+    "ra": 150.21145,
+    "dec": 2.313099,
+    "priority": 3.3726,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1216244",
+    "type": "TARGET",
+    "ra": 150.23392,
+    "dec": 2.32725,
+    "priority": 3.2093,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1027755",
+    "type": "TARGET",
+    "ra": 149.91838,
+    "dec": 2.23519,
+    "priority": 3.7026,
+    "a_len": 2.85,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1437992",
+    "type": "TARGET",
+    "ra": 150.28377,
+    "dec": 2.48968,
+    "priority": 2.9843,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1033416",
+    "type": "TARGET",
+    "ra": 150.00008,
+    "dec": 2.19965,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1224303",
+    "type": "TARGET",
+    "ra": 150.13756,
+    "dec": 2.440684,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1291729",
+    "type": "TARGET",
+    "ra": 149.85982,
+    "dec": 2.315645,
+    "priority": 3.8757,
+    "a_len": 2.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-978332",
+    "type": "TARGET",
+    "ra": 150.23214,
+    "dec": 2.227413,
+    "priority": 3.8352,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1002940",
+    "type": "TARGET",
+    "ra": 150.07327,
+    "dec": 2.232986,
+    "priority": -2.0,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1487909",
+    "type": "TARGET",
+    "ra": 150.0075553,
+    "dec": 2.4794456,
+    "priority": 4.1228,
+    "a_len": 4.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1441301",
+    "type": "TARGET",
+    "ra": 150.27104,
+    "dec": 2.462208,
+    "priority": 3.1972,
+    "a_len": 4.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1205836",
+    "type": "TARGET",
+    "ra": 150.27861,
+    "dec": 2.399102,
+    "priority": 2.6064,
+    "a_len": 4.35,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1463742",
+    "type": "TARGET",
+    "ra": 150.0687367,
+    "dec": 2.4814908,
+    "priority": 4.4134,
+    "a_len": 2.85,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1234978",
+    "type": "TARGET",
+    "ra": 150.1737879,
+    "dec": 2.3680756,
+    "priority": 2.3191,
+    "a_len": 3.2,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1241995",
+    "type": "TARGET",
+    "ra": 150.1823764,
+    "dec": 2.3197006,
+    "priority": 2.2801,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1206186",
+    "type": "TARGET",
+    "ra": 150.29566,
+    "dec": 2.392024,
+    "priority": 2.955,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1228995",
+    "type": "TARGET",
+    "ra": 150.08382,
+    "dec": 2.401024,
+    "priority": -2.0,
+    "a_len": 2.85,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1265955",
+    "type": "TARGET",
+    "ra": 150.00524,
+    "dec": 2.327153,
+    "priority": 3.0211,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-971858",
+    "type": "TARGET",
+    "ra": 150.26077,
+    "dec": 2.267857,
+    "priority": 3.5809,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1224203",
+    "type": "TARGET",
+    "ra": 150.1899,
+    "dec": 2.443241,
+    "priority": 4.241,
+    "a_len": 4.95,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-969823",
+    "type": "TARGET",
+    "ra": 150.29229,
+    "dec": 2.280549,
+    "priority": 3.6286,
+    "a_len": 3.6,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-1460271",
+    "type": "TARGET",
+    "ra": 150.1910177,
+    "dec": 2.5043223,
+    "priority": 3.31,
+    "a_len": 2.0,
+    "b_len": 5.7
+  },
+  {
+    "name": "DC-1031132",
+    "type": "TARGET",
+    "ra": 149.9503657,
+    "dec": 2.2136513,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1284410",
+    "type": "TARGET",
+    "ra": 149.83922,
+    "dec": 2.365228,
+    "priority": 2.3113,
+    "a_len": 3.8,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1257589",
+    "type": "TARGET",
+    "ra": 150.04683,
+    "dec": 2.378958,
+    "priority": -2.0,
+    "a_len": 5.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1273059",
+    "type": "TARGET",
+    "ra": 149.8595507,
+    "dec": 2.4467179,
+    "priority": 3.9949,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1024595",
+    "type": "TARGET",
+    "ra": 150.0323407,
+    "dec": 2.2571998,
+    "priority": 3.1915,
+    "a_len": 5.85,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1249264",
+    "type": "TARGET",
+    "ra": 149.9245679,
+    "dec": 2.4378123,
+    "priority": 3.6567,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1209121",
+    "type": "TARGET",
+    "ra": 150.31231,
+    "dec": 2.37121,
+    "priority": 2.1464,
+    "a_len": 5.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1262334",
+    "type": "TARGET",
+    "ra": 149.9905924,
+    "dec": 2.349113,
+    "priority": 2.8755,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1257099",
+    "type": "TARGET",
+    "ra": 150.0543943,
+    "dec": 2.3806586,
+    "priority": 3.5743,
+    "a_len": 2.0,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-998276",
+    "type": "TARGET",
+    "ra": 150.20363,
+    "dec": 2.263654,
+    "priority": 3.5418,
+    "a_len": 5.25,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1051315",
+    "type": "TARGET",
+    "ra": 149.86049,
+    "dec": 2.243822,
+    "priority": 4.4164,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1025747",
+    "type": "TARGET",
+    "ra": 149.9517794,
+    "dec": 2.250318,
+    "priority": 3.4539,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1008337",
+    "type": "TARGET",
+    "ra": 150.1938378,
+    "dec": 2.1991169,
+    "priority": 4.0783,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1205983",
+    "type": "TARGET",
+    "ra": 150.26572,
+    "dec": 2.396091,
+    "priority": 3.847,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1002592",
+    "type": "TARGET",
+    "ra": 150.20256,
+    "dec": 2.235504,
+    "priority": 4.6225,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1202896",
+    "type": "TARGET",
+    "ra": 150.30937,
+    "dec": 2.417933,
+    "priority": 2.4626,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1511104",
+    "type": "TARGET",
+    "ra": 149.85951,
+    "dec": 2.49009,
+    "priority": 3.3803,
+    "a_len": 5.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1207996",
+    "type": "TARGET",
+    "ra": 150.26681,
+    "dec": 2.380961,
+    "priority": 3.4975,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1250855",
+    "type": "TARGET",
+    "ra": 149.95899,
+    "dec": 2.426398,
+    "priority": 3.2828,
+    "a_len": 3.4,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1021545",
+    "type": "TARGET",
+    "ra": 150.05171,
+    "dec": 2.278361,
+    "priority": 2.7256,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1228625",
+    "type": "TARGET",
+    "ra": 150.19826,
+    "dec": 2.412556,
+    "priority": 3.6962,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1235549",
+    "type": "TARGET",
+    "ra": 150.1642,
+    "dec": 2.365403,
+    "priority": 1.4398,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265858",
+    "type": "TARGET",
+    "ra": 149.98115,
+    "dec": 2.32785,
+    "priority": 3.1087,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1205795",
+    "type": "TARGET",
+    "ra": 150.31329,
+    "dec": 2.397148,
+    "priority": 2.8764,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1024768",
+    "type": "TARGET",
+    "ra": 149.9965631,
+    "dec": 2.256614,
+    "priority": 4.3553,
+    "a_len": 6.0,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1207457",
+    "type": "TARGET",
+    "ra": 150.2846752,
+    "dec": 2.3848997,
+    "priority": 3.1856,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1204894",
+    "type": "TARGET",
+    "ra": 150.27274,
+    "dec": 2.402053,
+    "priority": -2.0,
+    "a_len": 3.6,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1232997",
+    "type": "TARGET",
+    "ra": 150.06865,
+    "dec": 2.380859,
+    "priority": 2.4991,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1200330",
+    "type": "TARGET",
+    "ra": 150.26465,
+    "dec": 2.437171,
+    "priority": 3.6319,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1465364",
+    "type": "TARGET",
+    "ra": 150.13169,
+    "dec": 2.470099,
+    "priority": 2.5081,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1458931",
+    "type": "TARGET",
+    "ra": 150.1795,
+    "dec": 2.512823,
+    "priority": 3.9698,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1241188",
+    "type": "TARGET",
+    "ra": 150.15427,
+    "dec": 2.321839,
+    "priority": 4.1397,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-998063",
+    "type": "TARGET",
+    "ra": 150.1613576,
+    "dec": 2.2649515,
+    "priority": 2.1234,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-995299",
+    "type": "TARGET",
+    "ra": 150.22495,
+    "dec": 2.284165,
+    "priority": 3.6283,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1460718",
+    "type": "TARGET",
+    "ra": 150.17763,
+    "dec": 2.5019897,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1265073",
+    "type": "TARGET",
+    "ra": 149.9269167,
+    "dec": 2.3323143,
+    "priority": 2.9182,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248923",
+    "type": "TARGET",
+    "ra": 149.90835,
+    "dec": 2.44045,
+    "priority": 2.6299,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1243894",
+    "type": "TARGET",
+    "ra": 150.15217,
+    "dec": 2.307855,
+    "priority": 3.652,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1025035",
+    "type": "TARGET",
+    "ra": 149.90863,
+    "dec": 2.25526,
+    "priority": 3.1498,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1256251",
+    "type": "TARGET",
+    "ra": 149.92696,
+    "dec": 2.386474,
+    "priority": 3.2063,
+    "a_len": 4.4,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1488304",
+    "type": "TARGET",
+    "ra": 149.9017102,
+    "dec": 2.4664748,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1021467",
+    "type": "TARGET",
+    "ra": 150.0302128,
+    "dec": 2.2782413,
+    "priority": 3.756,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1052284",
+    "type": "TARGET",
+    "ra": 149.87418,
+    "dec": 2.227532,
+    "priority": 4.9341,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1268638",
+    "type": "TARGET",
+    "ra": 149.96226,
+    "dec": 2.308385,
+    "priority": 2.8435,
+    "a_len": 2.85,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-997167",
+    "type": "TARGET",
+    "ra": 150.1251,
+    "dec": 2.270895,
+    "priority": 3.6615,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-970774",
+    "type": "TARGET",
+    "ra": 150.2753642,
+    "dec": 2.2776935,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1287045",
+    "type": "TARGET",
+    "ra": 149.87262,
+    "dec": 2.348653,
+    "priority": 2.4759,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1205592",
+    "type": "TARGET",
+    "ra": 150.24257,
+    "dec": 2.398703,
+    "priority": 2.3901,
+    "a_len": 3.0,
+    "b_len": 5.8
+  },
+  {
+    "name": "DC-1489432",
+    "type": "TARGET",
+    "ra": 149.96072,
+    "dec": 2.469361,
+    "priority": 3.5484,
+    "a_len": 3.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1488906",
+    "type": "TARGET",
+    "ra": 149.92814,
+    "dec": 2.468692,
+    "priority": 3.2012,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1464965",
+    "type": "TARGET",
+    "ra": 150.1022261,
+    "dec": 2.4722002,
+    "priority": 1.8107,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1258020",
+    "type": "TARGET",
+    "ra": 149.9034328,
+    "dec": 2.377602,
+    "priority": 3.122,
+    "a_len": 2.1,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1222683",
+    "type": "TARGET",
+    "ra": 150.06973,
+    "dec": 2.452534,
+    "priority": 1.591,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1044264",
+    "type": "TARGET",
+    "ra": 149.8719619,
+    "dec": 2.292723,
+    "priority": 3.3284,
+    "a_len": 5.2,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1489685",
+    "type": "TARGET",
+    "ra": 149.93007,
+    "dec": 2.466314,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248772",
+    "type": "TARGET",
+    "ra": 150.008434,
+    "dec": 2.4398632,
+    "priority": 1.6244,
+    "a_len": 5.7,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1257293",
+    "type": "TARGET",
+    "ra": 149.97167,
+    "dec": 2.382843,
+    "priority": 3.361,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1261455",
+    "type": "TARGET",
+    "ra": 150.01106,
+    "dec": 2.355138,
+    "priority": 2.859,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1269736",
+    "type": "TARGET",
+    "ra": 149.93807,
+    "dec": 2.298281,
+    "priority": -2.0,
+    "a_len": 4.6,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-1456362",
+    "type": "TARGET",
+    "ra": 150.10863,
+    "dec": 2.530888,
+    "priority": 3.804,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1250134",
+    "type": "TARGET",
+    "ra": 149.98886,
+    "dec": 2.431617,
+    "priority": 2.3586,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1213506",
+    "type": "TARGET",
+    "ra": 150.2770394,
+    "dec": 2.3448177,
+    "priority": 2.5865,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1008303",
+    "type": "TARGET",
+    "ra": 150.0610318,
+    "dec": 2.1979512,
+    "priority": 3.9995,
+    "a_len": 3.0,
+    "b_len": 4.95
+  },
+  {
+    "name": "DC-1247535",
+    "type": "TARGET",
+    "ra": 149.93075,
+    "dec": 2.450811,
+    "priority": 3.7722,
+    "a_len": 3.2,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1463010",
+    "type": "TARGET",
+    "ra": 150.1925599,
+    "dec": 2.4866977,
+    "priority": 3.4633,
+    "a_len": 2.25,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1285723",
+    "type": "TARGET",
+    "ra": 149.88701,
+    "dec": 2.350738,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1241687",
+    "type": "TARGET",
+    "ra": 150.2019758,
+    "dec": 2.3218245,
+    "priority": 3.453,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1258505",
+    "type": "TARGET",
+    "ra": 150.0117749,
+    "dec": 2.3746561,
+    "priority": 2.991,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1246786",
+    "type": "TARGET",
+    "ra": 150.04188,
+    "dec": 2.455325,
+    "priority": 2.8181,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1205347",
+    "type": "TARGET",
+    "ra": 150.3100317,
+    "dec": 2.3967295,
+    "priority": 1.4123,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1261795",
+    "type": "TARGET",
+    "ra": 149.944095,
+    "dec": 2.352983,
+    "priority": 2.4051,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1030660",
+    "type": "TARGET",
+    "ra": 149.9889775,
+    "dec": 2.2147801,
+    "priority": 3.9931,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1005549",
+    "type": "TARGET",
+    "ra": 150.0835896,
+    "dec": 2.2159519,
+    "priority": 4.9487,
+    "a_len": 4.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1255406",
+    "type": "TARGET",
+    "ra": 149.91845,
+    "dec": 2.395477,
+    "priority": 2.2688,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1258073",
+    "type": "TARGET",
+    "ra": 150.00221,
+    "dec": 2.377948,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1489017",
+    "type": "TARGET",
+    "ra": 150.00362,
+    "dec": 2.472509,
+    "priority": 3.6805,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031318",
+    "type": "TARGET",
+    "ra": 150.02107,
+    "dec": 2.212558,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1206281",
+    "type": "TARGET",
+    "ra": 150.32445,
+    "dec": 2.391505,
+    "priority": 2.3361,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1266198",
+    "type": "TARGET",
+    "ra": 149.96693,
+    "dec": 2.325279,
+    "priority": 3.247,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1237618",
+    "type": "TARGET",
+    "ra": 150.2001008,
+    "dec": 2.3494078,
+    "priority": 2.7607,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-969810",
+    "type": "TARGET",
+    "ra": 150.2784502,
+    "dec": 2.2799848,
+    "priority": 3.5199,
+    "a_len": 2.7,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1266005",
+    "type": "TARGET",
+    "ra": 149.952355,
+    "dec": 2.3245676,
+    "priority": 3.1051,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1000465",
+    "type": "TARGET",
+    "ra": 150.18296,
+    "dec": 2.247927,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1463139",
+    "type": "TARGET",
+    "ra": 150.1977313,
+    "dec": 2.4858224,
+    "priority": 1.9942,
+    "a_len": 2.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1456319",
+    "type": "TARGET",
+    "ra": 150.20877,
+    "dec": 2.531059,
+    "priority": 3.2002,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1253676",
+    "type": "TARGET",
+    "ra": 149.94324,
+    "dec": 2.406965,
+    "priority": 3.5807,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1288343",
+    "type": "TARGET",
+    "ra": 149.8664498,
+    "dec": 2.3395131,
+    "priority": 3.3488,
+    "a_len": 3.2,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1264790",
+    "type": "TARGET",
+    "ra": 149.96743,
+    "dec": 2.333328,
+    "priority": 2.327,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1219757",
+    "type": "TARGET",
+    "ra": 150.25662,
+    "dec": 2.30546,
+    "priority": 3.6672,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1044613",
+    "type": "TARGET",
+    "ra": 149.86005,
+    "dec": 2.288492,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265121",
+    "type": "TARGET",
+    "ra": 150.0070657,
+    "dec": 2.3323228,
+    "priority": 1.4142,
+    "a_len": 2.4,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1256700",
+    "type": "TARGET",
+    "ra": 149.99728,
+    "dec": 2.391298,
+    "priority": 3.2596,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1483386",
+    "type": "TARGET",
+    "ra": 150.00533,
+    "dec": 2.510079,
+    "priority": 3.659,
+    "a_len": 2.85,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1019536",
+    "type": "TARGET",
+    "ra": 150.0293,
+    "dec": 2.29081,
+    "priority": 3.5436,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1487949",
+    "type": "TARGET",
+    "ra": 150.04391,
+    "dec": 2.479329,
+    "priority": 3.7954,
+    "a_len": 4.4,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1261786",
+    "type": "TARGET",
+    "ra": 149.98574,
+    "dec": 2.352821,
+    "priority": 1.2986,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1235493",
+    "type": "TARGET",
+    "ra": 150.16093,
+    "dec": 2.365098,
+    "priority": 3.1482,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-999904",
+    "type": "TARGET",
+    "ra": 150.2095,
+    "dec": 2.251839,
+    "priority": 3.2969,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1267723",
+    "type": "TARGET",
+    "ra": 150.02169,
+    "dec": 2.31629,
+    "priority": 2.8405,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1230322",
+    "type": "TARGET",
+    "ra": 150.12787,
+    "dec": 2.400696,
+    "priority": 2.5418,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1481164",
+    "type": "TARGET",
+    "ra": 149.92833,
+    "dec": 2.524214,
+    "priority": 3.9527,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-977436",
+    "type": "TARGET",
+    "ra": 150.28206,
+    "dec": 2.233716,
+    "priority": 4.4937,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248613",
+    "type": "TARGET",
+    "ra": 149.94499,
+    "dec": 2.44254,
+    "priority": 3.2877,
+    "a_len": 4.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1033956",
+    "type": "TARGET",
+    "ra": 149.95472,
+    "dec": 2.195048,
+    "priority": 3.0682,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-999657",
+    "type": "TARGET",
+    "ra": 150.0647,
+    "dec": 2.2542,
+    "priority": 4.4618,
+    "a_len": 5.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265820",
+    "type": "TARGET",
+    "ra": 149.9261666,
+    "dec": 2.3281476,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 5.55
+  },
+  {
+    "name": "DC-999021",
+    "type": "TARGET",
+    "ra": 150.08428,
+    "dec": 2.256937,
+    "priority": 2.9535,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1029381",
+    "type": "TARGET",
+    "ra": 149.94729,
+    "dec": 2.226126,
+    "priority": 4.6448,
+    "a_len": 2.85,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1030252",
+    "type": "TARGET",
+    "ra": 149.8976178,
+    "dec": 2.2188111,
+    "priority": 3.03,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1249081",
+    "type": "TARGET",
+    "ra": 150.03412,
+    "dec": 2.439163,
+    "priority": 3.0626,
+    "a_len": 2.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-978740",
+    "type": "TARGET",
+    "ra": 150.2628908,
+    "dec": 2.2237783,
+    "priority": 3.2469,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1263662",
+    "type": "TARGET",
+    "ra": 150.03624,
+    "dec": 2.341697,
+    "priority": 4.0525,
+    "a_len": 2.25,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1293053",
+    "type": "TARGET",
+    "ra": 149.84561,
+    "dec": 2.295793,
+    "priority": 4.2069,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1000271",
+    "type": "TARGET",
+    "ra": 150.0609465,
+    "dec": 2.2490762,
+    "priority": 5.0673,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248904",
+    "type": "TARGET",
+    "ra": 149.90347,
+    "dec": 2.437149,
+    "priority": 3.8144,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1028697",
+    "type": "TARGET",
+    "ra": 150.04062,
+    "dec": 2.230645,
+    "priority": 3.1024,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1218856",
+    "type": "TARGET",
+    "ra": 150.3172347,
+    "dec": 2.3116879,
+    "priority": 2.2857,
+    "a_len": 3.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1206061",
+    "type": "TARGET",
+    "ra": 150.30569,
+    "dec": 2.393492,
+    "priority": -2.0,
+    "a_len": 4.6,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1480246",
+    "type": "TARGET",
+    "ra": 149.9187,
+    "dec": 2.524484,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1242328",
+    "type": "TARGET",
+    "ra": 150.19979,
+    "dec": 2.315501,
+    "priority": 1.7249,
+    "a_len": 2.85,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1236778",
+    "type": "TARGET",
+    "ra": 150.0991414,
+    "dec": 2.3479518,
+    "priority": 1.2192,
+    "a_len": 5.4,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1247058",
+    "type": "TARGET",
+    "ra": 149.9234818,
+    "dec": 2.4518535,
+    "priority": 3.6693,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1260403",
+    "type": "TARGET",
+    "ra": 149.94809,
+    "dec": 2.361646,
+    "priority": 2.3529,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485808",
+    "type": "TARGET",
+    "ra": 149.9173875,
+    "dec": 2.4932264,
+    "priority": 2.8001,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1234236",
+    "type": "TARGET",
+    "ra": 150.08648,
+    "dec": 2.371504,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1045156",
+    "type": "TARGET",
+    "ra": 149.89196,
+    "dec": 2.285151,
+    "priority": 2.5357,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1209493",
+    "type": "TARGET",
+    "ra": 150.30933,
+    "dec": 2.369694,
+    "priority": 3.0993,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1488769",
+    "type": "TARGET",
+    "ra": 149.9732326,
+    "dec": 2.4741508,
+    "priority": 2.8206,
+    "a_len": 6.0,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1003075",
+    "type": "TARGET",
+    "ra": 150.08963,
+    "dec": 2.230676,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1478794",
+    "type": "TARGET",
+    "ra": 149.98717,
+    "dec": 2.54205,
+    "priority": 3.3204,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1482170",
+    "type": "TARGET",
+    "ra": 149.9518,
+    "dec": 2.518056,
+    "priority": -2.0,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1260247",
+    "type": "TARGET",
+    "ra": 149.9314588,
+    "dec": 2.3582729,
+    "priority": 2.2662,
+    "a_len": 3.0,
+    "b_len": 4.95
+  },
+  {
+    "name": "DC-1461124",
+    "type": "TARGET",
+    "ra": 150.07989,
+    "dec": 2.499336,
+    "priority": 3.4291,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1276107",
+    "type": "TARGET",
+    "ra": 149.83409,
+    "dec": 2.416724,
+    "priority": 3.362,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1246269",
+    "type": "TARGET",
+    "ra": 150.00742,
+    "dec": 2.293013,
+    "priority": 2.8806,
+    "a_len": 3.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1214599",
+    "type": "TARGET",
+    "ra": 150.26078,
+    "dec": 2.338535,
+    "priority": 2.2744,
+    "a_len": 3.6,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1034032",
+    "type": "TARGET",
+    "ra": 149.96548,
+    "dec": 2.195551,
+    "priority": 3.8142,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1268433",
+    "type": "TARGET",
+    "ra": 149.98682,
+    "dec": 2.311947,
+    "priority": 3.4921,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1461929",
+    "type": "TARGET",
+    "ra": 150.143723,
+    "dec": 2.4931994,
+    "priority": 2.2495,
+    "a_len": 5.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1218839",
+    "type": "TARGET",
+    "ra": 150.3107291,
+    "dec": 2.3086889,
+    "priority": 2.9936,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1262370",
+    "type": "TARGET",
+    "ra": 149.96502,
+    "dec": 2.350214,
+    "priority": 3.1657,
+    "a_len": 2.55,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1256625",
+    "type": "TARGET",
+    "ra": 150.06026,
+    "dec": 2.3877,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1209282",
+    "type": "TARGET",
+    "ra": 150.28869,
+    "dec": 2.372646,
+    "priority": 2.7177,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-976441",
+    "type": "TARGET",
+    "ra": 150.23641,
+    "dec": 2.240009,
+    "priority": 3.3185,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1490098",
+    "type": "TARGET",
+    "ra": 150.04588,
+    "dec": 2.464419,
+    "priority": 2.8723,
+    "a_len": 4.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1249635",
+    "type": "TARGET",
+    "ra": 150.03733,
+    "dec": 2.429398,
+    "priority": 3.4971,
+    "a_len": 4.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1240174",
+    "type": "TARGET",
+    "ra": 150.17937,
+    "dec": 2.33192,
+    "priority": 2.4712,
+    "a_len": 4.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1488333",
+    "type": "TARGET",
+    "ra": 149.89767,
+    "dec": 2.466367,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1459910",
+    "type": "TARGET",
+    "ra": 150.20396,
+    "dec": 2.506912,
+    "priority": 3.4164,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1258579",
+    "type": "TARGET",
+    "ra": 149.92017,
+    "dec": 2.373812,
+    "priority": 2.7015,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-996700",
+    "type": "TARGET",
+    "ra": 150.14421,
+    "dec": 2.273926,
+    "priority": 3.744,
+    "a_len": 5.85,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1257145",
+    "type": "TARGET",
+    "ra": 150.05508,
+    "dec": 2.381141,
+    "priority": 2.2889,
+    "a_len": 2.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1207303",
+    "type": "TARGET",
+    "ra": 150.29999,
+    "dec": 2.386175,
+    "priority": 3.2949,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1255723",
+    "type": "TARGET",
+    "ra": 150.02765,
+    "dec": 2.393311,
+    "priority": 2.5752,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1435131",
+    "type": "TARGET",
+    "ra": 150.22782,
+    "dec": 2.508561,
+    "priority": 3.017,
+    "a_len": 5.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1210822",
+    "type": "TARGET",
+    "ra": 150.3012699,
+    "dec": 2.3621479,
+    "priority": 3.4844,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-980786",
+    "type": "TARGET",
+    "ra": 150.2416655,
+    "dec": 2.2102803,
+    "priority": 3.964,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1458234",
+    "type": "TARGET",
+    "ra": 150.12607,
+    "dec": 2.517729,
+    "priority": 3.2837,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1215800",
+    "type": "TARGET",
+    "ra": 150.25424,
+    "dec": 2.330628,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270800",
+    "type": "TARGET",
+    "ra": 149.91695,
+    "dec": 2.29587,
+    "priority": 3.0073,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1261787",
+    "type": "TARGET",
+    "ra": 149.9855879,
+    "dec": 2.3520708,
+    "priority": 2.3435,
+    "a_len": 6.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1246257",
+    "type": "TARGET",
+    "ra": 149.94006,
+    "dec": 2.29445,
+    "priority": 4.0147,
+    "a_len": 4.2,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1034158",
+    "type": "TARGET",
+    "ra": 149.93049,
+    "dec": 2.194505,
+    "priority": 3.1819,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-971592",
+    "type": "TARGET",
+    "ra": 150.24721,
+    "dec": 2.272721,
+    "priority": 3.8085,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1241214",
+    "type": "TARGET",
+    "ra": 150.17309,
+    "dec": 2.325415,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1008979",
+    "type": "TARGET",
+    "ra": 150.1949634,
+    "dec": 2.1943669,
+    "priority": 5.2271,
+    "a_len": 2.1,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1256854",
+    "type": "TARGET",
+    "ra": 149.9064342,
+    "dec": 2.385269,
+    "priority": 2.3486,
+    "a_len": 2.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1224927",
+    "type": "TARGET",
+    "ra": 150.22525,
+    "dec": 2.43738,
+    "priority": 2.5614,
+    "a_len": 5.7,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1483166",
+    "type": "TARGET",
+    "ra": 150.0010051,
+    "dec": 2.5121108,
+    "priority": -2.0,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1023485",
+    "type": "TARGET",
+    "ra": 150.009906,
+    "dec": 2.266115,
+    "priority": 3.7228,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1256774",
+    "type": "TARGET",
+    "ra": 150.0237,
+    "dec": 2.385779,
+    "priority": 2.6179,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-976023",
+    "type": "TARGET",
+    "ra": 150.28072,
+    "dec": 2.243208,
+    "priority": 3.6669,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1486271",
+    "type": "TARGET",
+    "ra": 149.94105,
+    "dec": 2.49114,
+    "priority": 3.4605,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1438678",
+    "type": "TARGET",
+    "ra": 150.23132,
+    "dec": 2.485074,
+    "priority": 3.3777,
+    "a_len": 3.6,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1226977",
+    "type": "TARGET",
+    "ra": 150.09385,
+    "dec": 2.421983,
+    "priority": 3.3441,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1227773",
+    "type": "TARGET",
+    "ra": 150.10455,
+    "dec": 2.416761,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1002919",
+    "type": "TARGET",
+    "ra": 150.2175658,
+    "dec": 2.2328654,
+    "priority": -2.0,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1263637",
+    "type": "TARGET",
+    "ra": 150.0372984,
+    "dec": 2.3414914,
+    "priority": 2.4685,
+    "a_len": 3.6,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1021329",
+    "type": "TARGET",
+    "ra": 150.05947,
+    "dec": 2.279972,
+    "priority": 1.931,
+    "a_len": 4.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1236815",
+    "type": "TARGET",
+    "ra": 150.1562727,
+    "dec": 2.3559096,
+    "priority": 2.4349,
+    "a_len": 2.4,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1226648",
+    "type": "TARGET",
+    "ra": 150.08646,
+    "dec": 2.425239,
+    "priority": 3.5356,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1209913",
+    "type": "TARGET",
+    "ra": 150.2555,
+    "dec": 2.366518,
+    "priority": 1.2212,
+    "a_len": 2.4,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1463487",
+    "type": "TARGET",
+    "ra": 150.20281,
+    "dec": 2.482515,
+    "priority": 3.1819,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1480928",
+    "type": "TARGET",
+    "ra": 149.98882,
+    "dec": 2.527909,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1234562",
+    "type": "TARGET",
+    "ra": 150.16669,
+    "dec": 2.369689,
+    "priority": 3.3756,
+    "a_len": 4.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1480440",
+    "type": "TARGET",
+    "ra": 149.93887,
+    "dec": 2.530678,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270249",
+    "type": "TARGET",
+    "ra": 149.93322,
+    "dec": 2.299612,
+    "priority": 3.0252,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1000342",
+    "type": "TARGET",
+    "ra": 150.20254,
+    "dec": 2.25027,
+    "priority": -2.0,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-997364",
+    "type": "TARGET",
+    "ra": 150.1199503,
+    "dec": 2.2697439,
+    "priority": 2.9936,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1213719",
+    "type": "TARGET",
+    "ra": 150.30485,
+    "dec": 2.344401,
+    "priority": 2.4846,
+    "a_len": 2.7,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1219658",
+    "type": "TARGET",
+    "ra": 150.25197,
+    "dec": 2.300359,
+    "priority": 3.5633,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1251170",
+    "type": "TARGET",
+    "ra": 150.01583,
+    "dec": 2.423645,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1237510",
+    "type": "TARGET",
+    "ra": 150.1684909,
+    "dec": 2.3452427,
+    "priority": 1.5568,
+    "a_len": 5.0,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1293971",
+    "type": "TARGET",
+    "ra": 149.87146,
+    "dec": 2.3018895,
+    "priority": 3.4928,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1260735",
+    "type": "TARGET",
+    "ra": 149.91301,
+    "dec": 2.357359,
+    "priority": -1.0,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1207793",
+    "type": "TARGET",
+    "ra": 150.25618,
+    "dec": 2.382215,
+    "priority": 1.4003,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1464078",
+    "type": "TARGET",
+    "ra": 150.21204,
+    "dec": 2.479055,
+    "priority": 4.2422,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1023194",
+    "type": "TARGET",
+    "ra": 150.04257,
+    "dec": 2.261685,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1281788",
+    "type": "TARGET",
+    "ra": 149.8906294,
+    "dec": 2.3838498,
+    "priority": 2.8686,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1266081",
+    "type": "TARGET",
+    "ra": 149.9443484,
+    "dec": 2.3248583,
+    "priority": 1.6727,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1239339",
+    "type": "TARGET",
+    "ra": 150.06916,
+    "dec": 2.333828,
+    "priority": 1.6202,
+    "a_len": 3.0,
+    "b_len": 5.55
+  },
+  {
+    "name": "DC-1438235",
+    "type": "TARGET",
+    "ra": 150.2654606,
+    "dec": 2.4861082,
+    "priority": 3.6932,
+    "a_len": 2.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1024926",
+    "type": "TARGET",
+    "ra": 149.91053,
+    "dec": 2.254537,
+    "priority": 3.783,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1489949",
+    "type": "TARGET",
+    "ra": 149.99929,
+    "dec": 2.463933,
+    "priority": 3.9027,
+    "a_len": 5.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1227599",
+    "type": "TARGET",
+    "ra": 150.1665751,
+    "dec": 2.4185336,
+    "priority": 3.8507,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1228568",
+    "type": "TARGET",
+    "ra": 150.21793,
+    "dec": 2.398809,
+    "priority": 2.4974,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1028709",
+    "type": "TARGET",
+    "ra": 149.97957,
+    "dec": 2.230485,
+    "priority": 2.2107,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1239911",
+    "type": "TARGET",
+    "ra": 150.15554,
+    "dec": 2.333938,
+    "priority": 3.7493,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485782",
+    "type": "TARGET",
+    "ra": 149.9215995,
+    "dec": 2.494852,
+    "priority": 3.8587,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1243042",
+    "type": "TARGET",
+    "ra": 150.2179883,
+    "dec": 2.3134068,
+    "priority": 3.986,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1263729",
+    "type": "TARGET",
+    "ra": 149.93438,
+    "dec": 2.33635,
+    "priority": 2.4974,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1260964",
+    "type": "TARGET",
+    "ra": 149.9760377,
+    "dec": 2.3584865,
+    "priority": 4.2745,
+    "a_len": 6.0,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-1466567",
+    "type": "TARGET",
+    "ra": 150.22245,
+    "dec": 2.460876,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1044025",
+    "type": "TARGET",
+    "ra": 149.96972,
+    "dec": 2.289216,
+    "priority": 3.0514,
+    "a_len": 5.55,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1027069",
+    "type": "TARGET",
+    "ra": 150.03733,
+    "dec": 2.241239,
+    "priority": 3.2551,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1260250",
+    "type": "TARGET",
+    "ra": 149.93037,
+    "dec": 2.3599,
+    "priority": 2.3381,
+    "a_len": 2.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1239362",
+    "type": "TARGET",
+    "ra": 150.224412,
+    "dec": 2.3380312,
+    "priority": 3.3987,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1022310",
+    "type": "TARGET",
+    "ra": 150.05198,
+    "dec": 2.273636,
+    "priority": 3.5738,
+    "a_len": 4.35,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-971033",
+    "type": "TARGET",
+    "ra": 150.27255,
+    "dec": 2.276,
+    "priority": 4.1132,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1212262",
+    "type": "TARGET",
+    "ra": 150.25675,
+    "dec": 2.352366,
+    "priority": 2.6209,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031913",
+    "type": "TARGET",
+    "ra": 149.95112,
+    "dec": 2.209496,
+    "priority": 3.4953,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-978996",
+    "type": "TARGET",
+    "ra": 150.23349,
+    "dec": 2.220443,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1285136",
+    "type": "TARGET",
+    "ra": 149.85933,
+    "dec": 2.361495,
+    "priority": 3.6384,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1227150",
+    "type": "TARGET",
+    "ra": 150.21136,
+    "dec": 2.420659,
+    "priority": 2.4089,
+    "a_len": 2.0,
+    "b_len": 5.8
+  },
+  {
+    "name": "DC-977107",
+    "type": "TARGET",
+    "ra": 150.2598897,
+    "dec": 2.2356952,
+    "priority": 3.181,
+    "a_len": 4.2,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1456586",
+    "type": "TARGET",
+    "ra": 150.171917,
+    "dec": 2.5210728,
+    "priority": 3.6426,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1004931",
+    "type": "TARGET",
+    "ra": 150.1887935,
+    "dec": 2.2212838,
+    "priority": 4.2515,
+    "a_len": 3.2,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1293331",
+    "type": "TARGET",
+    "ra": 149.87823,
+    "dec": 2.306661,
+    "priority": 2.4639,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1220643",
+    "type": "TARGET",
+    "ra": 150.30121,
+    "dec": 2.296888,
+    "priority": 2.7816,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1243102",
+    "type": "TARGET",
+    "ra": 150.0897175,
+    "dec": 2.3127435,
+    "priority": 1.3145,
+    "a_len": 3.6,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1457968",
+    "type": "TARGET",
+    "ra": 150.16417,
+    "dec": 2.516373,
+    "priority": 4.2573,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1438079",
+    "type": "TARGET",
+    "ra": 150.27604,
+    "dec": 2.484974,
+    "priority": 3.0123,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1257744",
+    "type": "TARGET",
+    "ra": 150.03216,
+    "dec": 2.37884,
+    "priority": 3.003,
+    "a_len": 5.85,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1259308",
+    "type": "TARGET",
+    "ra": 149.9927175,
+    "dec": 2.3683213,
+    "priority": 3.1405,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-977469",
+    "type": "TARGET",
+    "ra": 150.27132,
+    "dec": 2.229339,
+    "priority": 3.3401,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1486213",
+    "type": "TARGET",
+    "ra": 149.9256871,
+    "dec": 2.490936,
+    "priority": -2.0,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1269982",
+    "type": "TARGET",
+    "ra": 150.00929,
+    "dec": 2.301418,
+    "priority": 2.7874,
+    "a_len": 3.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1488219",
+    "type": "TARGET",
+    "ra": 150.03918,
+    "dec": 2.477716,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1259907",
+    "type": "TARGET",
+    "ra": 149.95867,
+    "dec": 2.364584,
+    "priority": 2.6962,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1479220",
+    "type": "TARGET",
+    "ra": 149.9175,
+    "dec": 2.539439,
+    "priority": 3.5402,
+    "a_len": 2.1,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1044058",
+    "type": "TARGET",
+    "ra": 150.0092,
+    "dec": 2.28868,
+    "priority": 2.5663,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1277618",
+    "type": "TARGET",
+    "ra": 149.87353,
+    "dec": 2.415167,
+    "priority": 4.6249,
+    "a_len": 6.0,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-1490208",
+    "type": "TARGET",
+    "ra": 149.90814,
+    "dec": 2.46149,
+    "priority": 3.9226,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1027221",
+    "type": "TARGET",
+    "ra": 150.059112,
+    "dec": 2.2406178,
+    "priority": 4.3623,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1266883",
+    "type": "TARGET",
+    "ra": 149.95273,
+    "dec": 2.321441,
+    "priority": 2.5858,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1033441",
+    "type": "TARGET",
+    "ra": 149.99724,
+    "dec": 2.197607,
+    "priority": -2.0,
+    "a_len": 3.8,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1484138",
+    "type": "TARGET",
+    "ra": 149.91804,
+    "dec": 2.503206,
+    "priority": 3.2908,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-969101",
+    "type": "TARGET",
+    "ra": 150.22922,
+    "dec": 2.291792,
+    "priority": 4.252,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1033054",
+    "type": "TARGET",
+    "ra": 149.98872,
+    "dec": 2.202892,
+    "priority": 3.9333,
+    "a_len": 2.55,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1432929",
+    "type": "TARGET",
+    "ra": 150.22849,
+    "dec": 2.526631,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1221916",
+    "type": "TARGET",
+    "ra": 150.20806,
+    "dec": 2.457253,
+    "priority": 4.5539,
+    "a_len": 2.55,
+    "b_len": 4.35
+  },
+  {
+    "name": "DC-1218210",
+    "type": "TARGET",
+    "ra": 150.25036,
+    "dec": 2.31561,
+    "priority": 3.4301,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1028181",
+    "type": "TARGET",
+    "ra": 149.92672,
+    "dec": 2.232686,
+    "priority": 3.7531,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1198965",
+    "type": "TARGET",
+    "ra": 150.27509,
+    "dec": 2.44677,
+    "priority": 2.877,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1265240",
+    "type": "TARGET",
+    "ra": 149.96328,
+    "dec": 2.331733,
+    "priority": 2.4203,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1479593",
+    "type": "TARGET",
+    "ra": 149.9096,
+    "dec": 2.535638,
+    "priority": 3.2234,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1282910",
+    "type": "TARGET",
+    "ra": 149.88455,
+    "dec": 2.373104,
+    "priority": 2.7692,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1456026",
+    "type": "TARGET",
+    "ra": 150.16853,
+    "dec": 2.533546,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1030817",
+    "type": "TARGET",
+    "ra": 150.00056,
+    "dec": 2.21753,
+    "priority": 5.0328,
+    "a_len": 2.55,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1029283",
+    "type": "TARGET",
+    "ra": 149.96728,
+    "dec": 2.226827,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-995538",
+    "type": "TARGET",
+    "ra": 150.1568128,
+    "dec": 2.2802016,
+    "priority": -2.0,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1244426",
+    "type": "TARGET",
+    "ra": 150.1729931,
+    "dec": 2.3046594,
+    "priority": 2.797,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1230695",
+    "type": "TARGET",
+    "ra": 150.22501,
+    "dec": 2.39843,
+    "priority": 1.4953,
+    "a_len": 2.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1257754",
+    "type": "TARGET",
+    "ra": 149.92166,
+    "dec": 2.379655,
+    "priority": 2.8804,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1003840",
+    "type": "TARGET",
+    "ra": 150.16507,
+    "dec": 2.227472,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265174",
+    "type": "TARGET",
+    "ra": 150.00485,
+    "dec": 2.33201,
+    "priority": 2.7209,
+    "a_len": 2.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1489526",
+    "type": "TARGET",
+    "ra": 149.94369,
+    "dec": 2.467588,
+    "priority": 2.8777,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1486468",
+    "type": "TARGET",
+    "ra": 149.9065446,
+    "dec": 2.4897665,
+    "priority": 3.2025,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1246805",
+    "type": "TARGET",
+    "ra": 149.94699,
+    "dec": 2.454654,
+    "priority": 3.4257,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1220951",
+    "type": "TARGET",
+    "ra": 150.2596454,
+    "dec": 2.2969033,
+    "priority": 3.5294,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1260465",
+    "type": "TARGET",
+    "ra": 149.93569,
+    "dec": 2.361367,
+    "priority": 3.8119,
+    "a_len": 2.55,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1259531",
+    "type": "TARGET",
+    "ra": 150.0143192,
+    "dec": 2.3676147,
+    "priority": 2.615,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1441037",
+    "type": "TARGET",
+    "ra": 150.2499,
+    "dec": 2.466446,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1464375",
+    "type": "TARGET",
+    "ra": 150.07571,
+    "dec": 2.477171,
+    "priority": -2.0,
+    "a_len": 2.85,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1218125",
+    "type": "TARGET",
+    "ra": 150.31845,
+    "dec": 2.312684,
+    "priority": 3.3866,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1439087",
+    "type": "TARGET",
+    "ra": 150.22944,
+    "dec": 2.477132,
+    "priority": -2.0,
+    "a_len": 2.7,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1462444",
+    "type": "TARGET",
+    "ra": 150.1528147,
+    "dec": 2.490241,
+    "priority": -2.0,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-995617",
+    "type": "TARGET",
+    "ra": 150.2067269,
+    "dec": 2.2754911,
+    "priority": 2.956,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1233674",
+    "type": "TARGET",
+    "ra": 150.22658,
+    "dec": 2.375596,
+    "priority": 1.4727,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1005587",
+    "type": "TARGET",
+    "ra": 150.20865,
+    "dec": 2.213477,
+    "priority": 4.4985,
+    "a_len": 2.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1478962",
+    "type": "TARGET",
+    "ra": 149.92807,
+    "dec": 2.531312,
+    "priority": 3.9885,
+    "a_len": 2.25,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1030321",
+    "type": "TARGET",
+    "ra": 150.03797,
+    "dec": 2.216928,
+    "priority": 3.7288,
+    "a_len": 4.2,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1021423",
+    "type": "TARGET",
+    "ra": 149.95906,
+    "dec": 2.279118,
+    "priority": 2.8281,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1293093",
+    "type": "TARGET",
+    "ra": 149.87688,
+    "dec": 2.3077653,
+    "priority": 2.9057,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1234222",
+    "type": "TARGET",
+    "ra": 150.0870475,
+    "dec": 2.3704515,
+    "priority": 1.4409,
+    "a_len": 2.1,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1267446",
+    "type": "TARGET",
+    "ra": 149.92411,
+    "dec": 2.317256,
+    "priority": 4.0691,
+    "a_len": 5.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1000343",
+    "type": "TARGET",
+    "ra": 150.20249,
+    "dec": 2.249933,
+    "priority": 3.7614,
+    "a_len": 2.0,
+    "b_len": 5.25
+  },
+  {
+    "name": "DC-1221768",
+    "type": "TARGET",
+    "ra": 150.0785003,
+    "dec": 2.2997433,
+    "priority": 2.601,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1236866",
+    "type": "TARGET",
+    "ra": 150.22502,
+    "dec": 2.356224,
+    "priority": 1.3857,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1284422",
+    "type": "TARGET",
+    "ra": 149.8643602,
+    "dec": 2.366179,
+    "priority": 3.155,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1030489",
+    "type": "TARGET",
+    "ra": 150.0247956,
+    "dec": 2.2184494,
+    "priority": 4.0503,
+    "a_len": 2.0,
+    "b_len": 5.85
+  },
+  {
+    "name": "DC-1293750",
+    "type": "TARGET",
+    "ra": 149.86167,
+    "dec": 2.302914,
+    "priority": 3.9223,
+    "a_len": 2.0,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1434580",
+    "type": "TARGET",
+    "ra": 150.23552,
+    "dec": 2.513874,
+    "priority": 3.6192,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1022337",
+    "type": "TARGET",
+    "ra": 149.9195853,
+    "dec": 2.2726055,
+    "priority": 2.7563,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1025943",
+    "type": "TARGET",
+    "ra": 150.03049,
+    "dec": 2.248527,
+    "priority": 2.2127,
+    "a_len": 3.0,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1484665",
+    "type": "TARGET",
+    "ra": 149.92954,
+    "dec": 2.501478,
+    "priority": 2.6701,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1054698",
+    "type": "TARGET",
+    "ra": 149.89244,
+    "dec": 2.215308,
+    "priority": 4.7872,
+    "a_len": 4.05,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1485674",
+    "type": "TARGET",
+    "ra": 149.93145,
+    "dec": 2.494941,
+    "priority": 2.9388,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1045554",
+    "type": "TARGET",
+    "ra": 149.8772174,
+    "dec": 2.2838907,
+    "priority": 2.9068,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1208771",
+    "type": "TARGET",
+    "ra": 150.2704537,
+    "dec": 2.3743598,
+    "priority": 3.868,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1256709",
+    "type": "TARGET",
+    "ra": 149.92992,
+    "dec": 2.383478,
+    "priority": 2.7328,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1028319",
+    "type": "TARGET",
+    "ra": 149.9229263,
+    "dec": 2.2332729,
+    "priority": 3.5159,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1227899",
+    "type": "TARGET",
+    "ra": 150.18702,
+    "dec": 2.416936,
+    "priority": 1.601,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1479942",
+    "type": "TARGET",
+    "ra": 150.04675,
+    "dec": 2.53425,
+    "priority": -2.0,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1259124",
+    "type": "TARGET",
+    "ra": 149.97888,
+    "dec": 2.369099,
+    "priority": 3.2567,
+    "a_len": 4.6,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1478954",
+    "type": "TARGET",
+    "ra": 149.9255143,
+    "dec": 2.537226,
+    "priority": 4.3216,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1488760",
+    "type": "TARGET",
+    "ra": 149.95699,
+    "dec": 2.474371,
+    "priority": 2.8217,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1028872",
+    "type": "TARGET",
+    "ra": 149.9197166,
+    "dec": 2.2253142,
+    "priority": 3.6253,
+    "a_len": 2.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1460151",
+    "type": "TARGET",
+    "ra": 150.13204,
+    "dec": 2.50523,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1228412",
+    "type": "TARGET",
+    "ra": 150.0909668,
+    "dec": 2.4123261,
+    "priority": 3.9314,
+    "a_len": 5.6,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1269522",
+    "type": "TARGET",
+    "ra": 149.9688703,
+    "dec": 2.3049029,
+    "priority": 2.6794,
+    "a_len": 5.4,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1051817",
+    "type": "TARGET",
+    "ra": 149.87369,
+    "dec": 2.240658,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1261134",
+    "type": "TARGET",
+    "ra": 149.9146,
+    "dec": 2.35391,
+    "priority": 2.0778,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1243962",
+    "type": "TARGET",
+    "ra": 150.2234506,
+    "dec": 2.3071564,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1438755",
+    "type": "TARGET",
+    "ra": 150.23417,
+    "dec": 2.482744,
+    "priority": 3.4649,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1463021",
+    "type": "TARGET",
+    "ra": 150.16843,
+    "dec": 2.485712,
+    "priority": 3.698,
+    "a_len": 2.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1221736",
+    "type": "TARGET",
+    "ra": 150.27262,
+    "dec": 2.458218,
+    "priority": 3.914,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1229303",
+    "type": "TARGET",
+    "ra": 150.19902,
+    "dec": 2.408338,
+    "priority": -2.0,
+    "a_len": 2.25,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1007425",
+    "type": "TARGET",
+    "ra": 150.2131022,
+    "dec": 2.2031991,
+    "priority": 4.8279,
+    "a_len": 3.0,
+    "b_len": 5.55
+  },
+  {
+    "name": "DC-1235020",
+    "type": "TARGET",
+    "ra": 150.0982,
+    "dec": 2.369202,
+    "priority": 2.6309,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1209156",
+    "type": "TARGET",
+    "ra": 150.32423,
+    "dec": 2.373449,
+    "priority": 2.0324,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1261822",
+    "type": "TARGET",
+    "ra": 150.01363,
+    "dec": 2.352837,
+    "priority": 3.2945,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1238713",
+    "type": "TARGET",
+    "ra": 150.06922,
+    "dec": 2.341806,
+    "priority": 3.2404,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1292282",
+    "type": "TARGET",
+    "ra": 149.8859697,
+    "dec": 2.3135584,
+    "priority": 2.6309,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1281416",
+    "type": "TARGET",
+    "ra": 149.8543486,
+    "dec": 2.3854267,
+    "priority": 3.7794,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1024410",
+    "type": "TARGET",
+    "ra": 149.9731284,
+    "dec": 2.2564452,
+    "priority": 3.4626,
+    "a_len": 2.4,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1000173",
+    "type": "TARGET",
+    "ra": 150.1680707,
+    "dec": 2.2515347,
+    "priority": 2.809,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1287687",
+    "type": "TARGET",
+    "ra": 149.8456821,
+    "dec": 2.3442592,
+    "priority": 2.2524,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1030134",
+    "type": "TARGET",
+    "ra": 150.03712,
+    "dec": 2.220914,
+    "priority": 4.1403,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031078",
+    "type": "TARGET",
+    "ra": 149.98727,
+    "dec": 2.214047,
+    "priority": 4.3051,
+    "a_len": 2.7,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-998192",
+    "type": "TARGET",
+    "ra": 150.076,
+    "dec": 2.264292,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1241697",
+    "type": "TARGET",
+    "ra": 150.1703249,
+    "dec": 2.3199094,
+    "priority": 2.5936,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1032577",
+    "type": "TARGET",
+    "ra": 149.99512,
+    "dec": 2.201094,
+    "priority": 3.6873,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1438520",
+    "type": "TARGET",
+    "ra": 150.23524,
+    "dec": 2.486176,
+    "priority": 4.3031,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1229412",
+    "type": "TARGET",
+    "ra": 150.11533,
+    "dec": 2.409192,
+    "priority": 1.3429,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1242039",
+    "type": "TARGET",
+    "ra": 150.1672,
+    "dec": 2.319792,
+    "priority": 1.593,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-977659",
+    "type": "TARGET",
+    "ra": 150.25463,
+    "dec": 2.232078,
+    "priority": 3.3967,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1020763",
+    "type": "TARGET",
+    "ra": 149.96764,
+    "dec": 2.281016,
+    "priority": 3.589,
+    "a_len": 4.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1210879",
+    "type": "TARGET",
+    "ra": 150.28083,
+    "dec": 2.362031,
+    "priority": 3.1439,
+    "a_len": 3.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1224841",
+    "type": "TARGET",
+    "ra": 150.16986,
+    "dec": 2.437819,
+    "priority": 2.7797,
+    "a_len": 3.0,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1008516",
+    "type": "TARGET",
+    "ra": 150.1532246,
+    "dec": 2.1977851,
+    "priority": 3.5065,
+    "a_len": 2.85,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-994241",
+    "type": "TARGET",
+    "ra": 150.21533,
+    "dec": 2.290418,
+    "priority": 3.4904,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1267219",
+    "type": "TARGET",
+    "ra": 149.94809,
+    "dec": 2.318987,
+    "priority": 3.4471,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1207219",
+    "type": "TARGET",
+    "ra": 150.31995,
+    "dec": 2.386697,
+    "priority": 2.8984,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270364",
+    "type": "TARGET",
+    "ra": 149.92607,
+    "dec": 2.298498,
+    "priority": 3.7127,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1460664",
+    "type": "TARGET",
+    "ra": 150.1402616,
+    "dec": 2.5015326,
+    "priority": 4.1022,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1260928",
+    "type": "TARGET",
+    "ra": 149.9554371,
+    "dec": 2.3589009,
+    "priority": 1.4788,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1214610",
+    "type": "TARGET",
+    "ra": 150.2636,
+    "dec": 2.336579,
+    "priority": 3.3566,
+    "a_len": 2.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1197758",
+    "type": "TARGET",
+    "ra": 150.2760089,
+    "dec": 2.457191,
+    "priority": -2.0,
+    "a_len": 4.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1242028",
+    "type": "TARGET",
+    "ra": 150.13385,
+    "dec": 2.319813,
+    "priority": 1.6979,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1458104",
+    "type": "TARGET",
+    "ra": 150.12878,
+    "dec": 2.518897,
+    "priority": 3.7791,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1220157",
+    "type": "TARGET",
+    "ra": 150.2670685,
+    "dec": 2.3025692,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1027018",
+    "type": "TARGET",
+    "ra": 150.030215,
+    "dec": 2.2400747,
+    "priority": 3.6671,
+    "a_len": 5.7,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-997678",
+    "type": "TARGET",
+    "ra": 150.1682797,
+    "dec": 2.2665763,
+    "priority": 2.0076,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1228280",
+    "type": "TARGET",
+    "ra": 150.10714,
+    "dec": 2.414029,
+    "priority": 3.4559,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1435103",
+    "type": "TARGET",
+    "ra": 150.2370195,
+    "dec": 2.5083188,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 5.8
+  },
+  {
+    "name": "DC-1212768",
+    "type": "TARGET",
+    "ra": 150.2485,
+    "dec": 2.349927,
+    "priority": 2.5294,
+    "a_len": 2.1,
+    "b_len": 4.65
+  },
+  {
+    "name": "DC-1276847",
+    "type": "TARGET",
+    "ra": 149.8462519,
+    "dec": 2.4216743,
+    "priority": 3.4343,
+    "a_len": 2.85,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-994012",
+    "type": "TARGET",
+    "ra": 150.08975,
+    "dec": 2.290185,
+    "priority": 2.4704,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1274853",
+    "type": "TARGET",
+    "ra": 149.84949,
+    "dec": 2.43264,
+    "priority": 4.1144,
+    "a_len": 5.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1267483",
+    "type": "TARGET",
+    "ra": 149.99163,
+    "dec": 2.317603,
+    "priority": 3.0874,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1290008",
+    "type": "TARGET",
+    "ra": 149.89363,
+    "dec": 2.327786,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-977806",
+    "type": "TARGET",
+    "ra": 150.25421,
+    "dec": 2.228469,
+    "priority": 4.3747,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1244917",
+    "type": "TARGET",
+    "ra": 150.1725343,
+    "dec": 2.3013261,
+    "priority": 2.8586,
+    "a_len": 2.0,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-1047890",
+    "type": "TARGET",
+    "ra": 149.8707571,
+    "dec": 2.2657231,
+    "priority": -2.0,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1228076",
+    "type": "TARGET",
+    "ra": 150.0641098,
+    "dec": 2.4134086,
+    "priority": 1.5795,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1019965",
+    "type": "TARGET",
+    "ra": 149.97446,
+    "dec": 2.289591,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1023416",
+    "type": "TARGET",
+    "ra": 149.9229222,
+    "dec": 2.2647727,
+    "priority": 3.5549,
+    "a_len": 6.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-976642",
+    "type": "TARGET",
+    "ra": 150.2768612,
+    "dec": 2.2386935,
+    "priority": 4.4734,
+    "a_len": 5.85,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1021145",
+    "type": "TARGET",
+    "ra": 149.90275,
+    "dec": 2.27975,
+    "priority": 2.8227,
+    "a_len": 2.0,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-1489684",
+    "type": "TARGET",
+    "ra": 149.9302359,
+    "dec": 2.4671457,
+    "priority": 3.3151,
+    "a_len": 4.2,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1237426",
+    "type": "TARGET",
+    "ra": 150.0730362,
+    "dec": 2.3485346,
+    "priority": 3.5134,
+    "a_len": 2.1,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-970254",
+    "type": "TARGET",
+    "ra": 150.29768,
+    "dec": 2.28148,
+    "priority": 4.1319,
+    "a_len": 5.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1211452",
+    "type": "TARGET",
+    "ra": 150.26572,
+    "dec": 2.359089,
+    "priority": 2.3145,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1027272",
+    "type": "TARGET",
+    "ra": 150.0064887,
+    "dec": 2.2389481,
+    "priority": 3.6806,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1215895",
+    "type": "TARGET",
+    "ra": 150.3165,
+    "dec": 2.328678,
+    "priority": 3.4468,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1274242",
+    "type": "TARGET",
+    "ra": 149.89091,
+    "dec": 2.437865,
+    "priority": 3.5026,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1227154",
+    "type": "TARGET",
+    "ra": 150.11857,
+    "dec": 2.421737,
+    "priority": 3.3476,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1028335",
+    "type": "TARGET",
+    "ra": 150.02877,
+    "dec": 2.232758,
+    "priority": 3.3028,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1201003",
+    "type": "TARGET",
+    "ra": 150.31253,
+    "dec": 2.434572,
+    "priority": 2.9072,
+    "a_len": 5.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1024360",
+    "type": "TARGET",
+    "ra": 150.02704,
+    "dec": 2.259846,
+    "priority": 3.6873,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1008236",
+    "type": "TARGET",
+    "ra": 150.20272,
+    "dec": 2.20034,
+    "priority": 2.5625,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1437824",
+    "type": "TARGET",
+    "ra": 150.2479029,
+    "dec": 2.4877767,
+    "priority": 3.8362,
+    "a_len": 5.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1256456",
+    "type": "TARGET",
+    "ra": 149.90865,
+    "dec": 2.38797,
+    "priority": 2.7906,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1025394",
+    "type": "TARGET",
+    "ra": 149.89726,
+    "dec": 2.252658,
+    "priority": -2.0,
+    "a_len": 3.4,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1218502",
+    "type": "TARGET",
+    "ra": 150.27753,
+    "dec": 2.313673,
+    "priority": 2.5226,
+    "a_len": 2.1,
+    "b_len": 5.1
+  },
+  {
+    "name": "DC-1214152",
+    "type": "TARGET",
+    "ra": 150.28668,
+    "dec": 2.342023,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1201112",
+    "type": "TARGET",
+    "ra": 150.2507339,
+    "dec": 2.432986,
+    "priority": 3.2494,
+    "a_len": 2.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1462275",
+    "type": "TARGET",
+    "ra": 150.16858,
+    "dec": 2.491283,
+    "priority": 3.1301,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1281722",
+    "type": "TARGET",
+    "ra": 149.87602,
+    "dec": 2.381773,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1020488",
+    "type": "TARGET",
+    "ra": 150.03646,
+    "dec": 2.286129,
+    "priority": 2.6854,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1243755",
+    "type": "TARGET",
+    "ra": 150.07352,
+    "dec": 2.300651,
+    "priority": 3.071,
+    "a_len": 2.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-980781",
+    "type": "TARGET",
+    "ra": 150.24259,
+    "dec": 2.211027,
+    "priority": 4.5525,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-970837",
+    "type": "TARGET",
+    "ra": 150.2300787,
+    "dec": 2.2772811,
+    "priority": 4.1008,
+    "a_len": 4.95,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1232095",
+    "type": "TARGET",
+    "ra": 150.18354,
+    "dec": 2.387942,
+    "priority": 2.1852,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270051",
+    "type": "TARGET",
+    "ra": 150.00312,
+    "dec": 2.29918,
+    "priority": 2.9516,
+    "a_len": 6.0,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1215763",
+    "type": "TARGET",
+    "ra": 150.29803,
+    "dec": 2.331349,
+    "priority": 3.2077,
+    "a_len": 2.1,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1262544",
+    "type": "TARGET",
+    "ra": 150.02976,
+    "dec": 2.348593,
+    "priority": 4.0976,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1216347",
+    "type": "TARGET",
+    "ra": 150.27194,
+    "dec": 2.326701,
+    "priority": 4.14,
+    "a_len": 5.85,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1459123",
+    "type": "TARGET",
+    "ra": 150.08458,
+    "dec": 2.512312,
+    "priority": 4.5,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1465318",
+    "type": "TARGET",
+    "ra": 150.12981,
+    "dec": 2.470351,
+    "priority": 1.6933,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1025551",
+    "type": "TARGET",
+    "ra": 150.0466437,
+    "dec": 2.2509923,
+    "priority": 2.9852,
+    "a_len": 2.85,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1241397",
+    "type": "TARGET",
+    "ra": 150.13744,
+    "dec": 2.324034,
+    "priority": 3.712,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1234596",
+    "type": "TARGET",
+    "ra": 150.15977,
+    "dec": 2.37123,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1478614",
+    "type": "TARGET",
+    "ra": 149.90718,
+    "dec": 2.542476,
+    "priority": 3.9372,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1288976",
+    "type": "TARGET",
+    "ra": 149.8769174,
+    "dec": 2.3348067,
+    "priority": 2.6158,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-974987",
+    "type": "TARGET",
+    "ra": 150.28088,
+    "dec": 2.249534,
+    "priority": -2.0,
+    "a_len": 3.2,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1020211",
+    "type": "TARGET",
+    "ra": 150.00037,
+    "dec": 2.283929,
+    "priority": 2.691,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1020482",
+    "type": "TARGET",
+    "ra": 150.01067,
+    "dec": 2.285398,
+    "priority": 2.6838,
+    "a_len": 4.6,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1236926",
+    "type": "TARGET",
+    "ra": 150.1348,
+    "dec": 2.355885,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1251805",
+    "type": "TARGET",
+    "ra": 149.91223,
+    "dec": 2.419396,
+    "priority": 3.042,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-981020",
+    "type": "TARGET",
+    "ra": 150.228322,
+    "dec": 2.2073231,
+    "priority": -2.0,
+    "a_len": 5.25,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1230594",
+    "type": "TARGET",
+    "ra": 150.09154,
+    "dec": 2.399079,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1233439",
+    "type": "TARGET",
+    "ra": 150.1333787,
+    "dec": 2.3788683,
+    "priority": 3.3706,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1222153",
+    "type": "TARGET",
+    "ra": 150.07054,
+    "dec": 2.455116,
+    "priority": 3.9712,
+    "a_len": 2.25,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1252160",
+    "type": "TARGET",
+    "ra": 149.95553,
+    "dec": 2.416344,
+    "priority": 3.3991,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1220904",
+    "type": "TARGET",
+    "ra": 150.28974,
+    "dec": 2.297268,
+    "priority": 2.8279,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1249269",
+    "type": "TARGET",
+    "ra": 149.9755298,
+    "dec": 2.4374852,
+    "priority": 3.5827,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-994378",
+    "type": "TARGET",
+    "ra": 150.22131,
+    "dec": 2.288129,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1461510",
+    "type": "TARGET",
+    "ra": 150.1152798,
+    "dec": 2.4971163,
+    "priority": 3.5021,
+    "a_len": 2.1,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1255500",
+    "type": "TARGET",
+    "ra": 149.91542,
+    "dec": 2.393732,
+    "priority": 3.0515,
+    "a_len": 5.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1238661",
+    "type": "TARGET",
+    "ra": 150.07958,
+    "dec": 2.34111,
+    "priority": 3.1705,
+    "a_len": 3.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1005715",
+    "type": "TARGET",
+    "ra": 150.10474,
+    "dec": 2.215737,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1245163",
+    "type": "TARGET",
+    "ra": 150.1189,
+    "dec": 2.298979,
+    "priority": 1.6056,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1435734",
+    "type": "TARGET",
+    "ra": 150.28207,
+    "dec": 2.49122,
+    "priority": 3.5721,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1225904",
+    "type": "TARGET",
+    "ra": 150.17946,
+    "dec": 2.430005,
+    "priority": 2.8341,
+    "a_len": 2.1,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1267504",
+    "type": "TARGET",
+    "ra": 150.0231,
+    "dec": 2.317906,
+    "priority": 1.3908,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1223770",
+    "type": "TARGET",
+    "ra": 150.10532,
+    "dec": 2.445345,
+    "priority": 1.5496,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1280221",
+    "type": "TARGET",
+    "ra": 149.83562,
+    "dec": 2.395962,
+    "priority": 2.4333,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248589",
+    "type": "TARGET",
+    "ra": 149.96376,
+    "dec": 2.442589,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1214975",
+    "type": "TARGET",
+    "ra": 150.2593,
+    "dec": 2.336109,
+    "priority": 3.6638,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1258903",
+    "type": "TARGET",
+    "ra": 149.8950939,
+    "dec": 2.3677258,
+    "priority": 2.918,
+    "a_len": 2.25,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1031405",
+    "type": "TARGET",
+    "ra": 149.9045824,
+    "dec": 2.2113955,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1289279",
+    "type": "TARGET",
+    "ra": 149.88383,
+    "dec": 2.333311,
+    "priority": 2.7946,
+    "a_len": 4.6,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1268206",
+    "type": "TARGET",
+    "ra": 149.983423,
+    "dec": 2.3126542,
+    "priority": 2.6328,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1266517",
+    "type": "TARGET",
+    "ra": 150.03439,
+    "dec": 2.322833,
+    "priority": 2.5679,
+    "a_len": 2.4,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1217618",
+    "type": "TARGET",
+    "ra": 150.27054,
+    "dec": 2.31655,
+    "priority": 3.9466,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1209104",
+    "type": "TARGET",
+    "ra": 150.2412621,
+    "dec": 2.3728628,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265787",
+    "type": "TARGET",
+    "ra": 149.96323,
+    "dec": 2.328274,
+    "priority": 2.4379,
+    "a_len": 4.0,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1278954",
+    "type": "TARGET",
+    "ra": 149.8302859,
+    "dec": 2.3896718,
+    "priority": 2.4114,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1488297",
+    "type": "TARGET",
+    "ra": 150.02587,
+    "dec": 2.476768,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1271826",
+    "type": "TARGET",
+    "ra": 149.84635,
+    "dec": 2.454905,
+    "priority": 2.8645,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-969070",
+    "type": "TARGET",
+    "ra": 150.2500956,
+    "dec": 2.2914876,
+    "priority": 4.2194,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1245996",
+    "type": "TARGET",
+    "ra": 150.0829587,
+    "dec": 2.4594084,
+    "priority": 3.4019,
+    "a_len": 2.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1212808",
+    "type": "TARGET",
+    "ra": 150.24652,
+    "dec": 2.349477,
+    "priority": 3.168,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-973527",
+    "type": "TARGET",
+    "ra": 150.2783645,
+    "dec": 2.2586932,
+    "priority": 4.0283,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1241700",
+    "type": "TARGET",
+    "ra": 150.16929,
+    "dec": 2.319645,
+    "priority": 2.6067,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1270911",
+    "type": "TARGET",
+    "ra": 150.05787,
+    "dec": 2.294258,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031520",
+    "type": "TARGET",
+    "ra": 150.05543,
+    "dec": 2.212394,
+    "priority": 3.9978,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031156",
+    "type": "TARGET",
+    "ra": 149.91706,
+    "dec": 2.214862,
+    "priority": 3.8447,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485317",
+    "type": "TARGET",
+    "ra": 150.0284902,
+    "dec": 2.4981133,
+    "priority": -2.0,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270379",
+    "type": "TARGET",
+    "ra": 149.92912,
+    "dec": 2.298302,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1022442",
+    "type": "TARGET",
+    "ra": 150.037594,
+    "dec": 2.2719084,
+    "priority": 3.5552,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1241827",
+    "type": "TARGET",
+    "ra": 150.1000174,
+    "dec": 2.320452,
+    "priority": 1.4845,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1242184",
+    "type": "TARGET",
+    "ra": 150.2037687,
+    "dec": 2.3184494,
+    "priority": 3.6181,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1221933",
+    "type": "TARGET",
+    "ra": 150.1016,
+    "dec": 2.456755,
+    "priority": 2.5082,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1031346",
+    "type": "TARGET",
+    "ra": 150.03642,
+    "dec": 2.214042,
+    "priority": 3.8913,
+    "a_len": 2.85,
+    "b_len": 5.8
+  },
+  {
+    "name": "DC-1005350",
+    "type": "TARGET",
+    "ra": 150.18442,
+    "dec": 2.218071,
+    "priority": 4.2231,
+    "a_len": 4.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1258340",
+    "type": "TARGET",
+    "ra": 150.02161,
+    "dec": 2.375139,
+    "priority": 1.3617,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1227670",
+    "type": "TARGET",
+    "ra": 150.07372,
+    "dec": 2.416641,
+    "priority": 2.63,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1459806",
+    "type": "TARGET",
+    "ra": 150.14072,
+    "dec": 2.507924,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1030779",
+    "type": "TARGET",
+    "ra": 149.98029,
+    "dec": 2.215245,
+    "priority": 3.4309,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1022865",
+    "type": "TARGET",
+    "ra": 149.95948,
+    "dec": 2.266784,
+    "priority": 2.6105,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1000705",
+    "type": "TARGET",
+    "ra": 150.18937,
+    "dec": 2.24799,
+    "priority": 4.54,
+    "a_len": 2.1,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1028036",
+    "type": "TARGET",
+    "ra": 150.02732,
+    "dec": 2.234459,
+    "priority": 4.2427,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1260852",
+    "type": "TARGET",
+    "ra": 149.99974,
+    "dec": 2.35917,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1489461",
+    "type": "TARGET",
+    "ra": 150.03535,
+    "dec": 2.468696,
+    "priority": -2.0,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1232462",
+    "type": "TARGET",
+    "ra": 150.17336,
+    "dec": 2.384179,
+    "priority": 1.308,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1236238",
+    "type": "TARGET",
+    "ra": 150.0770392,
+    "dec": 2.3607846,
+    "priority": 3.1818,
+    "a_len": 3.6,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1287387",
+    "type": "TARGET",
+    "ra": 149.87737,
+    "dec": 2.346133,
+    "priority": 3.5282,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031432",
+    "type": "TARGET",
+    "ra": 149.90212,
+    "dec": 2.212809,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1225129",
+    "type": "TARGET",
+    "ra": 150.18755,
+    "dec": 2.435996,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1256253",
+    "type": "TARGET",
+    "ra": 149.9389,
+    "dec": 2.388354,
+    "priority": 2.4368,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1249749",
+    "type": "TARGET",
+    "ra": 150.05668,
+    "dec": 2.434676,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1481794",
+    "type": "TARGET",
+    "ra": 150.00526,
+    "dec": 2.521707,
+    "priority": 3.865,
+    "a_len": 4.6,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1203662",
+    "type": "TARGET",
+    "ra": 150.2871387,
+    "dec": 2.4118573,
+    "priority": 3.6639,
+    "a_len": 2.0,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-1464285",
+    "type": "TARGET",
+    "ra": 150.15755,
+    "dec": 2.475102,
+    "priority": 2.7954,
+    "a_len": 2.0,
+    "b_len": 5.7
+  },
+  {
+    "name": "DC-1252105",
+    "type": "TARGET",
+    "ra": 149.93034,
+    "dec": 2.417826,
+    "priority": 3.2698,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1464356",
+    "type": "TARGET",
+    "ra": 150.1907,
+    "dec": 2.476415,
+    "priority": 4.1576,
+    "a_len": 4.2,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1232481",
+    "type": "TARGET",
+    "ra": 150.2131557,
+    "dec": 2.3847816,
+    "priority": 3.3194,
+    "a_len": 2.0,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-1455268",
+    "type": "TARGET",
+    "ra": 150.1326298,
+    "dec": 2.5377816,
+    "priority": 4.0206,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1050970",
+    "type": "TARGET",
+    "ra": 149.88405,
+    "dec": 2.245555,
+    "priority": 3.4628,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1271086",
+    "type": "TARGET",
+    "ra": 149.94276,
+    "dec": 2.293728,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1249187",
+    "type": "TARGET",
+    "ra": 149.9625601,
+    "dec": 2.4364422,
+    "priority": 2.8225,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1257392",
+    "type": "TARGET",
+    "ra": 149.92561,
+    "dec": 2.381951,
+    "priority": 2.1883,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1505712",
+    "type": "TARGET",
+    "ra": 149.88751,
+    "dec": 2.525253,
+    "priority": 3.7514,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1289013",
+    "type": "TARGET",
+    "ra": 149.87475,
+    "dec": 2.335615,
+    "priority": 3.6988,
+    "a_len": 5.0,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1251530",
+    "type": "TARGET",
+    "ra": 149.90643,
+    "dec": 2.420377,
+    "priority": 3.6244,
+    "a_len": 2.85,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1203661",
+    "type": "TARGET",
+    "ra": 150.28723,
+    "dec": 2.409765,
+    "priority": 2.6667,
+    "a_len": 2.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1251072",
+    "type": "TARGET",
+    "ra": 149.97843,
+    "dec": 2.424002,
+    "priority": 3.6624,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1020455",
+    "type": "TARGET",
+    "ra": 150.02626,
+    "dec": 2.28598,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-971555",
+    "type": "TARGET",
+    "ra": 150.27862,
+    "dec": 2.273165,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1220852",
+    "type": "TARGET",
+    "ra": 150.30936,
+    "dec": 2.297428,
+    "priority": 3.9655,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1044078",
+    "type": "TARGET",
+    "ra": 149.9099,
+    "dec": 2.29185,
+    "priority": 3.7654,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1279235",
+    "type": "TARGET",
+    "ra": 149.86886,
+    "dec": 2.404134,
+    "priority": 2.5288,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1025197",
+    "type": "TARGET",
+    "ra": 150.02919,
+    "dec": 2.253231,
+    "priority": 2.082,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485593",
+    "type": "TARGET",
+    "ra": 149.96796,
+    "dec": 2.493962,
+    "priority": 3.1654,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1268637",
+    "type": "TARGET",
+    "ra": 149.96202,
+    "dec": 2.308851,
+    "priority": 3.4239,
+    "a_len": 2.4,
+    "b_len": 5.7
+  },
+  {
+    "name": "DC-1238279",
+    "type": "TARGET",
+    "ra": 150.12075,
+    "dec": 2.344479,
+    "priority": 3.3319,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1458508",
+    "type": "TARGET",
+    "ra": 150.13201,
+    "dec": 2.516059,
+    "priority": 4.2669,
+    "a_len": 4.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1263177",
+    "type": "TARGET",
+    "ra": 149.94884,
+    "dec": 2.344866,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1481672",
+    "type": "TARGET",
+    "ra": 149.96183,
+    "dec": 2.521185,
+    "priority": 3.3121,
+    "a_len": 3.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1229816",
+    "type": "TARGET",
+    "ra": 150.22439,
+    "dec": 2.406352,
+    "priority": 2.4323,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1251076",
+    "type": "TARGET",
+    "ra": 150.0,
+    "dec": 2.424907,
+    "priority": 1.4327,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1030892",
+    "type": "TARGET",
+    "ra": 150.02093,
+    "dec": 2.216844,
+    "priority": 4.5857,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1220961",
+    "type": "TARGET",
+    "ra": 150.2568098,
+    "dec": 2.2969036,
+    "priority": 3.6332,
+    "a_len": 2.0,
+    "b_len": 5.7
+  },
+  {
+    "name": "DC-1511874",
+    "type": "TARGET",
+    "ra": 149.88079,
+    "dec": 2.485099,
+    "priority": -2.0,
+    "a_len": 2.7,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1021165",
+    "type": "TARGET",
+    "ra": 150.0424723,
+    "dec": 2.2809087,
+    "priority": 2.8142,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1254443",
+    "type": "TARGET",
+    "ra": 150.01385,
+    "dec": 2.402088,
+    "priority": 2.7374,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1455232",
+    "type": "TARGET",
+    "ra": 150.09455,
+    "dec": 2.540591,
+    "priority": 4.1594,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1254089",
+    "type": "TARGET",
+    "ra": 149.91969,
+    "dec": 2.4071,
+    "priority": 2.439,
+    "a_len": 4.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1025671",
+    "type": "TARGET",
+    "ra": 149.96348,
+    "dec": 2.251154,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1273271",
+    "type": "TARGET",
+    "ra": 149.8723,
+    "dec": 2.445656,
+    "priority": -2.0,
+    "a_len": 5.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1246642",
+    "type": "TARGET",
+    "ra": 149.9495468,
+    "dec": 2.4522319,
+    "priority": 3.255,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1255286",
+    "type": "TARGET",
+    "ra": 150.0061435,
+    "dec": 2.3963637,
+    "priority": 3.1779,
+    "a_len": 2.25,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1461805",
+    "type": "TARGET",
+    "ra": 150.17214,
+    "dec": 2.49392,
+    "priority": 3.9662,
+    "a_len": 2.1,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-995626",
+    "type": "TARGET",
+    "ra": 150.20594,
+    "dec": 2.277549,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1438548",
+    "type": "TARGET",
+    "ra": 150.26641,
+    "dec": 2.485891,
+    "priority": -2.0,
+    "a_len": 6.0,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-1008409",
+    "type": "TARGET",
+    "ra": 150.2010514,
+    "dec": 2.1989499,
+    "priority": 3.5226,
+    "a_len": 4.8,
+    "b_len": 2.55
+  },
+  {
+    "name": "DC-1241581",
+    "type": "TARGET",
+    "ra": 150.1085661,
+    "dec": 2.3222021,
+    "priority": 2.9736,
+    "a_len": 2.85,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1228221",
+    "type": "TARGET",
+    "ra": 150.0735,
+    "dec": 2.414207,
+    "priority": 3.4074,
+    "a_len": 2.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1218124",
+    "type": "TARGET",
+    "ra": 150.31869,
+    "dec": 2.313039,
+    "priority": 4.2404,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1217545",
+    "type": "TARGET",
+    "ra": 150.31005,
+    "dec": 2.319118,
+    "priority": 3.1064,
+    "a_len": 5.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1005590",
+    "type": "TARGET",
+    "ra": 150.20811,
+    "dec": 2.211594,
+    "priority": 3.687,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1203241",
+    "type": "TARGET",
+    "ra": 150.29905,
+    "dec": 2.416627,
+    "priority": 2.7701,
+    "a_len": 4.4,
+    "b_len": 2.4
+  },
+  {
+    "name": "DC-1485912",
+    "type": "TARGET",
+    "ra": 149.92764,
+    "dec": 2.493222,
+    "priority": 3.6896,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1266132",
+    "type": "TARGET",
+    "ra": 150.01047,
+    "dec": 2.32611,
+    "priority": 2.631,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1259653",
+    "type": "TARGET",
+    "ra": 150.0528102,
+    "dec": 2.365742,
+    "priority": 4.0474,
+    "a_len": 2.55,
+    "b_len": 5.25
+  },
+  {
+    "name": "DC-1276604",
+    "type": "TARGET",
+    "ra": 149.8702727,
+    "dec": 2.4214705,
+    "priority": 2.7297,
+    "a_len": 3.6,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1266960",
+    "type": "TARGET",
+    "ra": 149.90345,
+    "dec": 2.320962,
+    "priority": 3.0859,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-975800",
+    "type": "TARGET",
+    "ra": 150.28687,
+    "dec": 2.244726,
+    "priority": 3.3466,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1222865",
+    "type": "TARGET",
+    "ra": 150.097055,
+    "dec": 2.4517422,
+    "priority": 1.586,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1202555",
+    "type": "TARGET",
+    "ra": 150.3060313,
+    "dec": 2.4204796,
+    "priority": 3.4155,
+    "a_len": 3.0,
+    "b_len": 3.15
+  },
+  {
+    "name": "DC-978284",
+    "type": "TARGET",
+    "ra": 150.2673528,
+    "dec": 2.2274029,
+    "priority": 4.143,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1484965",
+    "type": "TARGET",
+    "ra": 149.99096,
+    "dec": 2.500427,
+    "priority": 3.3373,
+    "a_len": 3.0,
+    "b_len": 4.95
+  },
+  {
+    "name": "DC-1217371",
+    "type": "TARGET",
+    "ra": 150.2841258,
+    "dec": 2.3200672,
+    "priority": 2.4108,
+    "a_len": 2.4,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1256557",
+    "type": "TARGET",
+    "ra": 149.98961,
+    "dec": 2.387866,
+    "priority": 2.7169,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1287945",
+    "type": "TARGET",
+    "ra": 149.83335,
+    "dec": 2.342967,
+    "priority": 2.8445,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1222578",
+    "type": "TARGET",
+    "ra": 150.20679,
+    "dec": 2.453452,
+    "priority": 3.5295,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1250991",
+    "type": "TARGET",
+    "ra": 150.05588,
+    "dec": 2.423604,
+    "priority": 2.6662,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1004581",
+    "type": "TARGET",
+    "ra": 150.1270805,
+    "dec": 2.2232439,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1241824",
+    "type": "TARGET",
+    "ra": 150.09958,
+    "dec": 2.319866,
+    "priority": 3.2911,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1277160",
+    "type": "TARGET",
+    "ra": 149.84757,
+    "dec": 2.418822,
+    "priority": 2.6682,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1259909",
+    "type": "TARGET",
+    "ra": 149.9975135,
+    "dec": 2.3650717,
+    "priority": 3.0017,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1460275",
+    "type": "TARGET",
+    "ra": 150.1901418,
+    "dec": 2.503364,
+    "priority": 3.6232,
+    "a_len": 2.7,
+    "b_len": 5.55
+  },
+  {
+    "name": "DC-1484678",
+    "type": "TARGET",
+    "ra": 149.90385,
+    "dec": 2.499108,
+    "priority": 3.9957,
+    "a_len": 4.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1228583",
+    "type": "TARGET",
+    "ra": 150.21904,
+    "dec": 2.402048,
+    "priority": 3.5392,
+    "a_len": 2.0,
+    "b_len": 5.7
+  },
+  {
+    "name": "DC-1238794",
+    "type": "TARGET",
+    "ra": 150.0898004,
+    "dec": 2.3410351,
+    "priority": 3.0892,
+    "a_len": 4.2,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1249896",
+    "type": "TARGET",
+    "ra": 149.94066,
+    "dec": 2.428497,
+    "priority": 2.9977,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1227776",
+    "type": "TARGET",
+    "ra": 150.10516,
+    "dec": 2.41639,
+    "priority": 1.5961,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1285260",
+    "type": "TARGET",
+    "ra": 149.84832,
+    "dec": 2.360479,
+    "priority": 3.0198,
+    "a_len": 4.6,
+    "b_len": 2.25
+  },
+  {
+    "name": "DC-1261776",
+    "type": "TARGET",
+    "ra": 149.949141,
+    "dec": 2.3515669,
+    "priority": 3.4797,
+    "a_len": 4.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1021048",
+    "type": "TARGET",
+    "ra": 149.93482,
+    "dec": 2.281716,
+    "priority": 4.2795,
+    "a_len": 3.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1222853",
+    "type": "TARGET",
+    "ra": 150.10921,
+    "dec": 2.448687,
+    "priority": -2.0,
+    "a_len": 5.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1486931",
+    "type": "TARGET",
+    "ra": 149.9479591,
+    "dec": 2.4775644,
+    "priority": 3.2771,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1023888",
+    "type": "TARGET",
+    "ra": 150.0083217,
+    "dec": 2.2627816,
+    "priority": 3.4725,
+    "a_len": 5.85,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1003121",
+    "type": "TARGET",
+    "ra": 150.12141,
+    "dec": 2.231015,
+    "priority": 3.1881,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1482709",
+    "type": "TARGET",
+    "ra": 149.9570468,
+    "dec": 2.5148144,
+    "priority": 4.0773,
+    "a_len": 2.85,
+    "b_len": 5.25
+  },
+  {
+    "name": "DC-1006529",
+    "type": "TARGET",
+    "ra": 150.076793,
+    "dec": 2.2107017,
+    "priority": 5.2415,
+    "a_len": 4.8,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1295270",
+    "type": "TARGET",
+    "ra": 149.89286,
+    "dec": 2.457672,
+    "priority": 3.0381,
+    "a_len": 3.0,
+    "b_len": 4.65
+  },
+  {
+    "name": "DC-1258475",
+    "type": "TARGET",
+    "ra": 149.97222,
+    "dec": 2.374408,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-997575",
+    "type": "TARGET",
+    "ra": 150.0722462,
+    "dec": 2.2684099,
+    "priority": 2.6744,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1282113",
+    "type": "TARGET",
+    "ra": 149.8552668,
+    "dec": 2.3808437,
+    "priority": 2.6028,
+    "a_len": 3.8,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1206836",
+    "type": "TARGET",
+    "ra": 150.32248,
+    "dec": 2.385688,
+    "priority": 2.7914,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1221587",
+    "type": "TARGET",
+    "ra": 150.2741324,
+    "dec": 2.4592329,
+    "priority": 2.8423,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1215750",
+    "type": "TARGET",
+    "ra": 150.30452,
+    "dec": 2.331449,
+    "priority": 3.3136,
+    "a_len": 2.4,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1483862",
+    "type": "TARGET",
+    "ra": 150.02748,
+    "dec": 2.507952,
+    "priority": 3.1211,
+    "a_len": 2.55,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1458225",
+    "type": "TARGET",
+    "ra": 150.1744192,
+    "dec": 2.5174061,
+    "priority": -2.0,
+    "a_len": 5.7,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-980945",
+    "type": "TARGET",
+    "ra": 150.2555,
+    "dec": 2.207525,
+    "priority": 3.0947,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1007054",
+    "type": "TARGET",
+    "ra": 150.06202,
+    "dec": 2.207986,
+    "priority": -2.0,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248358",
+    "type": "TARGET",
+    "ra": 149.97697,
+    "dec": 2.439765,
+    "priority": 2.8463,
+    "a_len": 6.0,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1480207",
+    "type": "TARGET",
+    "ra": 150.03276,
+    "dec": 2.53144,
+    "priority": 4.4943,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1288572",
+    "type": "TARGET",
+    "ra": 149.87229,
+    "dec": 2.336421,
+    "priority": 2.716,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1222369",
+    "type": "TARGET",
+    "ra": 150.1139036,
+    "dec": 2.4512007,
+    "priority": 3.2119,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265980",
+    "type": "TARGET",
+    "ra": 150.04743,
+    "dec": 2.326442,
+    "priority": 2.8318,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1210165",
+    "type": "TARGET",
+    "ra": 150.3194524,
+    "dec": 2.3671869,
+    "priority": 2.8,
+    "a_len": 3.8,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-969162",
+    "type": "TARGET",
+    "ra": 150.30792,
+    "dec": 2.291675,
+    "priority": 3.324,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1490086",
+    "type": "TARGET",
+    "ra": 149.9777797,
+    "dec": 2.4606933,
+    "priority": -2.0,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1222963",
+    "type": "TARGET",
+    "ra": 150.0618,
+    "dec": 2.451157,
+    "priority": 3.7222,
+    "a_len": 2.85,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1458535",
+    "type": "TARGET",
+    "ra": 150.17906,
+    "dec": 2.515874,
+    "priority": 3.9999,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1022535",
+    "type": "TARGET",
+    "ra": 150.03053,
+    "dec": 2.271609,
+    "priority": 2.4672,
+    "a_len": 2.4,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1461779",
+    "type": "TARGET",
+    "ra": 150.17046,
+    "dec": 2.494318,
+    "priority": 3.7118,
+    "a_len": 4.65,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1009006",
+    "type": "TARGET",
+    "ra": 150.15649,
+    "dec": 2.195604,
+    "priority": 2.1672,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1286036",
+    "type": "TARGET",
+    "ra": 149.86413,
+    "dec": 2.355124,
+    "priority": 3.391,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1032128",
+    "type": "TARGET",
+    "ra": 150.04525,
+    "dec": 2.207828,
+    "priority": 3.538,
+    "a_len": 3.2,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-1226138",
+    "type": "TARGET",
+    "ra": 150.12447,
+    "dec": 2.427312,
+    "priority": 2.9769,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1256756",
+    "type": "TARGET",
+    "ra": 149.9019,
+    "dec": 2.386252,
+    "priority": 2.3368,
+    "a_len": 4.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1227790",
+    "type": "TARGET",
+    "ra": 150.0818337,
+    "dec": 2.4154925,
+    "priority": 3.0948,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1438064",
+    "type": "TARGET",
+    "ra": 150.2806825,
+    "dec": 2.4821065,
+    "priority": 4.1009,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1488335",
+    "type": "TARGET",
+    "ra": 149.89994,
+    "dec": 2.464858,
+    "priority": 3.7506,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-996604",
+    "type": "TARGET",
+    "ra": 150.16352,
+    "dec": 2.275076,
+    "priority": 1.9578,
+    "a_len": 6.0,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1460700",
+    "type": "TARGET",
+    "ra": 150.1967,
+    "dec": 2.502313,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1438085",
+    "type": "TARGET",
+    "ra": 150.2814,
+    "dec": 2.488331,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1280292",
+    "type": "TARGET",
+    "ra": 149.86934,
+    "dec": 2.394541,
+    "priority": 2.3651,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-999260",
+    "type": "TARGET",
+    "ra": 150.22612,
+    "dec": 2.253776,
+    "priority": 3.6455,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1021269",
+    "type": "TARGET",
+    "ra": 149.95539,
+    "dec": 2.280396,
+    "priority": 3.8272,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1031951",
+    "type": "TARGET",
+    "ra": 150.01521,
+    "dec": 2.209647,
+    "priority": 4.4163,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1288097",
+    "type": "TARGET",
+    "ra": 149.83006,
+    "dec": 2.341579,
+    "priority": 3.0639,
+    "a_len": 4.2,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1237133",
+    "type": "TARGET",
+    "ra": 150.08064,
+    "dec": 2.3538,
+    "priority": 3.5457,
+    "a_len": 5.4,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1461724",
+    "type": "TARGET",
+    "ra": 150.1049,
+    "dec": 2.495466,
+    "priority": 3.7567,
+    "a_len": 3.0,
+    "b_len": 5.2
+  },
+  {
+    "name": "DC-1033748",
+    "type": "TARGET",
+    "ra": 149.95287,
+    "dec": 2.196955,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1206596",
+    "type": "TARGET",
+    "ra": 150.30968,
+    "dec": 2.390828,
+    "priority": 2.7428,
+    "a_len": 5.7,
+    "b_len": 2.7
+  },
+  {
+    "name": "DC-972032",
+    "type": "TARGET",
+    "ra": 150.29598,
+    "dec": 2.268335,
+    "priority": 3.7449,
+    "a_len": 2.85,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1262125",
+    "type": "TARGET",
+    "ra": 149.9085658,
+    "dec": 2.3515198,
+    "priority": 3.7947,
+    "a_len": 3.0,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1259453",
+    "type": "TARGET",
+    "ra": 149.9046435,
+    "dec": 2.3678107,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1290183",
+    "type": "TARGET",
+    "ra": 149.85469,
+    "dec": 2.32599,
+    "priority": 2.5594,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1288096",
+    "type": "TARGET",
+    "ra": 149.83043,
+    "dec": 2.341792,
+    "priority": 3.2358,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1281710",
+    "type": "TARGET",
+    "ra": 149.8777026,
+    "dec": 2.3789311,
+    "priority": 3.6296,
+    "a_len": 5.85,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1245225",
+    "type": "TARGET",
+    "ra": 150.21043,
+    "dec": 2.298923,
+    "priority": 3.9901,
+    "a_len": 2.1,
+    "b_len": 5.4
+  },
+  {
+    "name": "DC-1259928",
+    "type": "TARGET",
+    "ra": 149.91508,
+    "dec": 2.364762,
+    "priority": 3.7542,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1439678",
+    "type": "TARGET",
+    "ra": 150.25148,
+    "dec": 2.476395,
+    "priority": 3.8704,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485161",
+    "type": "TARGET",
+    "ra": 149.95146,
+    "dec": 2.4988143,
+    "priority": 3.1481,
+    "a_len": 5.7,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1484780",
+    "type": "TARGET",
+    "ra": 149.9261864,
+    "dec": 2.5000608,
+    "priority": 2.9681,
+    "a_len": 3.0,
+    "b_len": 3.8
+  },
+  {
+    "name": "DC-1031993",
+    "type": "TARGET",
+    "ra": 150.0075,
+    "dec": 2.209017,
+    "priority": 4.4286,
+    "a_len": 3.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1246804",
+    "type": "TARGET",
+    "ra": 149.9475,
+    "dec": 2.452461,
+    "priority": 4.5478,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1265134",
+    "type": "TARGET",
+    "ra": 150.058358,
+    "dec": 2.3307425,
+    "priority": 3.6288,
+    "a_len": 3.6,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1485629",
+    "type": "TARGET",
+    "ra": 150.04044,
+    "dec": 2.49526,
+    "priority": 5.0816,
+    "a_len": 5.55,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1249625",
+    "type": "TARGET",
+    "ra": 150.0326,
+    "dec": 2.426766,
+    "priority": 2.8076,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1206373",
+    "type": "TARGET",
+    "ra": 150.2645755,
+    "dec": 2.3928602,
+    "priority": 2.8056,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1263870",
+    "type": "TARGET",
+    "ra": 150.02418,
+    "dec": 2.338269,
+    "priority": 3.3487,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1248634",
+    "type": "TARGET",
+    "ra": 150.04347,
+    "dec": 2.440364,
+    "priority": 3.2512,
+    "a_len": 2.4,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-1027232",
+    "type": "TARGET",
+    "ra": 149.9950633,
+    "dec": 2.2397389,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1047144",
+    "type": "TARGET",
+    "ra": 149.85435,
+    "dec": 2.272268,
+    "priority": 3.5456,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1432015",
+    "type": "TARGET",
+    "ra": 150.2586672,
+    "dec": 2.5338574,
+    "priority": 3.509,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1047481",
+    "type": "TARGET",
+    "ra": 149.88612,
+    "dec": 2.269391,
+    "priority": 3.9527,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1268936",
+    "type": "TARGET",
+    "ra": 149.9593,
+    "dec": 2.307599,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1033346",
+    "type": "TARGET",
+    "ra": 149.94755,
+    "dec": 2.199741,
+    "priority": 3.9866,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1259670",
+    "type": "TARGET",
+    "ra": 150.03655,
+    "dec": 2.366533,
+    "priority": 3.7083,
+    "a_len": 6.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1290128",
+    "type": "TARGET",
+    "ra": 149.86349,
+    "dec": 2.326891,
+    "priority": 2.9218,
+    "a_len": 2.85,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1465413",
+    "type": "TARGET",
+    "ra": 150.08022,
+    "dec": 2.469215,
+    "priority": 3.0626,
+    "a_len": 2.7,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-997226",
+    "type": "TARGET",
+    "ra": 150.22403,
+    "dec": 2.270799,
+    "priority": 1.9798,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1202258",
+    "type": "TARGET",
+    "ra": 150.2929365,
+    "dec": 2.4208564,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1241520",
+    "type": "TARGET",
+    "ra": 150.21138,
+    "dec": 2.322915,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1270708",
+    "type": "TARGET",
+    "ra": 150.00693,
+    "dec": 2.296695,
+    "priority": 2.9472,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1260163",
+    "type": "TARGET",
+    "ra": 149.9824176,
+    "dec": 2.3632371,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1461738",
+    "type": "TARGET",
+    "ra": 150.09601,
+    "dec": 2.495128,
+    "priority": 1.7277,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1264145",
+    "type": "TARGET",
+    "ra": 149.9353811,
+    "dec": 2.3389403,
+    "priority": 2.7673,
+    "a_len": 4.2,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1460693",
+    "type": "TARGET",
+    "ra": 150.15632,
+    "dec": 2.50229,
+    "priority": 3.411,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1268229",
+    "type": "TARGET",
+    "ra": 150.0176591,
+    "dec": 2.3115737,
+    "priority": 3.2679,
+    "a_len": 2.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1228587",
+    "type": "TARGET",
+    "ra": 150.2194123,
+    "dec": 2.4021142,
+    "priority": 3.6091,
+    "a_len": 4.5,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1219509",
+    "type": "TARGET",
+    "ra": 150.2930481,
+    "dec": 2.3071495,
+    "priority": 1.4524,
+    "a_len": 2.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-999248",
+    "type": "TARGET",
+    "ra": 150.2257817,
+    "dec": 2.2515315,
+    "priority": 4.1234,
+    "a_len": 5.85,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-969854",
+    "type": "TARGET",
+    "ra": 150.28666,
+    "dec": 2.28267,
+    "priority": 3.509,
+    "a_len": 4.95,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1002939",
+    "type": "TARGET",
+    "ra": 150.07345,
+    "dec": 2.23332,
+    "priority": 2.4095,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1489767",
+    "type": "TARGET",
+    "ra": 149.9952117,
+    "dec": 2.4661949,
+    "priority": 2.6641,
+    "a_len": 2.85,
+    "b_len": 5.85
+  },
+  {
+    "name": "DC-980111",
+    "type": "TARGET",
+    "ra": 150.25693,
+    "dec": 2.213918,
+    "priority": 3.6788,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1027757",
+    "type": "TARGET",
+    "ra": 149.91846,
+    "dec": 2.23581,
+    "priority": 3.9585,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1292584",
+    "type": "TARGET",
+    "ra": 149.86951,
+    "dec": 2.311292,
+    "priority": 3.2072,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1479427",
+    "type": "TARGET",
+    "ra": 149.90145,
+    "dec": 2.537648,
+    "priority": 3.5855,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1225397",
+    "type": "TARGET",
+    "ra": 150.08196,
+    "dec": 2.434017,
+    "priority": 2.4851,
+    "a_len": 4.2,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1247870",
+    "type": "TARGET",
+    "ra": 149.94269,
+    "dec": 2.447487,
+    "priority": 3.0864,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1243407",
+    "type": "TARGET",
+    "ra": 150.07079,
+    "dec": 2.311318,
+    "priority": 3.3142,
+    "a_len": 3.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1235638",
+    "type": "TARGET",
+    "ra": 150.13806,
+    "dec": 2.364764,
+    "priority": 1.4453,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1030681",
+    "type": "TARGET",
+    "ra": 149.91202,
+    "dec": 2.218193,
+    "priority": 3.3906,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1199858",
+    "type": "TARGET",
+    "ra": 150.24778,
+    "dec": 2.442154,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1213981",
+    "type": "TARGET",
+    "ra": 150.27342,
+    "dec": 2.342582,
+    "priority": 3.3911,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1237631",
+    "type": "TARGET",
+    "ra": 150.0711179,
+    "dec": 2.3494929,
+    "priority": 3.1432,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1265237",
+    "type": "TARGET",
+    "ra": 149.99135,
+    "dec": 2.331423,
+    "priority": 2.0737,
+    "a_len": 2.85,
+    "b_len": 3.2
+  },
+  {
+    "name": "DC-1019888",
+    "type": "TARGET",
+    "ra": 149.93595,
+    "dec": 2.290144,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1202064",
+    "type": "TARGET",
+    "ra": 150.23325,
+    "dec": 2.422808,
+    "priority": 3.2464,
+    "a_len": 3.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1214093",
+    "type": "TARGET",
+    "ra": 150.2368388,
+    "dec": 2.3368635,
+    "priority": 2.9853,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1228994",
+    "type": "TARGET",
+    "ra": 150.09147,
+    "dec": 2.4049,
+    "priority": 3.4538,
+    "a_len": 2.25,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1270825",
+    "type": "TARGET",
+    "ra": 149.90156,
+    "dec": 2.295595,
+    "priority": 3.5184,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1462741",
+    "type": "TARGET",
+    "ra": 150.20112,
+    "dec": 2.487824,
+    "priority": 3.6143,
+    "a_len": 4.8,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1261996",
+    "type": "TARGET",
+    "ra": 150.0400919,
+    "dec": 2.3515332,
+    "priority": 3.4616,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1232823",
+    "type": "TARGET",
+    "ra": 150.2165331,
+    "dec": 2.3782814,
+    "priority": -2.0,
+    "a_len": 4.0,
+    "b_len": 2.85
+  },
+  {
+    "name": "DC-1211590",
+    "type": "TARGET",
+    "ra": 150.2766655,
+    "dec": 2.357651,
+    "priority": 2.8224,
+    "a_len": 2.55,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1260730",
+    "type": "TARGET",
+    "ra": 149.9116,
+    "dec": 2.35877,
+    "priority": 3.6203,
+    "a_len": 3.0,
+    "b_len": 4.0
+  },
+  {
+    "name": "DC-1027170",
+    "type": "TARGET",
+    "ra": 149.93591,
+    "dec": 2.238581,
+    "priority": 3.3284,
+    "a_len": 2.0,
+    "b_len": 5.25
+  },
+  {
+    "name": "DC-1227141",
+    "type": "TARGET",
+    "ra": 150.21089,
+    "dec": 2.418086,
+    "priority": 2.3934,
+    "a_len": 3.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1214598",
+    "type": "TARGET",
+    "ra": 150.3043527,
+    "dec": 2.3376478,
+    "priority": 1.3941,
+    "a_len": 3.0,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1214932",
+    "type": "TARGET",
+    "ra": 150.31871,
+    "dec": 2.33463,
+    "priority": 1.1894,
+    "a_len": 2.1,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-1271117",
+    "type": "TARGET",
+    "ra": 149.9947254,
+    "dec": 2.2934054,
+    "priority": 4.3003,
+    "a_len": 5.25,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1213055",
+    "type": "TARGET",
+    "ra": 150.30444,
+    "dec": 2.348051,
+    "priority": 2.0241,
+    "a_len": 5.4,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1222491",
+    "type": "TARGET",
+    "ra": 150.21495,
+    "dec": 2.453887,
+    "priority": 3.4934,
+    "a_len": 2.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-1261038",
+    "type": "TARGET",
+    "ra": 149.96842,
+    "dec": 2.357907,
+    "priority": 3.3877,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1002835",
+    "type": "TARGET",
+    "ra": 150.17028,
+    "dec": 2.232065,
+    "priority": -2.0,
+    "a_len": 2.0,
+    "b_len": 4.2
+  },
+  {
+    "name": "DC-1240553",
+    "type": "TARGET",
+    "ra": 150.17929,
+    "dec": 2.328692,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1200307",
+    "type": "TARGET",
+    "ra": 150.2862644,
+    "dec": 2.4247321,
+    "priority": 2.6433,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-972672",
+    "type": "TARGET",
+    "ra": 150.26635,
+    "dec": 2.264842,
+    "priority": 3.5762,
+    "a_len": 3.0,
+    "b_len": 3.4
+  },
+  {
+    "name": "DC-1257530",
+    "type": "TARGET",
+    "ra": 150.02323,
+    "dec": 2.377209,
+    "priority": -2.0,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1293563",
+    "type": "TARGET",
+    "ra": 149.8932,
+    "dec": 2.305158,
+    "priority": 2.7847,
+    "a_len": 3.0,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1205257",
+    "type": "TARGET",
+    "ra": 150.27946,
+    "dec": 2.400129,
+    "priority": 3.5194,
+    "a_len": 3.8,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1207400",
+    "type": "TARGET",
+    "ra": 150.30235,
+    "dec": 2.385774,
+    "priority": 1.3178,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1201713",
+    "type": "TARGET",
+    "ra": 150.29355,
+    "dec": 2.425783,
+    "priority": 2.8792,
+    "a_len": 5.0,
+    "b_len": 2.1
+  },
+  {
+    "name": "DC-1234566",
+    "type": "TARGET",
+    "ra": 150.0973062,
+    "dec": 2.3718266,
+    "priority": 3.1859,
+    "a_len": 2.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1022770",
+    "type": "TARGET",
+    "ra": 149.9934,
+    "dec": 2.269873,
+    "priority": 2.9033,
+    "a_len": 3.0,
+    "b_len": 6.0
+  },
+  {
+    "name": "DC-1030631",
+    "type": "TARGET",
+    "ra": 149.9005368,
+    "dec": 2.2176866,
+    "priority": 3.7544,
+    "a_len": 4.2,
+    "b_len": 2.0
+  },
+  {
+    "name": "DC-1249082",
+    "type": "TARGET",
+    "ra": 150.0282021,
+    "dec": 2.4336981,
+    "priority": 3.0544,
+    "a_len": 2.0,
+    "b_len": 5.7
+  },
+  {
+    "name": "DC-1211149",
+    "type": "TARGET",
+    "ra": 150.27048,
+    "dec": 2.357948,
+    "priority": 2.2696,
+    "a_len": 3.0,
+    "b_len": 4.4
+  },
+  {
+    "name": "DC-996992",
+    "type": "TARGET",
+    "ra": 150.22672,
+    "dec": 2.272258,
+    "priority": 4.4082,
+    "a_len": 5.4,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1246103",
+    "type": "TARGET",
+    "ra": 150.14695,
+    "dec": 2.455347,
+    "priority": 3.9341,
+    "a_len": 4.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1005598",
+    "type": "TARGET",
+    "ra": 150.21006,
+    "dec": 2.213806,
+    "priority": 3.6711,
+    "a_len": 2.7,
+    "b_len": 5.0
+  },
+  {
+    "name": "DC-1258339",
+    "type": "TARGET",
+    "ra": 150.0159033,
+    "dec": 2.3759897,
+    "priority": 2.941,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1218127",
+    "type": "TARGET",
+    "ra": 150.3206963,
+    "dec": 2.3150207,
+    "priority": 2.9004,
+    "a_len": 2.0,
+    "b_len": 5.6
+  },
+  {
+    "name": "DC-1264800",
+    "type": "TARGET",
+    "ra": 149.99683,
+    "dec": 2.334626,
+    "priority": 2.4019,
+    "a_len": 2.7,
+    "b_len": 4.6
+  },
+  {
+    "name": "DC-1259141",
+    "type": "TARGET",
+    "ra": 150.00948,
+    "dec": 2.369722,
+    "priority": 2.4379,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1265002",
+    "type": "TARGET",
+    "ra": 150.0445131,
+    "dec": 2.3332835,
+    "priority": 3.5451,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1287576",
+    "type": "TARGET",
+    "ra": 149.8715,
+    "dec": 2.344552,
+    "priority": 3.1643,
+    "a_len": 2.55,
+    "b_len": 3.6
+  },
+  {
+    "name": "DC-1248743",
+    "type": "TARGET",
+    "ra": 149.89909,
+    "dec": 2.438141,
+    "priority": 2.4606,
+    "a_len": 3.0,
+    "b_len": 4.8
+  },
+  {
+    "name": "DC-1281032",
+    "type": "TARGET",
+    "ra": 149.88103,
+    "dec": 2.387669,
+    "priority": 2.3262,
+    "a_len": 3.0,
+    "b_len": 3.0
+  },
+  {
+    "name": "DC-1211156",
+    "type": "TARGET",
+    "ra": 150.2948894,
+    "dec": 2.3609821,
+    "priority": 2.518,
+    "a_len": 2.7,
+    "b_len": 3.4
+  }
+]

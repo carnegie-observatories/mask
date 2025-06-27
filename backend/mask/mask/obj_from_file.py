@@ -19,6 +19,7 @@ def parse_obj_file(path):
         if match:
             obj = {
                 "name": match.group("name"),
+                "type": "TARGET",
                 "ra": float(match.group("ra")),
                 "dec": float(match.group("dec")),
                 "priority": float(match.group("priority")),

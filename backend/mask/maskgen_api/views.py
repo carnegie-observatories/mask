@@ -30,6 +30,7 @@ class ObjectViewSet(viewsets.ViewSet):
         for row in data:
             obj, _ = Object.objects.get_or_create(
                 name=row.pop('name'),
+                user_id=request.data.get("user_id"),
                 type=row.pop('type'),
                 right_ascension=float(row.pop('ra')),
                 declination=float(row.pop('dec')),
@@ -46,9 +47,21 @@ class ObjectViewSet(viewsets.ViewSet):
         ObjectList.objects.all()
         list_name = request.query_params.get('list_name')
         print(list_name)
-        list = ObjectList.objects.get(name=list_name)
-        serialized = ObjectSerializer(list.objects_list.all(), many=True)
-        return Response(serialized.data)
+        object_lists = ObjectList.objects.filter(name=list_name)
+
+        if not object_lists.exists():
+            return Response({"error": f"No ObjectList found with name '{list_name}'"}, status=404)
+
+        results = []
+
+        for obj_list in object_lists:
+            serialized_objects = ObjectSerializer(obj_list.objects_list.all(), many=True)
+            results.append({
+                "list_name": obj_list.name,
+                "objects": serialized_objects.data
+            })
+
+        return Response(results)
     
     # delete obj
 
