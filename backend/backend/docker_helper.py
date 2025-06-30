@@ -1,5 +1,7 @@
 import subprocess
+from threading import Timer
 import time
+
 
 def docker_copy_file_to(container_name, local_file, container_dest_path):
     try:
@@ -12,14 +14,28 @@ def docker_copy_file_to(container_name, local_file, container_dest_path):
         print("Error copying file to container:", e)
 
 def run_maskgen(command):
-    process = subprocess.Popen(command.split(" "),
+    proc = subprocess.Popen(command.split(" "),
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE,
                                text=True)
+    timer = Timer(10, proc.kill)
+    try:
+        timer.start()
+        stdout, stderr = proc.communicate()
+        if proc.returncode == 0:
+            return True, stdout.strip()
+        else:
+            return False, stderr.strip()
+    except Exception as e:
+        return False, str(e)
+    finally:
+        timer.cancel()
+    
     time.sleep(1) # Give the program a moment to start and print
-    output = process.stdout.read()
-    print(f"Subprocess output: {output}")
+    # output = proc.stdout.read()
+    # print(f"Subprocess output: {output}")
+
 
 def run_command(command):
     """

@@ -1,5 +1,4 @@
 from .models import Object, ObjectList
-import os
 import re
 
 def obj_to_json(file_bytes):

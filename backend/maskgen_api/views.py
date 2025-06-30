@@ -7,15 +7,14 @@ from rest_framework.response import Response
 from .models import Object, Mask, ObjectList
 from .serializers import ObjectSerializer
 from .obs_file_formatting import generate_obj_file, generate_obs_file, obj_to_json
-from mask.docker_helper import run_command, run_maskgen
+from backend.docker_helper import run_command, run_maskgen
 
-import pandas as pd
 import json
 import os
 
 MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/"
 MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
-PROJECT_DIRECTORY = "/Users/maylinchen/Downloads/mask/backend/mask/"
+PROJECT_DIRECTORY = os.getcwd() + "/"
 API_FOLDER = "maskgen_api/"
 
 class ObjectViewSet(viewsets.ViewSet):
@@ -80,7 +79,7 @@ class ObjectViewSet(viewsets.ViewSet):
 
         return Response(results)
     
-    # delete obj
+    # TODO: delete obj
 
 
 class MaskViewSet(viewsets.ViewSet):
@@ -107,13 +106,13 @@ class MaskViewSet(viewsets.ViewSet):
     def generate_mask(self, request):
         data = request.data
         filename = data['filename']
-        obj_path = generate_obj_file(filename, data['objects'])
-        obs_path = generate_obs_file(data, [f"{filename}.obj"])
+        generate_obj_file(filename, data['objects'])
+        generate_obs_file(data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
         
         print("cping files")
-        result, cp_feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}")
-        result, cp_feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}")
+        result, _ = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}")
+        result, _ = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}")
         if result:
             print("running maskgen")
             result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
@@ -121,9 +120,11 @@ class MaskViewSet(viewsets.ViewSet):
         if result and "Writing object file with use counts to" in feedback:
             print("moving smf files")
             run_command(f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files")
+            run_command(f"rm -f {PROJECT_DIRECTORY}.loc_mgvers.dat")
+            run_command(f"rm -f {PROJECT_DIRECTORY}.loc_ociw214.pem")
             return Response({"created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF"}, status=status.HTTP_201_CREATED)
         else:
-            return  Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
+            return  Response({"error": "error"}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["get"], url_path="preview")
     def preview(self, request, pk=None):

@@ -4,23 +4,20 @@ Then upload your file. Next, go to headers and add a new header named "Content-D
 `form-data; name="file"; filename="your_file_name_here"`
 """
 
-
 # https://stackoverflow.com/questions/68477/send-file-using-post-from-a-python-script
-
-user_agent = "image uploader"
-default_message = "Image $current of $total"
-
 import logging
 import os
 from os.path import abspath, isabs, isdir, isfile, join
 import random
 import string
-import sys
 import mimetypes
-import urllib2
-import httplib
 import time
 import re
+import urllib2
+import httplib
+
+user_agent = "image uploader"
+default_message = "Image $current of $total"
 
 def random_string (length):
     return ''.join (random.choice (string.letters) for ii in range (length + 1))
