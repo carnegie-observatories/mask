@@ -64,13 +64,12 @@ def generate_obj_file(filename, objects):
     Returns:
         str: path to obj file
     """
-    print(os.getcwd())
+    print("generate obj file")
     path = f"maskgen_api/obj_files/{filename}.obj"
     with open(path, 'w') as file:
         file.write("&RADEGREE\n")
         if not isinstance(objects, list):
             objects = list(ObjectList.objects.get(name=objects).objects_list.values_list('id', flat=True))
-            print(objects)
         for id in objects: 
             obj = Object.objects.get(id=id)
             if obj.type != 'GUIDE':
@@ -114,8 +113,7 @@ def generate_obs_file(instrument_setup, obj_file_paths):
     Returns:
         str: path to obs file
     """
-    print(os.getcwd())
-    print(instrument_setup)
+    print("generate obs file")
     obs_header = f"""#Obs file ({instrument_setup['filename']}.obs)
 # Written By:  IntGui 4.70 
 ! Edited {instrument_setup['edit_date']} By Observer Interface GUI version 4.70.31

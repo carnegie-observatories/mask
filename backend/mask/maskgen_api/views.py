@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .models import Object, Mask, ObjectList
 from .serializers import ObjectSerializer
 from .obs_file_formatting import generate_obj_file, generate_obs_file, obj_to_json
-from mask.docker_helper import run_command
+from mask.docker_helper import run_command, run_maskgen
 
 import pandas as pd
 import json
@@ -64,7 +64,6 @@ class ObjectViewSet(viewsets.ViewSet):
     def view_list(self, request):
         ObjectList.objects.all()
         list_name = request.query_params.get('list_name')
-        print(list_name)
         object_lists = ObjectList.objects.filter(name=list_name)
 
         if not object_lists.exists():
@@ -109,19 +108,20 @@ class MaskViewSet(viewsets.ViewSet):
         data = request.data
         filename = data['filename']
         obj_path = generate_obj_file(filename, data['objects'])
-        print(obj_path)
         obs_path = generate_obs_file(data, [f"{filename}.obj"])
-        os.getcwd()
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
-        result, feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}")
-        print(feedback)
-        result, feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}")
-        print(feedback)
+        
+        print("cping files")
+        result, cp_feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}")
+        result, cp_feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}")
         if result:
-            result, feedback = run_command(f"{MASKGEN_DIRECTORY}/maskgen {filename}.obs")
-        if result:
+            print("running maskgen")
+            result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
+            print(feedback)
+        if result and "Writing object file with use counts to" in feedback:
+            print("moving smf files")
             run_command(f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files")
-            return Response({"created": obs_path}, status=status.HTTP_201_CREATED)
+            return Response({"created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF"}, status=status.HTTP_201_CREATED)
         else:
             return  Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
 
