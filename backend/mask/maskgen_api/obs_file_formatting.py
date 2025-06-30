@@ -1,6 +1,56 @@
-from .models import Object
-import json
+from .models import Object, ObjectList
 import os
+import re
+
+def obj_to_json(file_bytes):
+    text = file_bytes.decode("utf-8")
+    lines = text.splitlines()
+    objects = []
+
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+
+        if line.startswith("@"):
+            obj_type = "TARGET"
+            line = line[1:]
+        elif line.startswith("*"):
+            obj_type = "ALIGN"
+            line = line[1:]
+        else:
+            continue  # skip invalid or unmarked lines
+
+        match = re.match(
+            r"(?P<name>\S+)\s+(?P<ra>[\d\.]+)\s+(?P<dec>[-\d\.]+)\s+Pri=(?P<priority>[-\d\.]+)(?:\s+alen=(?P<a_len>[\d\.]+)\s+blen=(?P<b_len>[\d\.]+))?",
+            line
+        )
+
+        if match:
+            obj = {
+                "name": match.group("name"),
+                "type": obj_type,
+                "ra": float(match.group("ra")),
+                "dec": float(match.group("dec")),
+                "priority": float(match.group("priority")),
+            }
+            if match.group("a_len") and match.group("b_len"):
+                obj["a_len"] = float(match.group("a_len"))
+                obj["b_len"] = float(match.group("b_len"))
+            objects.append(obj)
+
+    return objects
+"""
+# === Example Usage ===
+obj_file_path = "/Users/maylinchen/Downloads/DCM5V5E.obj"
+output_path = Path("/Users/maylinchen/Downloads/mask/backend/mask/maskgen_api/test_files/DCM5V5E.json")
+
+parsed_objects = parse_obj_file(obj_file_path)
+
+print(json.dumps(parsed_objects, indent=2))
+output_path.write_text(json.dumps(parsed_objects, indent=2))
+"""
+
 def generate_obj_file(filename, objects):
     """
     Generates a .obj file following Carnegie OBS formatting
@@ -14,9 +64,13 @@ def generate_obj_file(filename, objects):
     Returns:
         str: path to obj file
     """
+    print(os.getcwd())
     path = f"maskgen_api/obj_files/{filename}.obj"
     with open(path, 'w') as file:
         file.write("&RADEGREE\n")
+        if not isinstance(objects, list):
+            objects = list(ObjectList.objects.get(name=objects).objects_list.values_list('id', flat=True))
+            print(objects)
         for id in objects: 
             obj = Object.objects.get(id=id)
             if obj.type != 'GUIDE':
@@ -43,7 +97,8 @@ def generate_obj_file(filename, objects):
                     new_line = "@" + new_line
                 
                 file.write(new_line + "\n")
-    return path
+            
+    return f"obj_files/{filename}.obj/"
 
 
 def generate_obs_file(instrument_setup, obj_file_paths):

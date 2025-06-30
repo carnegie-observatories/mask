@@ -6,36 +6,54 @@ from rest_framework.response import Response
 
 from .models import Object, Mask, ObjectList
 from .serializers import ObjectSerializer
-from .obs_file_formatting import generate_obj_file, generate_obs_file
+from .obs_file_formatting import generate_obj_file, generate_obs_file, obj_to_json
 from mask.docker_helper import run_command
 
 import pandas as pd
 import json
 import os
 
-MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64"
+MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/"
 MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
-OBS_DIRECTORY = "/Users/maylinchen/Downloads/mask/backend/mask/maskgen_api/obs_files"
-
+PROJECT_DIRECTORY = "/Users/maylinchen/Downloads/mask/backend/mask/"
+API_FOLDER = "maskgen_api/"
 
 class ObjectViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="upload")
     def upload(self, request):
-        # add name input + store in a list
-        uploaded_file_bytes = request.data.get("file").read()
-        data_str = uploaded_file_bytes.decode('utf-8')
-        data = json.loads(data_str)
-        obj_list = ObjectList.objects.create(name=request.data.get("list_name"))
+        uploaded_file = request.data.get("file")
+        uploaded_file_bytes = uploaded_file.read()
+
+        if uploaded_file.name.endswith(".obj"):
+            data = obj_to_json(uploaded_file_bytes)
+        else:
+            data_str = uploaded_file_bytes.decode('utf-8')
+            data = json.loads(data_str)
+        user_id = request.data.get("user_id")
+        list_name = request.data.get("list_name")
+
+        # Check if a list with the same name and user_id already exists
+        existing = ObjectList.objects.filter(name=list_name, user_id=user_id).first()
+        if existing:
+            return Response(
+                {"error": f"List '{list_name}' already exists for user '{user_id}'."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        obj_list = ObjectList.objects.create(name=list_name, user_id=user_id)
         created_objects = []
+
         for row in data:
             obj, _ = Object.objects.get_or_create(
                 name=row.pop('name'),
                 user_id=request.data.get("user_id"),
-                type=row.pop('type'),
-                right_ascension=float(row.pop('ra')),
-                declination=float(row.pop('dec')),
-                priority=int(row.pop('priority')),
-                aux=row
+                defaults={
+                    "type": row.pop("type"),
+                    "right_ascension": float(row.pop("ra")),
+                    "declination": float(row.pop("dec")),
+                    "priority": int(row.pop("priority")),
+                    "aux": row,
+                }
             )
             created_objects.append(obj.id)
             obj_list.objects_list.add(obj)
@@ -89,21 +107,28 @@ class MaskViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="generate")
     def generate_mask(self, request):
         data = request.data
-        obj_path = generate_obj_file(data['filename'], data['objects'])
-        obs_path = generate_obs_file(data, [obj_path])
+        filename = data['filename']
+        obj_path = generate_obj_file(filename, data['objects'])
+        print(obj_path)
+        obs_path = generate_obs_file(data, [f"{filename}.obj"])
         os.getcwd()
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
-        result, feedback = run_command(f"cp {OBS_DIRECTORY}/{data['filename']}.obs {MASKGEN_DIRECTORY}")
+        result, feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}")
+        print(feedback)
+        result, feedback = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}")
         print(feedback)
         if result:
-            result, feedback = run_command(f"{MASKGEN_DIRECTORY}/maskgen {data['filename']}.obs")
+            result, feedback = run_command(f"{MASKGEN_DIRECTORY}/maskgen {filename}.obs")
         if result:
+            run_command(f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files")
             return Response({"created": obs_path}, status=status.HTTP_201_CREATED)
         else:
             return  Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=["get"], url_path="preview")
     def preview(self, request, pk=None):
+        mask_name = request.query_params.get('mask_name')
+        run_command(f"{MASKGEN_DIRECTORY}/smdfplt {mask_name}")
         return Response({"message": f"Preview generated for {pk}"})
 
     @action(detail=True, methods=["post"], url_path="validate")

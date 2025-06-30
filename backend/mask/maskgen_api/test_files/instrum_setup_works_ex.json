@@ -13,8 +13,8 @@
   "guide_stars": [
     {
       "name": "GS1",
-      "ra": "10.003009",
-      "dec": "2.13239",
+      "ra": "10.002168",
+      "dec": "2.61311",
       "equinox": 2000.0,
       "id": "GS101"
     },
@@ -34,7 +34,7 @@
 
   "telescope": "Magellan",
   "instrument": "IMACS_sc",
-  "disperser": "IMACS_grism_400",
+  "disperser": "IMACS_direct_grism",
 
   "slit_width": 1.000,
   "a_len": 10.000,
@@ -50,14 +50,5 @@
   "overlap": -2,
   "exorder": 0,
   "date": "2025-06-23",
-  "objects": [6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15]
+  "objects": "DCM5V5E"
 }

@@ -92,3 +92,5 @@ class ObjectList(models.Model):
     user_id = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     objects_list = models.ManyToManyField('Object', blank=True)
+    class Meta:
+        unique_together = ("name", "user_id") 
