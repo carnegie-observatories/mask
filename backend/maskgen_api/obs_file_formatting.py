@@ -1,5 +1,25 @@
 from .models import Object, ObjectList
 import re
+from pathlib import Path
+
+def categorize_objs(mask, file_path):
+    lines = Path(file_path).read_text().splitlines()
+    for line in lines:
+        # get obj name
+        match = re.match(r'[@\*](\S+)', line)
+        if match:
+            try:
+                obj = Object.objects.get(name=match.group(1))
+                if re.search(r'Use=\d+', line):
+                    mask.objects_list.add(obj)
+                else:
+                    mask.excluded_obj_list.add(obj)
+                mask.save()
+            except Object.DoesNotExist:
+                mask.delete()
+                return False, f"warning: object with name '{match.group(1)}' not found."
+    return True, "yay it worked"
+    
 
 def obj_to_json(file_bytes):
     text = file_bytes.decode("utf-8")

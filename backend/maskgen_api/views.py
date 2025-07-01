@@ -4,10 +4,10 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Object, Mask, ObjectList
+from .models import Object, Mask, ObjectList, InstrumentConfig, Status
 from .serializers import ObjectSerializer
-from .obs_file_formatting import generate_obj_file, generate_obs_file, obj_to_json
-from backend.docker_helper import run_command, run_maskgen
+from .obs_file_formatting import generate_obj_file, generate_obs_file, obj_to_json, categorize_objs
+from backend.terminal_helper import run_command, run_maskgen
 
 import json
 import os
@@ -23,11 +23,13 @@ class ObjectViewSet(viewsets.ViewSet):
         uploaded_file = request.data.get("file")
         uploaded_file_bytes = uploaded_file.read()
 
+        # check if file is .obj or json
         if uploaded_file.name.endswith(".obj"):
             data = obj_to_json(uploaded_file_bytes)
         else:
             data_str = uploaded_file_bytes.decode('utf-8')
             data = json.loads(data_str)
+
         user_id = request.data.get("user_id")
         list_name = request.data.get("list_name")
 
@@ -84,7 +86,7 @@ class ObjectViewSet(viewsets.ViewSet):
 
 class MaskViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
-        mask = Mask.objects.get(pk=pk)
+        mask = Mask.objects.get(name=pk)
         return Response({
             "name": pk,
             "status": mask.status,
@@ -99,6 +101,15 @@ class MaskViewSet(viewsets.ViewSet):
                     "declination": obj.declination,
                     "priority": obj.priority,
                 } | obj.aux for obj in mask.objects_list.all()
+            ],
+            "excluded_objects": [
+                {
+                    "name": obj.name,
+                    "type": obj.type,
+                    "right_ascension": obj.right_ascension,
+                    "declination": obj.declination,
+                    "priority": obj.priority,
+                } | obj.aux for obj in mask.excluded_obj_list.all()
             ]
         })
 
@@ -122,7 +133,21 @@ class MaskViewSet(viewsets.ViewSet):
             run_command(f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files")
             run_command(f"rm -f {PROJECT_DIRECTORY}.loc_mgvers.dat")
             run_command(f"rm -f {PROJECT_DIRECTORY}.loc_ociw214.pem")
-            return Response({"created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF"}, status=status.HTTP_201_CREATED)
+
+            mask = Mask.objects.create(
+                name=filename,
+                status=Status.SMF, 
+                features={},  # TODO: FILL WITH FEATURES
+                instrument_setup=data,
+                instrument_config=InstrumentConfig.objects.first()  # TODO: CHANGE!!!!!
+            )
+
+            result, feedback = categorize_objs(mask, f"{PROJECT_DIRECTORY}{filename}.obw")
+            run_command(f"rm -f {PROJECT_DIRECTORY}{filename}.obw")
+            if result:
+                return Response({"created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF"}, status=status.HTTP_201_CREATED)
+            else:
+                return  Response({"error": "error"}, status=status.HTTP_400_BAD_REQUEST)
         else:
             return  Response({"error": "error"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -131,7 +156,3 @@ class MaskViewSet(viewsets.ViewSet):
         mask_name = request.query_params.get('mask_name')
         run_command(f"{MASKGEN_DIRECTORY}/smdfplt {mask_name}")
         return Response({"message": f"Preview generated for {pk}"})
-
-    @action(detail=True, methods=["post"], url_path="validate")
-    def validate_setup(self, request, pk=None):
-        return Response({"message": f"Validated instrument: {pk}"})

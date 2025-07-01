@@ -49,7 +49,8 @@ class Mask(models.Model):
         default=Status.OBS
     )
     features = models.JSONField() # slits and holes
-    objects_list = models.ManyToManyField('Object', blank=True) # guide and alignment stars
+    objects_list = models.ManyToManyField('Object', blank=True, related_name='objs_on_mask') # guide and alignment stars
+    excluded_obj_list = models.ManyToManyField('Object', blank=True, related_name='objs_not_on_mask') # objs left out of the mask
     instrument_config = models.ForeignKey('InstrumentConfig', on_delete=models.SET_NULL, null=True)
     instrument_setup = models.JSONField()
 
