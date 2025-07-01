@@ -43,8 +43,12 @@ instance/
 .DS_Store
 Thumbs.db
 
-# Obs-specific or domain-specific
+# user generated files
 *.obs
 *.obj
-obs_files/
-objfiles/
+*.SMF
+
+# EXCEPT these test files
+!DCM5V5E.obs
+!DCM5V5E.obj
+!DCM5V5E.SMF
