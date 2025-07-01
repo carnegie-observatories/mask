@@ -5,7 +5,7 @@ from rest_framework.test import APIClient
 from maskgen_api.models import Object, ObjectList
 
 pytestmark = pytest.mark.django_db  # ensures each test uses a test DB
-
+TEST_OBJ_FILE_PATH = "backend/tests/data/DCM5V5E.obj"
 client = APIClient()
 
 @pytest.fixture
@@ -45,6 +45,24 @@ def test_upload_objects(sample_object_data):
     assert Object.objects.count() == 2
     obj_list = ObjectList.objects.get(name=list_name)
     assert obj_list.objects_list.count() == 2
+    assert response.data["obj_list"] == list_name
+
+def test_upload_objects_from_obj():
+    list_name = "UploadList"
+    with open(TEST_OBJ_FILE_PATH, "rb") as fh:
+        file = BytesIO(fh.read())
+    file.name = "upload.obj"
+
+    response = client.post(
+        "/api/objects/upload/",
+        {"file": file, "list_name": list_name, "user_id": "test"},
+        format="multipart"
+    )
+
+    assert response.status_code == 201
+    assert Object.objects.count() == 1936
+    obj_list = ObjectList.objects.get(name=list_name)
+    assert obj_list.objects_list.count() == 1936
     assert response.data["obj_list"] == list_name
 
 def test_view_object_list(sample_object_data):

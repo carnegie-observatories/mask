@@ -1,8 +1,4 @@
-"""
-To send a post request through postman, go to Body -> form-data -> add a key named "file" and switch the type to file.
-Then upload your file. Next, go to headers and add a new header named "Content-Disposition" with the value
-`form-data; name="file"; filename="your_file_name_here"`
-"""
+
 
 # https://stackoverflow.com/questions/68477/send-file-using-post-from-a-python-script
 import logging
