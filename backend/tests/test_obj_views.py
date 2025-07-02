@@ -1,11 +1,13 @@
 import json
+import os
 import pytest
 from io import BytesIO
 from rest_framework.test import APIClient
 from maskgen_api.models import Object, ObjectList
 
 pytestmark = pytest.mark.django_db  # ensures each test uses a test DB
-TEST_OBJ_FILE_PATH = "backend/tests/data/DCM5V5E.obj"
+script_dir = os.path.dirname(__file__)
+TEST_OBJ_FILE_PATH = os.path.join(script_dir, "data", "DCM5V5E.obj")
 client = APIClient()
 
 @pytest.fixture
