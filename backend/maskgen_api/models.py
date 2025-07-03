@@ -11,7 +11,7 @@ class Status(models.TextChoices):
 # Models
 # add more info later 
 class Filter(models.Model):
-    name = models.CharField(max_length=50, choices=Filters.choices)
+    name = models.CharField(max_length=50)
  
     def __str__(self):
         return self.name
@@ -37,7 +37,7 @@ class Mask(models.Model):
     status = models.CharField(
         max_length=100,
         choices=Status.choices,
-        default=Status.OBS
+        default=Status.DRAFT
     )
     features = models.JSONField() # slits and holes
     objects_list = models.ManyToManyField('Object', blank=True, related_name='objs_on_mask') # guide and alignment stars
@@ -48,18 +48,6 @@ class Mask(models.Model):
     def __str__(self):
         return f"Mask {self.name}"  
     
-# class InstrumentSetup(models.Model):
-#     instrument_config = models.ForeignKey('InstrumentConfig', on_delete=models.SET_NULL, null=True)
-#     filter_band = models.ForeignKey('Filter', on_delete=models.SET_NULL, null=True)
-#     dispersor = models.ForeignKey('Grism', on_delete=models.SET_NULL, null=True)
-#     nod_and_shuffle_mode = models.BooleanField(default=False)
-#     alpha_offset = models.FloatField()
-#     delta_offset = models.FloatField()
-#     proper_motion_alpha = models.FloatField()
-#     proper_motion_delta = models.FloatField()
-
-#     def __str__(self):
-#         return f"InstrumentSetup {self.id} for {self.instrument_config}"
       
 class Object(models.Model):
     TYPE_CHOICES = [
