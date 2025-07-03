@@ -1,20 +1,11 @@
 from django.db import models
 
-# Enums
-class Filters(models.TextChoices):
-    U = 'U', 'U-band'
-    B = 'B', 'B-band'
-    V = 'V', 'V-band'
-    I = 'I', 'I-band'
-    OTHER = 'OTHER', 'Other'
-
 class Instrument(models.TextChoices):
     IMACS_F4 = 'IMACS f/4'
     IMACS_F2 = 'IMACS f/2'
 
 class Status(models.TextChoices):
-    OBS = 'obs', 'OBS'
-    SMF = 'smf', 'SMF'
+    DRAFT = 'draft', 'Draft'
     FINALIZED = 'finalized', 'Finalized (sent to be cut)'
     COMPLETED = 'completed', 'Completed (mask has been cut successfully)'
 # Models

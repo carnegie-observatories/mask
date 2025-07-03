@@ -63,7 +63,6 @@ class ObjectViewSet(viewsets.ViewSet):
     # get lists of objects
     @action(detail=False, methods=["get"], url_path="viewlist")
     def view_list(self, request):
-        ObjectList.objects.all()
         list_name = request.query_params.get('list_name')
         object_lists = ObjectList.objects.filter(name=list_name)
 
@@ -100,7 +99,7 @@ class MaskViewSet(viewsets.ViewSet):
                     "right_ascension": obj.right_ascension,
                     "declination": obj.declination,
                     "priority": obj.priority,
-                } | obj.aux for obj in mask.objects_list.all()
+                } | (obj.aux or {}) for obj in mask.objects_list.all()
             ],
             "excluded_objects": [
                 {
@@ -109,7 +108,7 @@ class MaskViewSet(viewsets.ViewSet):
                     "right_ascension": obj.right_ascension,
                     "declination": obj.declination,
                     "priority": obj.priority,
-                } | obj.aux for obj in mask.excluded_obj_list.all()
+                } | (obj.aux or {}) for obj in mask.excluded_obj_list.all()
             ]
         })
 
@@ -129,14 +128,14 @@ class MaskViewSet(viewsets.ViewSet):
             result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
             print(feedback)
         if result and "Writing object file with use counts to" in feedback:
-            print("moving smf files")
+            print("moving draft files")
             run_command(f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files")
             run_command(f"rm -f {PROJECT_DIRECTORY}.loc_mgvers.dat")
             run_command(f"rm -f {PROJECT_DIRECTORY}.loc_ociw214.pem")
 
             mask = Mask.objects.create(
                 name=filename,
-                status=Status.SMF, 
+                status=Status.DRAFT, 
                 features={},  # TODO: FILL WITH FEATURES
                 instrument_setup=data,
                 instrument_config=InstrumentConfig.objects.first()  # TODO: CHANGE!!!!!

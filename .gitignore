@@ -48,7 +48,5 @@ Thumbs.db
 *.obj
 *.SMF
 
-# EXCEPT these test files
-!DCM5V5E.obs
-!DCM5V5E.obj
-!DCM5V5E.SMF
+# EXCEPT for these test files
+except !tests/data/

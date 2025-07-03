@@ -9,4 +9,10 @@ Then upload your file. Next, go to headers and add a new header named "Content-D
 `form-data; name="file"; filename="your_file_name_here"`
 
 TODO
-- add another test case for .obj files in object upload
+- convert .obj ra from hrs to degs
+- endpoint get list of available grisms and filters
+- convert instrument config to json
+- format slits into a json file
+- endpoint to retrieve slits
+- endpoint to download json formatting
+
