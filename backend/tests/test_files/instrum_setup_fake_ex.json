@@ -1,0 +1,54 @@
+{
+  "filename": "mask001",
+  "edit_date": "2025-06-23",
+  "observer": "Dr. Jane Doe",
+  "title": "Deep Field Survey",
+  "center_ra": "12:34:56.78",
+  "center_dec": "-45:00:00.0",
+  "equinox": 2000.0,
+  "position": 180.0,
+  "dref": 1,
+  "hangle": -15.5,
+
+  "guide_stars": [
+    {
+      "name": "GS1",
+      "ra": "12:35:10.00",
+      "dec": "-45:01:00.0",
+      "equinox": 2000.0,
+      "id": "GS101"
+    },
+    {
+      "name": "GS2",
+      "ra": "12:34:30.00",
+      "dec": "-44:59:30.0",
+      "equinox": 2000.0,
+      "id": "GS102"
+    }
+  ],
+
+  "wlimit_low": 4000.0,
+  "wlimit_high": 7000.0,
+  "wavelength": 5500.0,
+  "pdecide": 0.5,
+
+  "telescope": "Magellan",
+  "instrument": "IMACS_sc",
+  "disperser": "IMACS_grism_400",
+
+  "slit_width": 1.000,
+  "a_len": 10.000,
+  "b_len": 2.000,
+  "slit_tilt": 0.000,
+
+  "refhole_width": 5.803,
+  "refhole_shape": 1,
+  "refhole_a_len": 0.000,
+  "refhole_b_len": 0.000,
+  "refhole_orient_deg": 0.000,
+
+  "overlap": 0.10,
+  "exorder": 1,
+  "date": "2025-06-23",
+  "objects": [1,2,3,4,5]
+}
