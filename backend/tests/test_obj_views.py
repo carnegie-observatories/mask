@@ -67,7 +67,7 @@ def test_upload_objects_from_obj():
     assert obj_list.objects_list.count() == 1936
     assert response.data["obj_list"] == list_name
 
-def test_view_object_list(sample_object_data):
+def test_view_object_list():
     list_name = "ViewList"
     obj1 = Object.objects.create(
         name="obj1", type="ALIGN", right_ascension=1.0, declination=2.0, priority=1

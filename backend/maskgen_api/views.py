@@ -3,6 +3,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 from .models import Object, Mask, ObjectList, InstrumentConfig, Status
 from .serializers import ObjectSerializer
@@ -89,8 +90,7 @@ class MaskViewSet(viewsets.ViewSet):
         return Response({
             "name": pk,
             "status": mask.status,
-            "features": mask.features,
-            "instrument_config": mask.instrument_config,
+            "instrument_version": mask.instrument_version,
             "instrument_setup": mask.instrument_setup,
             "objects_list": [
                 {
@@ -109,7 +109,8 @@ class MaskViewSet(viewsets.ViewSet):
                     "declination": obj.declination,
                     "priority": obj.priority,
                 } | (obj.aux or {}) for obj in mask.excluded_obj_list.all()
-            ]
+            ],
+            "features": mask.features
         })
 
     @action(detail=False, methods=["post"], url_path="generate")
@@ -120,25 +121,61 @@ class MaskViewSet(viewsets.ViewSet):
         generate_obs_file(data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
         
-        print("cping files")
         result, _ = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}")
         result, _ = run_command(f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}")
         if result:
-            print("running maskgen")
             result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
-            print(feedback)
+
         if result and "Writing object file with use counts to" in feedback:
-            print("moving draft files")
+            # clean up auto generated files
             run_command(f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files")
             run_command(f"rm -f {PROJECT_DIRECTORY}.loc_mgvers.dat")
             run_command(f"rm -f {PROJECT_DIRECTORY}.loc_ociw214.pem")
+           
+            # process features from SMF
+            filepath = os.path.join(PROJECT_DIRECTORY, API_FOLDER, "smf_files", f"{filename}.SMF")
+            features = []
+            with open(filepath, "rb") as f:
+                
+                for line in f:
+                    line = line.decode("utf-8").strip()
+                    if line.startswith("SLIT"):
+                        parts = line.split()
+                        features.append({
+                            "type": "SLIT",
+                            "id": parts[1],
+                            "ra": parts[2],
+                            "dec": parts[3],
+                            "x": float(parts[4]),
+                            "y": float(parts[5]),
+                            "width": float(parts[6]),
+                            "a_len": float(parts[7]),
+                            "b_len": float(parts[8]),
+                            "angle": float(parts[9]),
+                        })
+                    elif line.startswith("HOLE"):
+                        parts = line.split()
+                        features.append({
+                            "type": "HOLE",
+                            "id": parts[1],
+                            "ra": parts[2],
+                            "dec": parts[3],
+                            "x": float(parts[4]),
+                            "y": float(parts[5]),
+                            "width": float(parts[6]),
+                            "shape_code": int(parts[7]),
+                            "a_len": float(parts[8]),
+                            "b_len": float(parts[9]),
+                            "angle": float(parts[10]),
+                        })
+
 
             mask = Mask.objects.create(
                 name=filename,
-                status=Status.DRAFT, 
-                features={},  # TODO: FILL WITH FEATURES
+                status=Status.DRAFT,
                 instrument_setup=data,
-                instrument_config=InstrumentConfig.objects.first()  # TODO: CHANGE!!!!!
+                instrument_version=InstrumentConfig.objects.filter(instrument=data["instrument"]).order_by("-version").first().version,
+                features=features
             )
 
             result, feedback = categorize_objs(mask, f"{PROJECT_DIRECTORY}{filename}.obw")
@@ -155,3 +192,41 @@ class MaskViewSet(viewsets.ViewSet):
         mask_name = request.query_params.get('mask_name')
         run_command(f"{MASKGEN_DIRECTORY}/smdfplt {mask_name}")
         return Response({"message": f"Preview generated for {pk}"})
+
+
+class InstrumentViewSet(viewsets.ViewSet):
+    def retrieve(self, request, pk=None):
+        version = request.query_params.get("version")
+        if version:
+            config = get_object_or_404(InstrumentConfig, instrument=pk, version=version)
+        else:
+            config = InstrumentConfig.objects.filter(instrument=pk).order_by("-version").first()
+
+
+        return Response({
+            "name": config.instrument,
+            "filters": config.filters,
+            "dispersers": config.dispersers,
+            "aux": config.aux,
+        })
+    
+    @action(detail=False, methods=["post"], url_path="uploadconfig")
+    def upload(self, request):
+        print(request.data)
+        data = request.data
+        existing = InstrumentConfig.objects.filter(instrument=data["instrument"]).order_by("-version").first()
+        if existing:
+            version = existing.version + 1
+        else:
+            version = 1
+            
+        
+        instrument_config = InstrumentConfig.objects.create(
+            instrument=data.pop("instrument"),
+            filters=data.pop("filters"),
+            dispersers=data.pop("dispersers"),
+            aux = json.dumps(data),
+            version = version
+        )
+
+        return Response({"created": str(instrument_config)}, status=status.HTTP_201_CREATED)

@@ -25,12 +25,16 @@ class Disperser(models.Model):
     
 class InstrumentConfig(models.Model):
     instrument = models.CharField(max_length=20, choices=Instrument.choices)
-    version = models.CharField(max_length=50)
-    available_filters = models.ManyToManyField(Filter, blank=True)
-    available_dispersers = models.ManyToManyField(Disperser, blank=True)
-
+    version = models.IntegerField() 
+    filters = models.JSONField()
+    dispersers = models.JSONField()
+    aux = models.JSONField()
     def __str__(self):
         return f"{self.instrument} v{self.version}"
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['instrument', 'version'], name='unique_instrument_version')
+        ]
 
 class Mask(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
@@ -42,7 +46,7 @@ class Mask(models.Model):
     features = models.JSONField() # slits and holes
     objects_list = models.ManyToManyField('Object', blank=True, related_name='objs_on_mask') # guide and alignment stars
     excluded_obj_list = models.ManyToManyField('Object', blank=True, related_name='objs_not_on_mask') # objs left out of the mask
-    instrument_config = models.ForeignKey('InstrumentConfig', on_delete=models.SET_NULL, null=True)
+    instrument_version = models.IntegerField()
     instrument_setup = models.JSONField()
 
     def __str__(self):
@@ -73,4 +77,6 @@ class ObjectList(models.Model):
     name = models.CharField(max_length=100)
     objects_list = models.ManyToManyField('Object', blank=True)
     class Meta:
-        unique_together = ("name", "user_id") 
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'user_id'], name='unique_obj_list_per_user')
+        ]

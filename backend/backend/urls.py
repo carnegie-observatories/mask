@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from maskgen_api.views import MaskViewSet, ObjectViewSet
+from maskgen_api.views import MaskViewSet, ObjectViewSet, InstrumentViewSet
 router = DefaultRouter()
 
 router.register(r"masks", MaskViewSet, basename="mask")
 router.register(r"objects", ObjectViewSet, basename="object")
+router.register(r"instruments", InstrumentViewSet, basename="instrum")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

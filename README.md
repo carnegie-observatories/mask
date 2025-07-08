@@ -12,7 +12,12 @@ TODO
 - convert .obj ra from hrs to degs
 - endpoint get list of available grisms and filters
 - convert instrument config to json
+- 
+-
+- endpoint to download json formatting
+
+Daily
+- Tests for instrument config
 - format slits into a json file
 - endpoint to retrieve slits
-- endpoint to download json formatting
 
