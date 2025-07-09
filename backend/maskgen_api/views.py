@@ -187,12 +187,6 @@ class MaskViewSet(viewsets.ViewSet):
         else:
             return  Response({"error": "error"}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=["get"], url_path="preview")
-    def preview(self, request, pk=None):
-        mask_name = request.query_params.get('mask_name')
-        run_command(f"{MASKGEN_DIRECTORY}/smdfplt {mask_name}")
-        return Response({"message": f"Preview generated for {pk}"})
-
 
 class InstrumentViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
