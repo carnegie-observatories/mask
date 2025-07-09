@@ -1,0 +1,7 @@
+1. Duplicate the template folder and rename it to whatever you want. ex: maskgen_api or MAGMA_api
+2. Go to `maskgen_api/models.py` to see if current model definitions for Mask, Object, and InstrumentSetup suit your needs
+    a. If not, go to the models.py file in your duplicated folder and paste in any models you want to change and make your edits.
+    Then, go to `views.p`y and change which models are imported from where 
+    Ex: `from maskgen_api.models import Object, Mask, ObjectList, InstrumentConfig, Status -> from .models import ...`
+3. Go to `views.py` in your duplicated folder to fill out 2 API endpoints 
+4. Go to `backend/urls.py` and import the viewsets and register them to the router
