@@ -4,4 +4,8 @@
     Then, go to `views.p`y and change which models are imported from where 
     Ex: `from maskgen_api.models import Object, Mask, ObjectList, InstrumentConfig, Status -> from .models import ...`
 3. Go to `views.py` in your duplicated folder to fill out 2 API endpoints 
-4. Go to `backend/urls.py` and import the viewsets and register them to the router
+4. Go to the urls.py in your duplicated folder and register eac
+5. Go to `backend/urls.py` and import the viewsets and register them to the router
+```
+path("app_name/", include("app_name.urls")),
+```

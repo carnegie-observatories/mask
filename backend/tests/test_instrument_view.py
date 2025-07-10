@@ -2,6 +2,7 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from maskgen_api.models import InstrumentConfig
 
+
 class InstrumentViewSetTests(APITestCase):
     def setUp(self):
         self.upload_url = "/api/instruments/uploadconfig/"
@@ -13,7 +14,7 @@ class InstrumentViewSetTests(APITestCase):
             "instrument": "IMACS_sc",
             "filters": {"B": "H"},
             "dispersers": {"grism": "IMACS_direct_grism"},
-            "aux_ex": "ex"
+            "aux_ex": "ex",
         }
 
         response = self.client.post(self.upload_url, data, format="json")
@@ -31,20 +32,24 @@ class InstrumentViewSetTests(APITestCase):
             version=1,
             filters={"R": "filter info here"},
             dispersers={"IMACS_direct_grism": "grism info here"},
-            aux={"note": "init"}
+            aux={"note": "init"},
         )
 
         data = {
             "instrument": "IMACS_sc",
             "filters": {"I": "info here"},
             "dispersers": {"grism": "info here"},
-            "note": "new version"
+            "note": "new version",
         }
 
         response = self.client.post(self.upload_url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        latest = InstrumentConfig.objects.filter(instrument="IMACS_sc").order_by("-version").first()
+        latest = (
+            InstrumentConfig.objects.filter(instrument="IMACS_sc")
+            .order_by("-version")
+            .first()
+        )
         self.assertEqual(latest.version, 2)
 
     def test_retrieve_latest_version(self):
@@ -53,14 +58,14 @@ class InstrumentViewSetTests(APITestCase):
             version=1,
             filters={"R": "info"},
             dispersers={"IMACS_direct_grism": "info"},
-            aux={"note": "v1"}
+            aux={"note": "v1"},
         )
         InstrumentConfig.objects.create(
             instrument="IMACS_sc",
             version=2,
             filters={"I": "info"},
             dispersers={"IMACS_indirect_grism": "hi"},
-            aux={"note": "v2"}
+            aux={"note": "v2"},
         )
 
         response = self.client.get(self.retrieve_url)
@@ -74,14 +79,14 @@ class InstrumentViewSetTests(APITestCase):
             version=1,
             filters={"R": "info"},
             dispersers={"IMACS_direct_grism": "direct"},
-            aux={"note": "v1"}
+            aux={"note": "v1"},
         )
         InstrumentConfig.objects.create(
             instrument="IMACS_sc",
             version=2,
             filters={"I": "info"},
             dispersers={"IMACS_indirect_grism": "indirect"},
-            aux={"note": "v2"}
+            aux={"note": "v2"},
         )
 
         response = self.client.get(self.retrieve_url + "?version=1")

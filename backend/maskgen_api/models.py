@@ -1,18 +1,22 @@
 from django.db import models
 
+
 class Instrument(models.TextChoices):
-    IMACS_F4 = 'IMACS f/4'
-    IMACS_F2 = 'IMACS f/2'
+    IMACS_F4 = "IMACS f/4"
+    IMACS_F2 = "IMACS f/2"
+
 
 class Status(models.TextChoices):
-    DRAFT = 'draft', 'Draft'
-    FINALIZED = 'finalized', 'Finalized (sent to be cut)'
-    COMPLETED = 'completed', 'Completed (mask has been cut successfully)'
+    DRAFT = "draft", "Draft"
+    FINALIZED = "finalized", "Finalized (sent to be cut)"
+    COMPLETED = "completed", "Completed (mask has been cut successfully)"
+
+
 # Models
-# add more info later 
+# add more info later
 class Filter(models.Model):
     name = models.CharField(max_length=50)
- 
+
     def __str__(self):
         return self.name
 
@@ -22,42 +26,50 @@ class Disperser(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class InstrumentConfig(models.Model):
     instrument = models.CharField(max_length=20, choices=Instrument.choices)
-    version = models.IntegerField() 
+    version = models.IntegerField()
     filters = models.JSONField()
     dispersers = models.JSONField()
     aux = models.JSONField()
+
     def __str__(self):
         return f"{self.instrument} v{self.version}"
+
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['instrument', 'version'], name='unique_instrument_version')
+            models.UniqueConstraint(
+                fields=["instrument", "version"], name="unique_instrument_version"
+            )
         ]
+
 
 class Mask(models.Model):
     name = models.CharField(max_length=20, primary_key=True)
     status = models.CharField(
-        max_length=100,
-        choices=Status.choices,
-        default=Status.DRAFT
+        max_length=100, choices=Status.choices, default=Status.DRAFT
     )
-    features = models.JSONField() # slits and holes
-    objects_list = models.ManyToManyField('Object', blank=True, related_name='objs_on_mask') # guide and alignment stars
-    excluded_obj_list = models.ManyToManyField('Object', blank=True, related_name='objs_not_on_mask') # objs left out of the mask
+    features = models.JSONField()  # slits and holes
+    objects_list = models.ManyToManyField(
+        "Object", blank=True, related_name="objs_on_mask"
+    )  # guide and alignment stars
+    excluded_obj_list = models.ManyToManyField(
+        "Object", blank=True, related_name="objs_not_on_mask"
+    )  # objs left out of the mask
     instrument_version = models.IntegerField()
     instrument_setup = models.JSONField()
 
     def __str__(self):
-        return f"Mask {self.name}"  
-    
-      
+        return f"Mask {self.name}"
+
+
 class Object(models.Model):
     TYPE_CHOICES = [
-        ('GUIDE', 'Guider'),
-        ('ALIGN', 'Alignment'),
-        ('TARGET', 'Target'),
+        ("GUIDE", "Guider"),
+        ("ALIGN", "Alignment"),
+        ("TARGET", "Target"),
     ]
 
     name = models.CharField(max_length=100)
@@ -66,17 +78,21 @@ class Object(models.Model):
     right_ascension = models.FloatField()
     declination = models.FloatField()
     priority = models.IntegerField(default=0.0)
-    aux = models.JSONField(null=True) # a_len, b_len
+    aux = models.JSONField(null=True)  # a_len, b_len
 
     def __str__(self):
         return f"{self.type} Object {self.name}"
+
 
 # object list: user_id, name, id, objects
 class ObjectList(models.Model):
     user_id = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
-    objects_list = models.ManyToManyField('Object', blank=True)
+    objects_list = models.ManyToManyField("Object", blank=True)
+
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['name', 'user_id'], name='unique_obj_list_per_user')
+            models.UniqueConstraint(
+                fields=["name", "user_id"], name="unique_obj_list_per_user"
+            )
         ]

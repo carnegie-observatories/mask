@@ -2,15 +2,16 @@ from .models import Object, ObjectList
 import re
 from pathlib import Path
 
+
 def categorize_objs(mask, file_path):
     lines = Path(file_path).read_text().splitlines()
     for line in lines:
         # get obj name
-        match = re.match(r'[@\*](\S+)', line)
+        match = re.match(r"[@\*](\S+)", line)
         if match:
             try:
                 obj = Object.objects.get(name=match.group(1))
-                if re.search(r'Use=\d+', line):
+                if re.search(r"Use=\d+", line):
                     mask.objects_list.add(obj)
                 else:
                     mask.excluded_obj_list.add(obj)
@@ -19,7 +20,7 @@ def categorize_objs(mask, file_path):
                 mask.delete()
                 return False, f"warning: object with name '{match.group(1)}' not found."
     return True, "yay it worked"
-    
+
 
 def obj_to_json(file_bytes):
     text = file_bytes.decode("utf-8")
@@ -42,7 +43,7 @@ def obj_to_json(file_bytes):
 
         match = re.match(
             r"(?P<name>\S+)\s+(?P<ra>[\d\.]+)\s+(?P<dec>[-\d\.]+)\s+Pri=(?P<priority>[-\d\.]+)(?:\s+alen=(?P<a_len>[\d\.]+)\s+blen=(?P<b_len>[\d\.]+))?",
-            line
+            line,
         )
 
         if match:
@@ -59,6 +60,8 @@ def obj_to_json(file_bytes):
             objects.append(obj)
 
     return objects
+
+
 """
 # === Example Usage ===
 obj_file_path = "/Users/maylinchen/Downloads/DCM5V5E.obj"
@@ -69,6 +72,7 @@ parsed_objects = parse_obj_file(obj_file_path)
 print(json.dumps(parsed_objects, indent=2))
 output_path.write_text(json.dumps(parsed_objects, indent=2))
 """
+
 
 def generate_obj_file(filename, objects):
     """
@@ -85,37 +89,41 @@ def generate_obj_file(filename, objects):
     """
     print("generate obj file")
     path = f"maskgen_api/obj_files/{filename}.obj"
-    with open(path, 'w') as file:
+    with open(path, "w") as file:
         file.write("&RADEGREE\n")
         if not isinstance(objects, list):
-            objects = list(ObjectList.objects.get(name=objects).objects_list.values_list('id', flat=True))
-        for id in objects: 
+            objects = list(
+                ObjectList.objects.get(name=objects).objects_list.values_list(
+                    "id", flat=True
+                )
+            )
+        for id in objects:
             obj = Object.objects.get(id=id)
-            if obj.type != 'GUIDE':
+            if obj.type != "GUIDE":
                 new_line = f"{obj.name} {obj.right_ascension} {obj.declination} Pri={float(obj.priority)}"
                 if obj.aux:
-                    if hasattr(obj.aux, 'use'):
+                    if hasattr(obj.aux, "use"):
                         new_line += f" use={obj.aux.use}"
-                    if hasattr(obj.aux, 'width'):
+                    if hasattr(obj.aux, "width"):
                         new_line += f" width={obj.aux.width}"
-                    if hasattr(obj.aux, 'shape'):
+                    if hasattr(obj.aux, "shape"):
                         new_line += f" shape={obj.aux.shape}"
-                    if hasattr(obj.aux, 'a_len'):
+                    if hasattr(obj.aux, "a_len"):
                         new_line += f" a_len={obj.aux.a_len}"
-                    if hasattr(obj.aux, 'b_len'):
+                    if hasattr(obj.aux, "b_len"):
                         new_line += f" b_len={obj.aux.b_len}"
-                    if hasattr(obj.aux, 'tilt'):
+                    if hasattr(obj.aux, "tilt"):
                         new_line += f" tilt={obj.aux.tilt}"
-                    if hasattr(obj.aux, 'pa'):
+                    if hasattr(obj.aux, "pa"):
                         new_line += f" pa={obj.aux.pa}"
-                
+
                 if obj.type == "ALIGN":
                     new_line = "*" + new_line
                 elif obj.type == "TARGET":
                     new_line = "@" + new_line
-                
+
                 file.write(new_line + "\n")
-            
+
     return f"obj_files/{filename}.obj/"
 
 
@@ -146,8 +154,10 @@ DREF  {instrument_setup['dref']}
 HANGLE {instrument_setup['hangle']}
 #! No rotator warnings above horizon.
 """
-    for gs in instrument_setup['guide_stars']:
-        obs_header += f"{gs['name']} {gs['ra']}   {gs['dec']}  {gs['equinox']:.3f}  {gs['id']}\n"
+    for gs in instrument_setup["guide_stars"]:
+        obs_header += (
+            f"{gs['name']} {gs['ra']}   {gs['dec']}  {gs['equinox']:.3f}  {gs['id']}\n"
+        )
     """
     REFHOLE: 
         Hole width, decimal arcseconds.  Default 5.803 (about 2.0 mm).
@@ -172,7 +182,7 @@ DATE {instrument_setup['date']}
 """
     for obj_path in obj_file_paths:
         obs_header += f"OBJFILE  {obj_path}\n"
-    
+
     path = f"maskgen_api/obs_files/{instrument_setup['filename']}.obs"
     with open(path, "w") as file:
         file.write(obs_header)

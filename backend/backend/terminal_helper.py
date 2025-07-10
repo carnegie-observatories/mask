@@ -1,13 +1,18 @@
 import subprocess
 from threading import Timer
 
+
 def run_maskgen(command):
-    proc = subprocess.Popen(command.split(" "),
-                               stdin=subprocess.PIPE,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE,
-                               text=True)
-    timer = Timer(5, proc.kill) # if application doesn't return within 5 sec, return error
+    proc = subprocess.Popen(
+        command.split(" "),
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    timer = Timer(
+        5, proc.kill
+    )  # if application doesn't return within 5 sec, return error
     try:
         timer.start()
         stdout, stderr = proc.communicate()
@@ -30,10 +35,7 @@ def run_command(command):
     """
     try:
         result = subprocess.run(
-            command.split(" "),
-            check=True,
-            capture_output=True,
-            text=True
+            command.split(" "), check=True, capture_output=True, text=True
         )
         return True, result.stdout.strip()
     except subprocess.CalledProcessError as e:

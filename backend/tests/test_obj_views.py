@@ -10,6 +10,7 @@ script_dir = os.path.dirname(__file__)
 TEST_OBJ_FILE_PATH = os.path.join(script_dir, "data", "DCM5V5E.obj")
 client = APIClient()
 
+
 @pytest.fixture
 def sample_object_data():
     return [
@@ -19,7 +20,7 @@ def sample_object_data():
             "ra": 10.5,
             "dec": 20.2,
             "priority": 1,
-            "extra": "x1"
+            "extra": "x1",
         },
         {
             "name": "b",
@@ -27,9 +28,10 @@ def sample_object_data():
             "ra": 30.1,
             "dec": -15.3,
             "priority": 2,
-            "meta": "y2"
-        }
+            "meta": "y2",
+        },
     ]
+
 
 def test_upload_objects(sample_object_data):
     list_name = "UploadList"
@@ -40,7 +42,7 @@ def test_upload_objects(sample_object_data):
     response = client.post(
         "/api/objects/upload/",
         {"file": file, "list_name": list_name, "user_id": "test"},
-        format="multipart"
+        format="multipart",
     )
 
     assert response.status_code == 201
@@ -48,6 +50,7 @@ def test_upload_objects(sample_object_data):
     obj_list = ObjectList.objects.get(name=list_name)
     assert obj_list.objects_list.count() == 2
     assert response.data["obj_list"] == list_name
+
 
 def test_upload_objects_from_obj():
     list_name = "UploadList"
@@ -58,7 +61,7 @@ def test_upload_objects_from_obj():
     response = client.post(
         "/api/objects/upload/",
         {"file": file, "list_name": list_name, "user_id": "test"},
-        format="multipart"
+        format="multipart",
     )
 
     assert response.status_code == 201
@@ -66,6 +69,7 @@ def test_upload_objects_from_obj():
     obj_list = ObjectList.objects.get(name=list_name)
     assert obj_list.objects_list.count() == 1936
     assert response.data["obj_list"] == list_name
+
 
 def test_view_object_list():
     list_name = "ViewList"
@@ -91,4 +95,3 @@ def test_view_object_list():
     names = [obj["name"] for obj in group["objects"]]
     assert "obj1" in names
     assert "obj2" in names
-
