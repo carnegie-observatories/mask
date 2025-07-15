@@ -1,0 +1,363 @@
+/*font importing*/
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+
+/*tailwind stuff for Mantine*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/*Mantine component settings*/
+@layer base {
+    /*regular buttons*/
+    button[class*="mantine-Button-root"] {
+        background-color: #586072;
+        font-family: 'Cabin', sans-serif;
+        color: #f5f5f5;
+        padding: 10px 16px;
+        box-shadow: 0 0 12px 4px rgba(0,0,0,0.15);
+        border: 1px solid black;
+        border-radius: 10px;
+        transition: transform 0.2s ease;
+        transform-origin: center;
+    }
+    /*button animations*/
+    button[class*="mantine-Button-root"]:hover {
+        transform: scale(1.05);
+    }
+
+
+}
+
+
+/*background*/
+body {
+    margin: 0;
+    background-color: #282c34;
+    font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*no need to tweak*/
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/*start screen button settings*/
+.primaryButton {
+    color: #f5f5f5;
+    background-color: #586072;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-family: 'Cabin', sans-serif;
+    padding: 15px 32px;
+    width: 180px;
+    border-radius: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    box-shadow: 0 0 12px 4px rgba(0,0,0,0.20);
+    transition: transform 0.2s ease;
+    transform-origin: center;
+}
+
+/*start screen button animation (when hovered on)*/
+.primaryButton:hover {
+    transform: scale(1.05);
+}
+
+/*Creates a "container", which the buttons are then added to.
+This lines up the contents of the container, and sets other rules.*/
+.start-screen-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80vh;
+}
+
+
+/*title settings*/
+.title {
+    font-size: 4.5em;
+    color: white;
+    text-align: center;
+    margin-top: 100px;
+}
+
+/* right sidebar button settings */
+.essential-control-button {
+    color: #f5f5f5;
+    background-color: #3e4451;
+    display: inline-flex;
+    align-items: end;
+    justify-content: center;
+    font-size: 15px;
+    font-family: 'Cabin', sans-serif;
+    padding: 10px 16px;
+    width: 110px;
+    height: 150px;
+    border-radius: 15px;
+    text-decoration: none;
+    box-shadow: 0 0 12px 4px rgba(0,0,0,0.15);
+    border: 1px solid black;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+}
+
+/*animations*/
+.essential-control-button:hover {
+    transform: scale(1.05);
+}
+
+.essential-control-button .ecb-label {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+
+/*settings for js9 control buttons in the bottom section*/
+.JS9-control-button {
+    background-color: #3e4451;
+    font-family: 'Cabin', sans-serif;
+    color: #f5f5f5;
+    padding: 10px 16px;
+    box-shadow: 0 0 12px 4px rgba(0,0,0,0.15);
+    border: 1px solid black;
+    border-radius: 10px;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+}
+
+.JS9-control-button:hover {
+    transform: scale(1.05);
+}
+
+/* 1) whole screen: four sections */
+.main-screen {
+    display: grid;
+    height: 100vh;
+    overflow: hidden;
+    /*
+    three columns: left params, center JS9, right essential controls.
+    width of each is also defined here
+    */
+    grid-template-columns: 400px 1fr 175px;
+
+    /* two rows: top (JS9 row), bottom (tbd) */
+    grid-template-rows: 3fr 1fr;
+
+    /* name the areas for clarity */
+    grid-template-areas:
+    "params js9 sidebar"
+    "params blank sidebar";
+    gap: 0;
+}
+
+/* 2) left preview: flex-auto */
+.preview-area {
+    grid-area: js9;
+    /* fill the area completely */
+    overflow: hidden;
+}
+
+/* 3) right sidebar settings: fixed width + slight lighten */
+.sidebar {
+    grid-area: sidebar;
+    padding: 24px;
+    background-color: #333842;
+    box-shadow: -2px 0 6px rgba(0,0,0,0.5);
+    color: #f5f5f5;
+    font-family: 'Cabin', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-left: 1px solid #2c2f36;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+/* example styling for the section title, unused */
+.sidebar h2 {
+    margin: 0 0 12px;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+/*settings for the parameter controls section*/
+.param-controls {
+    grid-area: params;
+    overflow-y: auto;
+    padding: 16px;
+    background-color: #333842;
+    color: #f5f5f5;
+    text-align: center;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.5);
+}
+
+/*settings for the bottom section*/
+.bottom-area {
+    grid-area: blank;
+    position: relative;
+    color: #f5f5f5;
+    text-align: center;
+    box-shadow: 0 0 12px 4px rgba(0,0,0,0.15);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.first-row-controls,
+.second-row-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.preview-area .JS9,
+.preview-area .JS9 table,
+.preview-area .JS9 table td,
+.preview-area .JS9 canvas {
+    width:  100% !important;
+    height: 100% !important;
+}
+
+/* styling the JS9 menubar and toolbar */
+.JS9Menubar,
+.JS9Toolbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.JS9Menubar {
+    top: 0;
+    height: 32px;
+}
+
+.JS9Toolbar {
+    top: 32px;
+    height: 32px;
+}
+
+/* target the region‐drawing icons and the color‐map buttons */
+.JS9 .JS9regionTools,
+.JS9 .JS9colorTools {
+    display: flex         !important;  /* lay their children out in a row */
+    flex-direction: row   !important;  /* force a single row */
+    flex-wrap: wrap       !important;  /* if there are too many, let them wrap down */
+    justify-content: center !important;
+    width: 100%           !important;  /* make the container span the full panel */
+    margin: 4px 0         !important;  /* just a bit of breathing room */
+}
+
+/* nudge the regionTools down underneath the toolbar */
+.JS9Menubar + .JS9Toolbar + .JS9regionTools {
+    top: 64px;   /* menubar is 32px tall, toolbar is 32px tall */
+    position: absolute;
+    left: 0; right: 0;
+}
+
+/* nudge the colorTools down underneath the regionTools */
+.JS9Menubar + .JS9Toolbar + .JS9regionTools + .JS9colorTools {
+    top: 96px;  /* menubar + toolbar + regionTools heights */
+    position: absolute;
+    left: 0; right: 0;
+}
+
+/*settings for the list of uploaded object files*/
+.param-controls ul.uploaded-files {
+    padding-left: 15vh;
+    list-style-position: inside;
+    text-align: left;
+}
+
+svg.JS9Regions {
+    stroke: #00d9ff !important;
+    stroke-width: 2px !important;
+    fill: none !important;
+}
+
+/*More JS9 settings (imported from JS9 website)*/
+
+/*coordinates in upper left corner*/
+canvas.JS9Image, canvas.JS9Panner, canvas.JS9Magnifier, canvas.JS9Info {
+    /* absolute positioning of canvas is required to overlay/align with
+       graphics canvas (which is positioned relative) */
+    position:absolute;
+    top:  0px;
+    left: 0px;
+}
+
+/*
+Canvas element for transparent layers.
+This enables the regions to appear.
+ */
+canvas.JS9Layer {
+    /* absolute positioning of canvas is required to overlay/align with
+       graphics canvas (which is positioned relative) */
+    position:absolute;
+    top:  0px;
+    left: 0px;
+    background-color: transparent;
+}
+
+/* message display */
+div.JS9Message {
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-family: Cabin, sans-serif;
+    font-size: 10pt;
+    font-weight: 300;
+}
+
+/* div enclosing progress bar in message area */
+div.JS9Progress {
+    display: none;
+}
+
+/* used by menubar, panner, magnifier */
+.JS9Button, .JS9Button-classic {
+    font: normal 12px Cabin, sans-serif;
+    background: #F6F6F6;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 6px 3px 6px;
+    /* back off left margin or else Linux menubar Help button wraps ... */
+    margin: 6px 4px 6px 3px;
+    outline: none;
+}
+
+.JS9Button:hover, .JS9Button-classic:hover {
+    background-color: #C0C0C0;
+}
+
+/* searchbar see: https://markjs.io/ */
+.JS9Searchbar{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    background: #E9E9E9;
+    padding: 8px;
+    outline: none;
+    display: none;
+}
+
+/* to make wait cursor override other element cursors (e.g. fabric.js canvas) */
+body.waiting, body.waiting * {
+    cursor: wait !important;
+}

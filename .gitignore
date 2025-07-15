@@ -50,3 +50,10 @@ Thumbs.db
 
 # EXCEPT for these test files
 except !tests/data/
+
+
+# IDE
+.idea
+
+# FITS files
+**fits**
