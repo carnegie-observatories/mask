@@ -13,19 +13,28 @@ class Status(models.TextChoices):
 
 
 # Models
-# add more info later
-class Filter(models.Model):
-    name = models.CharField(max_length=50)
+class Project(models.Model):
+    name = models.CharField()
+    user_id = models.CharField()
+    center_ra = models.FloatField()
+    center_dec = models.FloatField()
+    obj_list = models.ForeignKey(
+        "ObjectList", on_delete=models.SET_NULL, null=True, blank=True
+    )
+    masks = models.ManyToManyField("Mask", blank=True)
+    images = models.ManyToManyField("Image", blank=True)
 
-    def __str__(self):
-        return self.name
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["name", "user_id"], name="unique_project_per_user"
+            )
+        ]
 
 
-class Disperser(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.name
+class Image(models.Model):
+    name = models.CharField(unique=True)
+    image = models.ImageField(upload_to="uploads/")
 
 
 class InstrumentConfig(models.Model):
@@ -47,7 +56,8 @@ class InstrumentConfig(models.Model):
 
 
 class Mask(models.Model):
-    name = models.CharField(max_length=20, primary_key=True)
+    name = models.CharField(max_length=20)
+    user_id = models.CharField(max_length=100)
     status = models.CharField(
         max_length=100, choices=Status.choices, default=Status.DRAFT
     )
@@ -63,6 +73,11 @@ class Mask(models.Model):
 
     def __str__(self):
         return f"Mask {self.name}"
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user_id", "name"], name="unique_mask_name")
+        ]
 
 
 class Object(models.Model):

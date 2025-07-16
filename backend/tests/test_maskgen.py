@@ -1,6 +1,6 @@
 from io import BytesIO
 from rest_framework.test import APITestCase, APIClient
-from maskgen_api.models import Mask, InstrumentConfig
+from maskgen_api.models import Mask, InstrumentConfig, Project
 import json
 import os
 
@@ -19,11 +19,14 @@ class MaskViewSetTests(APITestCase):
             aux=json.dumps({"aux1": "val"}),
         )
         self.test_file_path = os.path.join(
-            os.getcwd(), "tests", "test_files", "instrum_setup_works_ex.json"
+            os.getcwd(), "backend", "tests", "test_files", "instrum_setup_works_ex.json"
         )
         self.maskgen_url = "/api/masks/generate/"
 
     def test_mask_gen_obj_list(self):
+        Project.objects.create(
+            name="test", user_id="test", center_ra=1.00, center_dec=1.00
+        )
         # create obj file list
         with open(TEST_OBJ_FILE_PATH, "rb") as fh:
             file = BytesIO(fh.read())
@@ -31,8 +34,9 @@ class MaskViewSetTests(APITestCase):
         file.name = "DCM5V5E.obj"
         response = client.post(
             "/api/objects/upload/",
-            {"file": file, "list_name": "DCM5V5E_obj_1", "user_id": "test"},
+            {"file": file, "list_name": "DCM5V5E_obj_1", "project_name": "test"},
             format="multipart",
+            **{"HTTP_USER_ID": "test"},
         )
 
         # upload instrum setup
@@ -40,7 +44,10 @@ class MaskViewSetTests(APITestCase):
             payload = json.load(f)
 
         response = self.client.post(
-            self.maskgen_url, data=json.dumps(payload), content_type="application/json"
+            self.maskgen_url,
+            data=json.dumps(payload),
+            content_type="application/json",
+            **{"HTTP_USER_ID": "test"},
         )
         print("Mask Generation Response:", response.status_code, response.data)
         self.assertEqual(response.status_code, 201)

@@ -3,7 +3,7 @@ import os
 import pytest
 from io import BytesIO
 from rest_framework.test import APIClient
-from maskgen_api.models import Object, ObjectList
+from maskgen_api.models import Object, ObjectList, Project
 
 pytestmark = pytest.mark.django_db  # ensures each test uses a test DB
 script_dir = os.path.dirname(__file__)
@@ -34,6 +34,7 @@ def sample_object_data():
 
 
 def test_upload_objects(sample_object_data):
+    Project.objects.create(name="test", user_id="test", center_ra=1.00, center_dec=1.00)
     list_name = "UploadList"
     json_data = json.dumps(sample_object_data).encode("utf-8")
     file = BytesIO(json_data)
@@ -41,8 +42,9 @@ def test_upload_objects(sample_object_data):
 
     response = client.post(
         "/api/objects/upload/",
-        {"file": file, "list_name": list_name, "user_id": "test"},
+        {"file": file, "list_name": list_name, "project_name": "test"},
         format="multipart",
+        **{"HTTP_USER_ID": "test"},
     )
 
     assert response.status_code == 201
@@ -53,6 +55,7 @@ def test_upload_objects(sample_object_data):
 
 
 def test_upload_objects_from_obj():
+    Project.objects.create(name="test", user_id="test", center_ra=1.00, center_dec=1.00)
     list_name = "UploadList"
     with open(TEST_OBJ_FILE_PATH, "rb") as fh:
         file = BytesIO(fh.read())
@@ -60,8 +63,9 @@ def test_upload_objects_from_obj():
 
     response = client.post(
         "/api/objects/upload/",
-        {"file": file, "list_name": list_name, "user_id": "test"},
+        {"file": file, "list_name": list_name, "project_name": "test"},
         format="multipart",
+        **{"HTTP_USER_ID": "test"},
     )
 
     assert response.status_code == 201
@@ -72,6 +76,7 @@ def test_upload_objects_from_obj():
 
 
 def test_view_object_list():
+    Project.objects.create(name="test", user_id="test", center_ra=1.00, center_dec=1.00)
     list_name = "ViewList"
     obj1 = Object.objects.create(
         name="obj1", type="ALIGN", right_ascension=1.0, declination=2.0, priority=1
@@ -79,10 +84,12 @@ def test_view_object_list():
     obj2 = Object.objects.create(
         name="obj2", type="GUIDE", right_ascension=3.0, declination=4.0, priority=2
     )
-    obj_list = ObjectList.objects.create(name=list_name)
+    obj_list = ObjectList.objects.create(name=list_name, user_id="test")
     obj_list.objects_list.set([obj1, obj2])
 
-    response = client.get(f"/api/objects/viewlist/?list_name={list_name}")
+    response = client.get(
+        f"/api/objects/viewlist/?list_name={list_name}", **{"HTTP_USER_ID": "test"}
+    )
 
     assert response.status_code == 200
     assert isinstance(response.data, list)

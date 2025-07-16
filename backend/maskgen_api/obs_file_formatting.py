@@ -1,6 +1,7 @@
 from .models import Object, ObjectList
 import re
 from pathlib import Path
+import os
 
 
 def categorize_objs(mask, file_path):
@@ -88,7 +89,8 @@ def generate_obj_file(filename, objects):
         str: path to obj file
     """
     print("generate obj file")
-    path = f"maskgen_api/obj_files/{filename}.obj"
+    script_dir = os.path.dirname(__file__)
+    path = os.path.join(script_dir, "obj_files", f"{filename}.obj")
     with open(path, "w") as file:
         file.write("&RADEGREE\n")
         if not isinstance(objects, list):
@@ -182,8 +184,8 @@ DATE {instrument_setup['date']}
 """
     for obj_path in obj_file_paths:
         obs_header += f"OBJFILE  {obj_path}\n"
-
-    path = f"maskgen_api/obs_files/{instrument_setup['filename']}.obs"
+    script_dir = os.path.dirname(__file__)
+    path = os.path.join(script_dir, "obs_files", f"{instrument_setup['filename']}.obs")
     with open(path, "w") as file:
         file.write(obs_header)
     return path

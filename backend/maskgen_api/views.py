@@ -4,8 +4,9 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from astropy.table import Table
 
-from .models import Object, Mask, ObjectList, InstrumentConfig, Status
+from .models import Object, Mask, ObjectList, InstrumentConfig, Status, Project, Image
 from .serializers import ObjectSerializer
 from .obs_file_formatting import (
     generate_obj_file,
@@ -13,10 +14,12 @@ from .obs_file_formatting import (
     obj_to_json,
     categorize_objs,
 )
-from backend.terminal_helper import run_command, run_maskgen
+from backend.terminal_helper import run_command, run_maskgen, remove_file
 
 import json
 import os
+import re
+import io
 
 MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/"
 MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
@@ -27,18 +30,25 @@ API_FOLDER = "maskgen_api/"
 class ObjectViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="upload")
     def upload(self, request):
+        user_id = request.headers.get("user-id")
+        list_name = request.data.get("list_name")
+        proj_name = request.data.get("project_name")
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+
         uploaded_file = request.data.get("file")
         uploaded_file_bytes = uploaded_file.read()
 
         # check if file is .obj or json
         if uploaded_file.name.endswith(".obj"):
             data = obj_to_json(uploaded_file_bytes)
+        elif uploaded_file.name.endswith(".csv"):
+            table = Table.read(io.BytesIO(uploaded_file_bytes), format="csv")
+            data = table.to_pandas().to_dict(orient="records")
+            with open("output.json", "w") as f:
+                json.dump(data, f, indent=2)
         else:
             data_str = uploaded_file_bytes.decode("utf-8")
             data = json.loads(data_str)
-
-        user_id = request.data.get("user_id")
-        list_name = request.data.get("list_name")
 
         # Check if a list with the same name and user_id already exists
         existing = ObjectList.objects.filter(name=list_name, user_id=user_id).first()
@@ -54,7 +64,7 @@ class ObjectViewSet(viewsets.ViewSet):
         for row in data:
             obj, _ = Object.objects.get_or_create(
                 name=row.pop("name"),
-                user_id=request.data.get("user_id"),
+                user_id=request.headers.get("user-id"),
                 defaults={
                     "type": row.pop("type"),
                     "right_ascension": float(row.pop("ra")),
@@ -65,6 +75,9 @@ class ObjectViewSet(viewsets.ViewSet):
             )
             created_objects.append(obj.id)
             obj_list.objects_list.add(obj)
+
+        project.obj_list = obj_list
+        project.save()
         return Response(
             {"created": created_objects, "obj_list": obj_list.name},
             status=status.HTTP_201_CREATED,
@@ -74,22 +87,18 @@ class ObjectViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["get"], url_path="viewlist")
     def view_list(self, request):
         list_name = request.query_params.get("list_name")
-        object_lists = ObjectList.objects.filter(name=list_name)
+        user_id = request.headers.get("user-id")
+        obj_list = ObjectList.objects.get(name=list_name, user_id=user_id)
 
-        if not object_lists.exists():
+        if not obj_list:
             return Response(
                 {"error": f"No ObjectList found with name '{list_name}'"}, status=404
             )
 
         results = []
 
-        for obj_list in object_lists:
-            serialized_objects = ObjectSerializer(
-                obj_list.objects_list.all(), many=True
-            )
-            results.append(
-                {"list_name": obj_list.name, "objects": serialized_objects.data}
-            )
+        serialized_objects = ObjectSerializer(obj_list.objects_list.all(), many=True)
+        results.append({"list_name": obj_list.name, "objects": serialized_objects.data})
 
         return Response(results)
 
@@ -97,8 +106,61 @@ class ObjectViewSet(viewsets.ViewSet):
 
 
 class MaskViewSet(viewsets.ViewSet):
+    @staticmethod
+    def _file_cleanup(filename):
+        # clean up auto generated files
+        remove_file(f"{PROJECT_DIRECTORY}.loc_mgvers.dat")
+        remove_file(f"{PROJECT_DIRECTORY}.loc_ociw214.pem")
+        remove_file(f"{PROJECT_DIRECTORY}{filename}.obw")
+
+    @staticmethod
+    def _get_features(filepath):
+        features = []
+        with open(filepath, "rb") as f:
+            for line in f:
+                line = line.decode("utf-8").strip()
+                if line.startswith("SLIT"):
+                    parts = line.split()
+                    features.append(
+                        {
+                            "type": "SLIT",
+                            "id": parts[1],
+                            "ra": parts[2],
+                            "dec": parts[3],
+                            "x": float(parts[4]),
+                            "y": float(parts[5]),
+                            "width": float(parts[6]),
+                            "a_len": float(parts[7]),
+                            "b_len": float(parts[8]),
+                            "angle": float(parts[9]),
+                        }
+                    )
+                elif line.startswith("HOLE"):
+                    parts = line.split()
+                    features.append(
+                        {
+                            "type": "HOLE",
+                            "id": parts[1],
+                            "ra": parts[2],
+                            "dec": parts[3],
+                            "x": float(parts[4]),
+                            "y": float(parts[5]),
+                            "width": float(parts[6]),
+                            "shape_code": int(parts[7]),
+                            "a_len": float(parts[8]),
+                            "b_len": float(parts[9]),
+                            "angle": float(parts[10]),
+                        }
+                    )
+        return features
+
     def retrieve(self, request, pk=None):
-        mask = Mask.objects.get(name=pk)
+        proj_name = request.data.get("project_name")
+        project = Project.objects.get(
+            name=proj_name, user_id=request.headers.get("user-id")
+        )
+        mask = project.masks.get(name=pk)
+
         return Response(
             {
                 "name": pk,
@@ -135,72 +197,31 @@ class MaskViewSet(viewsets.ViewSet):
     def generate_mask(self, request):
         data = request.data
         filename = data["filename"]
+        proj_name = data["project_name"]
         generate_obj_file(filename, data["objects"])
         generate_obs_file(data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
 
-        result, _ = run_command(
-            f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}"
-        )
-        result, _ = run_command(
+        run_command(
             f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}"
         )
-        if result:
-            result, feedback = run_maskgen(
-                f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs"
-            )
+        run_command(
+            f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}"
+        )
 
+        result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
+
+        run_command(
+            f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files"
+        )
+        print(result)
+        print("hi")
         if result and "Writing object file with use counts to" in feedback:
-            # clean up auto generated files
-            run_command(
-                f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files"
-            )
-            run_command(f"rm -f {PROJECT_DIRECTORY}.loc_mgvers.dat")
-            run_command(f"rm -f {PROJECT_DIRECTORY}.loc_ociw214.pem")
-
             # process features from SMF
             filepath = os.path.join(
                 PROJECT_DIRECTORY, API_FOLDER, "smf_files", f"{filename}.SMF"
             )
-            features = []
-            with open(filepath, "rb") as f:
-
-                for line in f:
-                    line = line.decode("utf-8").strip()
-                    if line.startswith("SLIT"):
-                        parts = line.split()
-                        features.append(
-                            {
-                                "type": "SLIT",
-                                "id": parts[1],
-                                "ra": parts[2],
-                                "dec": parts[3],
-                                "x": float(parts[4]),
-                                "y": float(parts[5]),
-                                "width": float(parts[6]),
-                                "a_len": float(parts[7]),
-                                "b_len": float(parts[8]),
-                                "angle": float(parts[9]),
-                            }
-                        )
-                    elif line.startswith("HOLE"):
-                        parts = line.split()
-                        features.append(
-                            {
-                                "type": "HOLE",
-                                "id": parts[1],
-                                "ra": parts[2],
-                                "dec": parts[3],
-                                "x": float(parts[4]),
-                                "y": float(parts[5]),
-                                "width": float(parts[6]),
-                                "shape_code": int(parts[7]),
-                                "a_len": float(parts[8]),
-                                "b_len": float(parts[9]),
-                                "angle": float(parts[10]),
-                            }
-                        )
-
+            print("hi")
             mask = Mask.objects.create(
                 name=filename,
                 status=Status.DRAFT,
@@ -211,24 +232,41 @@ class MaskViewSet(viewsets.ViewSet):
                 .order_by("-version")
                 .first()
                 .version,
-                features=features,
+                features=self._get_features(filepath),
             )
+            print("hi")
 
             result, feedback = categorize_objs(
                 mask, f"{PROJECT_DIRECTORY}{filename}.obw"
             )
-            run_command(f"rm -f {PROJECT_DIRECTORY}{filename}.obw")
-            if result:
-                return Response(
-                    {
-                        "created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF"
-                    },
-                    status=status.HTTP_201_CREATED,
-                )
-            else:
-                return Response({"error": "error"}, status=status.HTTP_400_BAD_REQUEST)
+            self._file_cleanup(filename)
+            project = Project.objects.get(
+                name=proj_name, user_id=request.headers.get("user-id")
+            )
+            project.masks.add(mask)
+            project.save()
+
+            return Response(
+                {"created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF"},
+                status=status.HTTP_201_CREATED,
+            )
         else:
-            return Response({"error": "error"}, status=status.HTTP_400_BAD_REQUEST)
+            self._file_cleanup(filename)
+            pattern_with_error = r"""
+            (?<=\n)
+            (?:
+                \s*\*\*.*?\*\*\s*\n       # lines starting and ending with "**"
+            )+
+            """
+            matches = re.findall(
+                pattern_with_error, feedback, re.MULTILINE | re.VERBOSE
+            )
+            error_block = matches[0] if matches else ""
+            clean_lines = [line.strip(" *") for line in error_block.splitlines()]
+            cleaned = [s for s in clean_lines if re.search(r"[a-zA-Z]", s)]
+            if len(cleaned) != 0:
+                return Response({"error": cleaned}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class InstrumentViewSet(viewsets.ViewSet):
@@ -277,3 +315,64 @@ class InstrumentViewSet(viewsets.ViewSet):
         return Response(
             {"created": str(instrument_config)}, status=status.HTTP_201_CREATED
         )
+
+
+class ImageViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["post"], url_path="uploadimg")
+    def upload(self, request):
+        proj_name = request.data["project_name"]
+        uploaded_img = request.FILES.get("image")
+        with open(f"/images/{uploaded_img.name}", "wb+") as dest:
+            for chunk in uploaded_img.chunks():
+                dest.write(chunk)
+        image = Image.objects.create(image=uploaded_img, name=uploaded_img.name)
+        project = Project.objects.get(name=proj_name)
+        project.images.add(image)
+        project.save()
+        return Response(
+            {"message": "Image uploaded successfully", "image_url": project.image.url},
+            status=status.HTTP_200_OK,
+        )
+
+    def get(self, request):
+        user_id = request.headers.get("user-id")
+        img_name = request.query_params.get("img_name")
+        proj_name = (request.query_params.get("project_name"),)
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        if project:
+            img = project.images.get(name=img_name)
+            return Response({"Image": img}, status=status.HTTP_200_OK)
+
+
+class ProjectViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["post"], url_path="create")
+    def upload(self, request):
+        print(request.headers)
+        user_id = request.headers.get("user-id")
+        proj_name = request.data.get("project_name")
+        existing = ObjectList.objects.filter(name=proj_name, user_id=user_id).first()
+        if existing:
+            return Response(
+                {
+                    "error": f"Project '{proj_name}' already exists for user '{user_id}'."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        project = Project.objects.create(
+            name=proj_name,
+            user_id=user_id,
+            center_ra=request.data.get("center_ra"),
+            center_dec=request.data.get("center_dec"),
+        )
+        if project:
+            return Response(
+                {"created": {"name": project.name, "user_id": project.user_id}},
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response({"error"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk=None):
+        user_id = request.headers.get("user-id")
+        project = get_object_or_404(Project, name=pk, user_id=user_id)
+        return Response({"project": project.name}, status=status.HTTP_200_OK)
