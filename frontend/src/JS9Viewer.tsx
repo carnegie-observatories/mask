@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 
 declare global {
-    interface Window { JS9: any; }
+    interface Window {
+        JS9: any;
+        ExitStatus?: unknown;
+        __astroLoaded?: boolean;
+    }
 }
 
 interface JS9ViewerProps {

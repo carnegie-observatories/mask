@@ -6,6 +6,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TODO: FIXME */
+/* disable runtime errors */
+body > iframe {
+    display: none;
+}
+/* TODO: FIXME */
 
 /*Mantine component settings*/
 @layer base {
@@ -205,10 +211,10 @@ This lines up the contents of the container, and sets other rules.*/
     color: #f5f5f5;
     text-align: center;
     box-shadow: 0 0 12px 4px rgba(0,0,0,0.15);
-    padding: 2.5rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     gap: 1rem;
 }
@@ -279,7 +285,7 @@ This lines up the contents of the container, and sets other rules.*/
 
 /*settings for the list of uploaded object files*/
 .param-controls ul.uploaded-files {
-    padding-left: 15vh;
+    padding-left: 12vh;
     list-style-position: inside;
     text-align: left;
 }
