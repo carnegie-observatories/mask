@@ -138,4 +138,3 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Test paths
 TEST_OBJ_FILE_PATH = BASE_DIR / "tests/data/DCM5V5E.obj"
-TEST_MASKGEN_PATH = BASE_DIR / "maskgen_api"

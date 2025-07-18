@@ -23,7 +23,6 @@ import re
 import io
 
 MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/"
-MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
 PROJECT_DIRECTORY = os.getcwd() + "/"
 API_FOLDER = "maskgen_api/"
 
@@ -352,7 +351,7 @@ class MaskViewSet(viewsets.ViewSet):
             )
 
             result, feedback = categorize_objs(
-                mask, f"{PROJECT_DIRECTORY}{API_FOLDER}{filename}.obw"
+                mask, f"{PROJECT_DIRECTORY}{filename}.obw"
             )
             self._file_cleanup(filename)
             project = Project.objects.get(

@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase, APIClient
 from maskgen_api.models import Mask, InstrumentConfig, Project
 import json
 import os
-from backend.settings import TEST_MASKGEN_PATH, TEST_OBJ_FILE_PATH, BASE_DIR
+from backend.settings import TEST_OBJ_FILE_PATH, BASE_DIR
 
 client = APIClient()
 
@@ -43,7 +43,7 @@ class MaskViewSetTests(APITestCase):
         with open(self.test_file_path, "r") as f:
             payload = json.load(f)
 
-        os.chdir(TEST_MASKGEN_PATH)
+        os.chdir(BASE_DIR)
 
         response = self.client.post(
             self.maskgen_url,
