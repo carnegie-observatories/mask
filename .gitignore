@@ -1,3 +1,5 @@
+.pytest_cache
+.ruff_cache
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -27,7 +29,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
+media/uploads/
 # Django stuff
 *.log
 *.pot

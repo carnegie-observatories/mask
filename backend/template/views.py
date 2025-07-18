@@ -3,10 +3,19 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.http import FileResponse
 from django.shortcuts import get_object_or_404
 
-from maskgen_api.models import Object, Mask, ObjectList, InstrumentConfig
+from maskgen_api.models import (
+    Object,
+    Mask,
+    ObjectList,
+    InstrumentConfig,
+    Image,
+    Project,
+)
 from maskgen_api.serializers import ObjectSerializer
+from backend.terminal_helper import remove_file
 
 # from .models import ... If you want to create your own db models (not reccomended)
 
@@ -19,6 +28,81 @@ MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/
 MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
 PROJECT_DIRECTORY = os.getcwd() + "/"
 API_FOLDER = "maskgen_api/"
+
+
+# It's reccommended you follow this structure for projects
+# Note that masks and images are directly related to project
+class ProjectViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["post"], url_path="create")
+    def upload(self, request):
+        print(request.headers)
+        user_id = request.headers.get("user-id")
+        proj_name = request.data.get("project_name")
+        existing = ObjectList.objects.filter(name=proj_name, user_id=user_id).first()
+        if existing:
+            return Response(
+                {
+                    "error": f"Project '{proj_name}' already exists for user '{user_id}'."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        project = Project.objects.create(
+            name=proj_name,
+            user_id=user_id,
+            center_ra=request.data.get("center_ra"),
+            center_dec=request.data.get("center_dec"),
+        )
+        if project:
+            return Response(
+                {"created": {"name": project.name, "user_id": project.user_id}},
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response({"error"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk=None):
+        user_id = request.headers.get("user-id")
+        project = get_object_or_404(Project, name=pk, user_id=user_id)
+        image_names = list(project.images.values_list("name", flat=True))
+        mask_names = list(project.masks.values_list("name", flat=True))
+        return Response(
+            {
+                "project": project.name,
+                "user_id": project.user_id,
+                "images": image_names,
+                "masks": mask_names,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
+# don't need to change if not modifying project setup
+class ImageViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["get"], url_path="getimg")
+    def get_image(self, request):
+        user_id = request.headers.get("user-id")
+        img_name = request.query_params.get("img_name")
+        proj_name = request.query_params.get("project_name")
+        print(proj_name)
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        print(project.images)
+        if project:
+            img_obj = project.images.get(name=img_name)
+            img_path = img_obj.image.path
+            return FileResponse(open(img_path, "rb"), content_type="image/jpeg")
+
+    @action(detail=False, methods=["post"], url_path="uploadimg")
+    def upload(self, request):
+        proj_name = request.data["project_name"]
+        uploaded_img = request.FILES.get("image")
+        image = Image.objects.create(image=uploaded_img, name=uploaded_img.name)
+        project = Project.objects.get(name=proj_name)
+        project.images.add(image)
+        project.save()
+        return Response(
+            {"message": "Image uploaded successfully", "image_url": image.image.url},
+            status=status.HTTP_200_OK,
+        )
 
 
 class ObjectViewSet(viewsets.ViewSet):
@@ -106,7 +190,11 @@ class ObjectViewSet(viewsets.ViewSet):
 class MaskViewSet(viewsets.ViewSet):
     # does not need modification, can add more specific parameters to be included if desired
     def retrieve(self, request, pk=None):
-        mask = Mask.objects.get(name=pk)
+        proj_name = request.query_params.get("project_name")
+        user_id = request.headers.get("user-id")
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        mask = project.masks.get(name=pk)
+
         return Response(
             {
                 "name": pk,
@@ -142,6 +230,7 @@ class MaskViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="generate")
     def generate_mask(self, request):
         """
+        Remember the way you should be finding masks is to first find the project their in, then find them in project.masks
         do whatever you need to run your mask cutting software
         make sure you clean up unnecessary files
         see maskgen_api for an example
@@ -165,6 +254,45 @@ class MaskViewSet(viewsets.ViewSet):
 
         # remember to return some kind of HTTP response
         return Response("created", status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=["delete"], url_path="delete")
+    def delete_mask(self, request):
+        user_id = request.headers.get("user-id")
+        mask_name = request.query_params.get("mask_name")
+        proj_name = request.query_params.get("project_name")
+
+        if not (user_id and mask_name and proj_name):
+            return Response(
+                {"error": "missing required parameters"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        project = get_object_or_404(Project, name=proj_name, user_id=user_id)
+
+        try:
+            mask = project.masks.get(name=mask_name)
+        except Mask.DoesNotExist:
+            return Response(
+                {"error": "mask not found in this project"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        file_paths = [
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{mask_name}.obs",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{mask_name}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc",
+        ]
+        for file_path in file_paths:
+            remove_file(file_path)
+
+        project.masks.remove(mask)
+        mask.delete()
+
+        return Response(
+            {"message": f"mask '{mask_name}' deleted successfully"},
+            status=status.HTTP_200_OK,
+        )
 
 
 # No need to change this
@@ -214,3 +342,17 @@ class InstrumentViewSet(viewsets.ViewSet):
         return Response(
             {"created": str(instrument_config)}, status=status.HTTP_201_CREATED
         )
+
+
+class MachineViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["post"], url_path="generate")
+    def generate_machine_code(self, request):
+        # write your machine code generation here, store it appropriately as a file in a folder
+        # so that you can access it later
+        return Response("created", status=status.HTTP_201_CREATED)
+
+    @action(detail=False, methods=["get"], url_path="get-machine-code")
+    def get_machine_code(self, request):
+        # fill in your access code here, remember to change content_type in file response to match
+        file_path = "filler"
+        return FileResponse(open(file_path, "rb"), content_type="application/x-netcdf")

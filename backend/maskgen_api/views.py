@@ -4,6 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.http import FileResponse
 from astropy.table import Table
 
 from .models import Object, Mask, ObjectList, InstrumentConfig, Status, Project, Image
@@ -25,6 +26,125 @@ MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/
 MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
 PROJECT_DIRECTORY = os.getcwd() + "/"
 API_FOLDER = "maskgen_api/"
+
+
+class ProjectViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["post"], url_path="create")
+    def upload(self, request):
+        print(request.headers)
+        user_id = request.headers.get("user-id")
+        proj_name = request.data.get("project_name")
+        existing = ObjectList.objects.filter(name=proj_name, user_id=user_id).first()
+        if existing:
+            return Response(
+                {
+                    "error": f"Project '{proj_name}' already exists for user '{user_id}'."
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        project = Project.objects.create(
+            name=proj_name,
+            user_id=user_id,
+            center_ra=request.data.get("center_ra"),
+            center_dec=request.data.get("center_dec"),
+        )
+        if project:
+            return Response(
+                {"created": {"name": project.name, "user_id": project.user_id}},
+                status=status.HTTP_201_CREATED,
+            )
+        else:
+            return Response({"error"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk=None):
+        user_id = request.headers.get("user-id")
+        project = get_object_or_404(Project, name=pk, user_id=user_id)
+        image_names = list(project.images.values_list("name", flat=True))
+        mask_names = list(project.masks.values_list("name", flat=True))
+        return Response(
+            {
+                "project": project.name,
+                "user_id": project.user_id,
+                "images": image_names,
+                "masks": mask_names,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
+class InstrumentViewSet(viewsets.ViewSet):
+    def retrieve(self, request, pk=None):
+        version = request.query_params.get("version")
+        if version:
+            config = get_object_or_404(InstrumentConfig, instrument=pk, version=version)
+        else:
+            config = (
+                InstrumentConfig.objects.filter(instrument=pk)
+                .order_by("-version")
+                .first()
+            )
+
+        return Response(
+            {
+                "name": config.instrument,
+                "filters": config.filters,
+                "dispersers": config.dispersers,
+                "aux": config.aux,
+            }
+        )
+
+    @action(detail=False, methods=["post"], url_path="uploadconfig")
+    def upload(self, request):
+        print(request.data)
+        data = request.data
+        existing = (
+            InstrumentConfig.objects.filter(instrument=data["instrument"])
+            .order_by("-version")
+            .first()
+        )
+        if existing:
+            version = existing.version + 1
+        else:
+            version = 1
+
+        instrument_config = InstrumentConfig.objects.create(
+            instrument=data.pop("instrument"),
+            filters=data.pop("filters"),
+            dispersers=data.pop("dispersers"),
+            aux=json.dumps(data),
+            version=version,
+        )
+
+        return Response(
+            {"created": str(instrument_config)}, status=status.HTTP_201_CREATED
+        )
+
+
+class ImageViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["get"], url_path="getimg")
+    def get_image(self, request):
+        user_id = request.headers.get("user-id")
+        img_name = request.query_params.get("img_name")
+        proj_name = request.query_params.get("project_name")
+        print(proj_name)
+        project = get_object_or_404(Project, name=proj_name, user_id=user_id)
+        img_obj = project.images.get(name=img_name)
+        img_path = img_obj.image.path
+        return FileResponse(open(img_path, "rb"), content_type="image/jpeg")
+
+    @action(detail=False, methods=["post"], url_path="uploadimg")
+    def upload(self, request):
+        proj_name = request.data["project_name"]
+        user_id = request.headers.get("user-id")
+        uploaded_img = request.FILES.get("image")
+        image = Image.objects.create(image=uploaded_img, name=uploaded_img.name)
+        project = get_object_or_404(Project, name=proj_name, user_id=user_id)
+        project.images.add(image)
+        project.save()
+        return Response(
+            {"message": "Image uploaded successfully", "image_url": image.image.url},
+            status=status.HTTP_200_OK,
+        )
 
 
 class ObjectViewSet(viewsets.ViewSet):
@@ -155,10 +275,10 @@ class MaskViewSet(viewsets.ViewSet):
         return features
 
     def retrieve(self, request, pk=None):
-        proj_name = request.data.get("project_name")
-        project = Project.objects.get(
-            name=proj_name, user_id=request.headers.get("user-id")
-        )
+        proj_name = request.query_params.get("project_name")
+        user_id = request.headers.get("user-id")
+        print(proj_name, user_id)
+        project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=pk)
 
         return Response(
@@ -208,20 +328,16 @@ class MaskViewSet(viewsets.ViewSet):
         run_command(
             f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}"
         )
-
         result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
 
         run_command(
             f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files"
         )
-        print(result)
-        print("hi")
         if result and "Writing object file with use counts to" in feedback:
             # process features from SMF
             filepath = os.path.join(
                 PROJECT_DIRECTORY, API_FOLDER, "smf_files", f"{filename}.SMF"
             )
-            print("hi")
             mask = Mask.objects.create(
                 name=filename,
                 status=Status.DRAFT,
@@ -234,10 +350,9 @@ class MaskViewSet(viewsets.ViewSet):
                 .version,
                 features=self._get_features(filepath),
             )
-            print("hi")
 
             result, feedback = categorize_objs(
-                mask, f"{PROJECT_DIRECTORY}{filename}.obw"
+                mask, f"{PROJECT_DIRECTORY}{API_FOLDER}{filename}.obw"
             )
             self._file_cleanup(filename)
             project = Project.objects.get(
@@ -268,111 +383,107 @@ class MaskViewSet(viewsets.ViewSet):
                 return Response({"error": cleaned}, status=status.HTTP_400_BAD_REQUEST)
             return Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
 
-
-class InstrumentViewSet(viewsets.ViewSet):
-    def retrieve(self, request, pk=None):
-        version = request.query_params.get("version")
-        if version:
-            config = get_object_or_404(InstrumentConfig, instrument=pk, version=version)
+    @action(detail=False, methods=["post"], url_path="complete")
+    def complete_mask(self, request):
+        data = request.data
+        proj_name = data["project_name"]
+        user_id = request.headers.get("user-id")
+        mask_name = data["mask_name"]
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        mask = project.masks.get(name=mask_name)
+        if mask:
+            mask.status = Status.COMPLETED
+            mask.save()
         else:
-            config = (
-                InstrumentConfig.objects.filter(instrument=pk)
-                .order_by("-version")
-                .first()
+            return Response(
+                {"error": "mask does not exist in this project"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
+    @action(detail=False, methods=["delete"], url_path="delete")
+    def delete_mask(self, request):
+        user_id = request.headers.get("user-id")
+        mask_name = request.query_params.get("mask_name")
+        proj_name = request.query_params.get("project_name")
+
+        if not (user_id and mask_name and proj_name):
+            return Response(
+                {"error": "missing required parameters"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        project = get_object_or_404(Project, name=proj_name, user_id=user_id)
+
+        try:
+            mask = project.masks.get(name=mask_name)
+        except Mask.DoesNotExist:
+            return Response(
+                {"error": "mask not found in this project"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        file_paths = [
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{mask_name}.obs",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{mask_name}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc",
+        ]
+        for file_path in file_paths:
+            remove_file(file_path)
+
+        project.masks.remove(mask)
+        mask.delete()
+
         return Response(
-            {
-                "name": config.instrument,
-                "filters": config.filters,
-                "dispersers": config.dispersers,
-                "aux": config.aux,
-            }
-        )
-
-    @action(detail=False, methods=["post"], url_path="uploadconfig")
-    def upload(self, request):
-        print(request.data)
-        data = request.data
-        existing = (
-            InstrumentConfig.objects.filter(instrument=data["instrument"])
-            .order_by("-version")
-            .first()
-        )
-        if existing:
-            version = existing.version + 1
-        else:
-            version = 1
-
-        instrument_config = InstrumentConfig.objects.create(
-            instrument=data.pop("instrument"),
-            filters=data.pop("filters"),
-            dispersers=data.pop("dispersers"),
-            aux=json.dumps(data),
-            version=version,
-        )
-
-        return Response(
-            {"created": str(instrument_config)}, status=status.HTTP_201_CREATED
-        )
-
-
-class ImageViewSet(viewsets.ViewSet):
-    @action(detail=False, methods=["post"], url_path="uploadimg")
-    def upload(self, request):
-        proj_name = request.data["project_name"]
-        uploaded_img = request.FILES.get("image")
-        with open(f"/images/{uploaded_img.name}", "wb+") as dest:
-            for chunk in uploaded_img.chunks():
-                dest.write(chunk)
-        image = Image.objects.create(image=uploaded_img, name=uploaded_img.name)
-        project = Project.objects.get(name=proj_name)
-        project.images.add(image)
-        project.save()
-        return Response(
-            {"message": "Image uploaded successfully", "image_url": project.image.url},
+            {"message": f"mask '{mask_name}' deleted successfully"},
             status=status.HTTP_200_OK,
         )
 
-    def get(self, request):
+
+class MachineViewSet(viewsets.ViewSet):
+    @action(detail=False, methods=["post"], url_path="generate")
+    def generate_machine_code(self, request):
+        data = request.data
+        proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
-        img_name = request.query_params.get("img_name")
-        proj_name = (request.query_params.get("project_name"),)
+        mask_name = data["mask_name"]
         project = Project.objects.get(name=proj_name, user_id=user_id)
-        if project:
-            img = project.images.get(name=img_name)
-            return Response({"Image": img}, status=status.HTTP_200_OK)
+        mask = project.masks.get(name=mask_name)
+        if mask.status == Status.COMPLETED:
+            os.environ["MGPATH"] = MASKGEN_DIRECTORY
+            run_command(
+                f"cp {PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF {MASKGEN_DIRECTORY}"
+            )
+            result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskcut {mask_name}")
+            if result and "Estimated cutting time" in feedback:
+                remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
+                run_command(
+                    f"mv {PROJECT_DIRECTORY}I{mask_name}.nc {PROJECT_DIRECTORY}{API_FOLDER}nc_files"
+                )
 
-
-class ProjectViewSet(viewsets.ViewSet):
-    @action(detail=False, methods=["post"], url_path="create")
-    def upload(self, request):
-        print(request.headers)
-        user_id = request.headers.get("user-id")
-        proj_name = request.data.get("project_name")
-        existing = ObjectList.objects.filter(name=proj_name, user_id=user_id).first()
-        if existing:
+                mask.status = Status.FINALIZED
+                return Response(
+                    {"created": f"l{mask_name}.nc"},
+                    status=status.HTTP_201_CREATED,
+                )
+            else:
+                return Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
+        else:
             return Response(
-                {
-                    "error": f"Project '{proj_name}' already exists for user '{user_id}'."
-                },
+                "error, mask has not been marked as completed",
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        project = Project.objects.create(
-            name=proj_name,
-            user_id=user_id,
-            center_ra=request.data.get("center_ra"),
-            center_dec=request.data.get("center_dec"),
-        )
-        if project:
-            return Response(
-                {"created": {"name": project.name, "user_id": project.user_id}},
-                status=status.HTTP_201_CREATED,
-            )
-        else:
-            return Response({"error"}, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrieve(self, request, pk=None):
+    @action(detail=False, methods=["get"], url_path="get-machine-code")
+    def get_machine_code(self, request):
+        data = request.data
+        proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
-        project = get_object_or_404(Project, name=pk, user_id=user_id)
-        return Response({"project": project.name}, status=status.HTTP_200_OK)
+        mask_name = data["mask_name"]
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        mask = project.masks.get(name=mask_name)
+        if mask.status == Status.FINALIZED:
+            file_path = f"{PROJECT_DIRECTORY}nc_files/I{mask_name}.nc"
+            return FileResponse(
+                open(file_path, "rb"), content_type="application/x-netcdf"
+            )

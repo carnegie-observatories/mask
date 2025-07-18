@@ -6,6 +6,7 @@ from .views import (
     InstrumentViewSet,
     ImageViewSet,
     ProjectViewSet,
+    MachineViewSet,
 )
 
 router = DefaultRouter()
@@ -14,5 +15,6 @@ router.register(r"objects", ObjectViewSet, basename="object")
 router.register(r"instruments", InstrumentViewSet, basename="instrum")
 router.register(r"images", ImageViewSet, basename="image")
 router.register(r"project", ProjectViewSet, basename="project")
+router.register(r"machine", MachineViewSet, basename="machine")
 
 urlpatterns = router.urls
