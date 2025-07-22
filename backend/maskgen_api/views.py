@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse
+
 from astropy.table import Table
 
 from .models import Object, Mask, ObjectList, InstrumentConfig, Status, Project, Image
@@ -14,6 +15,7 @@ from .obs_file_formatting import (
     generate_obs_file,
     obj_to_json,
     categorize_objs,
+    to_deg,
 )
 from backend.terminal_helper import run_command, run_maskgen, remove_file
 
@@ -181,13 +183,16 @@ class ObjectViewSet(viewsets.ViewSet):
         created_objects = []
 
         for row in data:
+            # convert hours to degs if in hrs
+            ra, dec = to_deg(row.pop("ra"), row.pop("dec"))
+
             obj, _ = Object.objects.get_or_create(
                 name=row.pop("name"),
                 user_id=request.headers.get("user-id"),
                 defaults={
                     "type": row.pop("type"),
-                    "right_ascension": float(row.pop("ra")),
-                    "declination": float(row.pop("dec")),
+                    "right_ascension": ra,
+                    "declination": dec,
                     "priority": int(row.pop("priority")),
                     "aux": row,
                 },
@@ -198,7 +203,7 @@ class ObjectViewSet(viewsets.ViewSet):
         project.obj_list = obj_list
         project.save()
         return Response(
-            {"created": created_objects, "obj_list": obj_list.name},
+            {"obj_list": obj_list.name},
             status=status.HTTP_201_CREATED,
         )
 

@@ -2,6 +2,20 @@ from .models import Object, ObjectList
 import re
 from pathlib import Path
 import os
+from astropy.coordinates import Angle
+import astropy.units as u
+
+
+def to_deg(ra, dec):
+    if "." not in str(ra):
+        ra = Angle(ra, unit=u.hourangle).degree
+    else:
+        ra = float(ra)
+    if "." not in str(ra):
+        ra = Angle(dec, unit=u.hourangle).degree
+    else:
+        dec = float(dec)
+    return ra, dec
 
 
 def categorize_objs(mask, file_path):

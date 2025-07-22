@@ -49,6 +49,7 @@ Thumbs.db
 *.obs
 *.obj
 *.SMF
+*.nc
 
 # EXCEPT for these test files
 except !tests/data/

@@ -14,7 +14,6 @@ from maskgen_api.models import (
     Image,
     Project,
 )
-from maskgen_api.serializers import ObjectSerializer
 from backend.terminal_helper import remove_file
 
 # from .models import ... If you want to create your own db models (not reccomended)
@@ -174,13 +173,7 @@ class ObjectViewSet(viewsets.ViewSet):
         results = []
 
         for obj_list in object_lists:
-            # this only works if you are using the provided object model
-            serialized_objects = ObjectSerializer(
-                obj_list.objects_list.all(), many=True
-            )
-            results.append(
-                {"list_name": obj_list.name, "objects": serialized_objects.data}
-            )
+            results.append({"list_name": obj_list.name})
 
         return Response(results)
 
@@ -201,17 +194,7 @@ class MaskViewSet(viewsets.ViewSet):
                 "status": mask.status,
                 "instrument_version": mask.instrument_version,
                 "instrument_setup": mask.instrument_setup,
-                "objects_list": [
-                    {
-                        "name": obj.name,
-                        "type": obj.type,
-                        "right_ascension": obj.right_ascension,
-                        "declination": obj.declination,
-                        "priority": obj.priority,
-                    }
-                    | (obj.aux or {})
-                    for obj in mask.objects_list.all()
-                ],
+                "objects_list": mask.objects_list.name,
                 "excluded_objects": [
                     {
                         "name": obj.name,
