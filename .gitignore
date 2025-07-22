@@ -41,6 +41,7 @@ local_settings.py
 instance/
 .webassets-cache
 frontend/node_modules
+backend/media
 
 # System files
 .DS_Store
