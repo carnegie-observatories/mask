@@ -52,6 +52,9 @@ Thumbs.db
 *.obj
 *.SMF
 *.nc
+.loc_mgvers.dat
+.loc_ociw214.pem
+*.obw
 
 # EXCEPT for these test files
 except !tests/data/

@@ -387,8 +387,8 @@ class MaskViewSet(viewsets.ViewSet):
                 return Response({"error": cleaned}, status=status.HTTP_400_BAD_REQUEST)
             return Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=False, methods=["post"], url_path="complete")
-    def complete_mask(self, request):
+    @action(detail=False, methods=["post"], url_path="finalize")
+    def finalize_mask(self, request):
         data = request.data
         proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
@@ -396,8 +396,11 @@ class MaskViewSet(viewsets.ViewSet):
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask:
-            mask.status = Status.COMPLETED
+            mask.status = Status.FINALIZED
             mask.save()
+            return Response(
+                {"message": "Mask marked as FINALIZED"}, status=status.HTTP_200_OK
+            )
         else:
             return Response(
                 {"error": "mask does not exist in this project"},
@@ -453,7 +456,7 @@ class MachineViewSet(viewsets.ViewSet):
         mask_name = data["mask_name"]
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
-        if mask.status == Status.COMPLETED:
+        if mask.status == Status.FINALIZED:
             os.environ["MGPATH"] = MASKGEN_DIRECTORY
             run_command(
                 f"cp {PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF {MASKGEN_DIRECTORY}"
@@ -465,7 +468,7 @@ class MachineViewSet(viewsets.ViewSet):
                     f"mv {PROJECT_DIRECTORY}I{mask_name}.nc {PROJECT_DIRECTORY}{API_FOLDER}nc_files"
                 )
 
-                mask.status = Status.FINALIZED
+                mask.status = Status.COMPLETED
                 return Response(
                     {"created": f"l{mask_name}.nc"},
                     status=status.HTTP_201_CREATED,
@@ -480,14 +483,26 @@ class MachineViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=["get"], url_path="get-machine-code")
     def get_machine_code(self, request):
-        data = request.data
-        proj_name = data["project_name"]
+        proj_name = request.query_params.get("project_name")
+        mask_name = request.query_params.get("mask_name")
         user_id = request.headers.get("user-id")
-        mask_name = data["mask_name"]
+
+        if not all([proj_name, mask_name, user_id]):
+            return Response(
+                {"error": "missing required query parameters or headers."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
+
         if mask.status == Status.FINALIZED:
-            file_path = f"{PROJECT_DIRECTORY}nc_files/I{mask_name}.nc"
+            file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc"
             return FileResponse(
                 open(file_path, "rb"), content_type="application/x-netcdf"
+            )
+        else:
+            return Response(
+                {"error": "Mask is not finalized."},
+                status=status.HTTP_400_BAD_REQUEST,
             )
