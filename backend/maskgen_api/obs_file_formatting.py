@@ -11,8 +11,8 @@ def to_deg(ra, dec):
         ra = Angle(ra, unit=u.hourangle).degree
     else:
         ra = float(ra)
-    if "." not in str(ra):
-        ra = Angle(dec, unit=u.hourangle).degree
+    if "." not in str(dec):
+        dec = Angle(dec, unit=u.degree).degree
     else:
         dec = float(dec)
     return ra, dec
