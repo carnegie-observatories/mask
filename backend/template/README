@@ -1,4 +1,4 @@
-1. Duplicate the template folder and rename it to whatever you want. ex: maskgen_api or MAGMA_api
+1. Duplicate the template folder and rename it to whatever you want. ex: maskgen_api or magma+api
 2. Go to `maskgen_api/models.py` to see if current model definitions for Mask, Object, and InstrumentSetup suit your needs
     a. If not, go to the models.py file in your duplicated folder and paste in any models you want to change and make your edits.
     Then, go to `views.p`y and change which models are imported from where 

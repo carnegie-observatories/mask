@@ -17,12 +17,13 @@ from .obs_file_formatting import (
     categorize_objs,
     to_deg,
 )
-from backend.terminal_helper import run_command, run_maskgen, remove_file
+from backend.terminal_helper import run_maskgen, remove_file
 
 import json
 import os
 import re
 import io
+import shutil
 
 MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/"
 PROJECT_DIRECTORY = os.getcwd() + "/"
@@ -35,7 +36,7 @@ class ProjectViewSet(viewsets.ViewSet):
         print(request.headers)
         user_id = request.headers.get("user-id")
         proj_name = request.data.get("project_name")
-        existing = ObjectList.objects.filter(name=proj_name, user_id=user_id).first()
+        existing = Project.objects.filter(name=proj_name, user_id=user_id).first()
         if existing:
             return Response(
                 {
@@ -55,7 +56,9 @@ class ProjectViewSet(viewsets.ViewSet):
                 status=status.HTTP_201_CREATED,
             )
         else:
-            return Response({"error"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"error": "project not created"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
     def retrieve(self, request, pk=None):
         user_id = request.headers.get("user-id")
@@ -79,10 +82,8 @@ class InstrumentViewSet(viewsets.ViewSet):
         if version:
             config = get_object_or_404(InstrumentConfig, instrument=pk, version=version)
         else:
-            config = (
-                InstrumentConfig.objects.filter(instrument=pk)
-                .order_by("-version")
-                .first()
+            config = get_object_or_404(
+                InstrumentConfig.objects.order_by("-version"), instrument=pk
             )
 
         return Response(
@@ -165,8 +166,6 @@ class ObjectViewSet(viewsets.ViewSet):
         elif uploaded_file.name.endswith(".csv"):
             table = Table.read(io.BytesIO(uploaded_file_bytes), format="csv")
             data = table.to_pandas().to_dict(orient="records")
-            with open("output.json", "w") as f:
-                json.dump(data, f, indent=2)
         else:
             data_str = uploaded_file_bytes.decode("utf-8")
             data = json.loads(data_str)
@@ -325,18 +324,22 @@ class MaskViewSet(viewsets.ViewSet):
         generate_obj_file(filename, data["objects"])
         generate_obs_file(data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
+        # TODO: change to os
+        shutil.copy(
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj",
+            f"{MASKGEN_DIRECTORY}{filename}.obj",
+        )
+        shutil.copy(
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs",
+            f"{MASKGEN_DIRECTORY}{filename}.obs",
+        )
 
-        run_command(
-            f"cp {PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj {MASKGEN_DIRECTORY}"
-        )
-        run_command(
-            f"cp {PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs {MASKGEN_DIRECTORY}"
-        )
         result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
-
-        run_command(
-            f"mv {PROJECT_DIRECTORY}{filename}.SMF {PROJECT_DIRECTORY}{API_FOLDER}smf_files"
+        os.rename(
+            f"{PROJECT_DIRECTORY}{filename}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF",
         )
+
         if result and "Writing object file with use counts to" in feedback:
             # process features from SMF
             filepath = os.path.join(
@@ -458,19 +461,21 @@ class MachineViewSet(viewsets.ViewSet):
         mask = project.masks.get(name=mask_name)
         if mask.status == Status.FINALIZED:
             os.environ["MGPATH"] = MASKGEN_DIRECTORY
-            run_command(
-                f"cp {PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF {MASKGEN_DIRECTORY}"
+            shutil.copy(
+                f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF",
+                f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
             )
             result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskcut {mask_name}")
             if result and "Estimated cutting time" in feedback:
                 remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
-                run_command(
-                    f"mv {PROJECT_DIRECTORY}I{mask_name}.nc {PROJECT_DIRECTORY}{API_FOLDER}nc_files"
+                os.rename(
+                    f"{PROJECT_DIRECTORY}I{mask_name}.nc",
+                    f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc",
                 )
 
                 mask.status = Status.COMPLETED
                 return Response(
-                    {"created": f"l{mask_name}.nc"},
+                    {"created": f"I{mask_name}.nc"},
                     status=status.HTTP_201_CREATED,
                 )
             else:

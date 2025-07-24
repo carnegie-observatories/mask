@@ -21,12 +21,6 @@ from backend.terminal_helper import remove_file
 from .validator import validate
 
 import json
-import os
-
-MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/"
-MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
-PROJECT_DIRECTORY = os.getcwd() + "/"
-API_FOLDER = "maskgen_api/"
 
 
 # It's reccommended you follow this structure for projects
@@ -260,12 +254,7 @@ class MaskViewSet(viewsets.ViewSet):
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        file_paths = [
-            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{mask_name}.obs",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{mask_name}.obj",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc",
-        ]
+        file_paths = []  # put files generated as part of mask gen process here
         for file_path in file_paths:
             remove_file(file_path)
 
