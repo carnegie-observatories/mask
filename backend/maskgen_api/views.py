@@ -12,7 +12,7 @@ from backend.terminal_helper import run_command, run_maskgen
 import json
 import os
 
-MASKGEN_DIRECTORY = "/Users/maylinchen/downloads/maskgen-2.14-Darwin-12.6_arm64/"
+MASKGEN_DIRECTORY = "/Users/aidenx3vv/downloads/maskgen-2.14-Darwin-12.6_arm64/"
 MASKGEN_CONTAINER_NAME = "maskgen-maskgen-1"
 PROJECT_DIRECTORY = os.getcwd() + "/"
 API_FOLDER = "maskgen_api/"

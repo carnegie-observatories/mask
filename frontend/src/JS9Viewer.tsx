@@ -18,16 +18,21 @@ interface JS9ViewerProps {
 export default function JS9Viewer({fitsUrl, options,}: JS9ViewerProps) {
     const id = "js9";
     useEffect(() => {
-        if (!window.JS9) {
-            console.error("JS9 never loaded.");
-            return;
-        }
-        // This will scan the DOM for any <div class = "JS9" data-url="...">
-        window.JS9.init();
+        (async () => {
+            if (!window.JS9) {
+                console.error('JS9 never loaded.');
+                return;
+            }
 
-        window.JS9.Load(fitsUrl, { width:  "100%", height: "100%",},  () => {
-            console.log("JS9 loaded FITS");
-        });
+            // initialize
+            window.JS9.init();
+
+            // load
+            window.JS9.Load(fitsUrl, { width: '100%', height: '100%' }, () => {
+                console.log('JS9 loaded: ', fitsUrl);
+            });
+
+        })();
 
     }, [fitsUrl, options]);
 

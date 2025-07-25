@@ -1,17 +1,22 @@
+import { Button } from '@mantine/core';
 import React from 'react';
+
 
 interface ButtonProps {
     icon?: React.ReactNode;
-    text: string;
     onClick: () => void;
+    text: string;
 }
 
 function EssentialControlButtons({ icon, text, onClick }: ButtonProps) {
     return (
-        <button className = "essential-control-button" onClick = {onClick}>
-            <div className = "ecb-icon">{icon}</div>
-            <span className = "ecb-label">{text}</span>
-        </button>
+        <Button onClick={onClick} className="ecb" fullWidth>
+            {/* stack icon above label */}
+            <div className="ecb-stack">
+                {icon && <span className="ecb-icon">{icon}</span>}
+                <span className="ecb-label">{text}</span>
+            </div>
+        </Button>
     );
 }
 

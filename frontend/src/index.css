@@ -13,17 +13,26 @@ body > iframe {
 }
 /* TODO: FIXME */
 
-/*Mantine component settings*/
+
+html, body, #root {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+}
+
+
+/*Mantine component extra styling*/
 @layer base {
     /*regular buttons*/
     button[class*="mantine-Button-root"] {
-        background-color: #586072;
+        background-color: black;
         font-family: 'Cabin', sans-serif;
         color: #f5f5f5;
         padding: 10px 16px;
         box-shadow: 0 0 12px 4px rgba(0,0,0,0.15);
         border: 1px solid black;
         border-radius: 10px;
+        font-size: 13px;
         transition: transform 0.2s ease;
         transform-origin: center;
     }
@@ -31,8 +40,6 @@ body > iframe {
     button[class*="mantine-Button-root"]:hover {
         transform: scale(1.05);
     }
-
-
 }
 
 
@@ -92,11 +99,11 @@ This lines up the contents of the container, and sets other rules.*/
     margin-top: 100px;
 }
 
-/* right sidebar button settings */
+/* right sidebar button settings (no longer working, switched to Mantine; settings moved to .ecb) */
 .essential-control-button {
     color: #f5f5f5;
     background-color: #3e4451;
-    display: inline-flex;
+    display: flex;
     align-items: end;
     justify-content: center;
     font-size: 15px;
@@ -124,9 +131,47 @@ This lines up the contents of the container, and sets other rules.*/
 }
 
 
+/*Mantine-based essential control button settings*/
+.ecb {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 0;
+    padding-block: 0.75rem;
+    height: 140px;
+    width: 110px;
+    padding-inline: 18px;
+    font-size: 11px;
+    white-space: normal;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.essential-controls button {
+    flex: 0 1 auto;
+
+}
+
+.ecb-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ecb icon settings */
+.ecb-icon svg {
+    width: 25px;
+    height: 25px;
+}
+
+.ecb-label {
+    white-space: normal;
+}
+
 /*settings for js9 control buttons in the bottom section*/
 .JS9-control-button {
-    background-color: #3e4451;
+    background-color: #586072;
     font-family: 'Cabin', sans-serif;
     color: #f5f5f5;
     padding: 10px 16px;
@@ -135,6 +180,9 @@ This lines up the contents of the container, and sets other rules.*/
     border-radius: 10px;
     transition: transform 0.2s ease;
     transform-origin: center;
+    font-size: 13px;
+
+
 }
 
 .JS9-control-button:hover {
@@ -144,7 +192,7 @@ This lines up the contents of the container, and sets other rules.*/
 /* 1) whole screen: four sections */
 .main-screen {
     display: grid;
-    height: 100vh;
+    height: 98vh;
     overflow: hidden;
     /*
     three columns: left params, center JS9, right essential controls.
@@ -183,7 +231,6 @@ This lines up the contents of the container, and sets other rules.*/
     border-left: 1px solid #2c2f36;
     justify-content: space-between;
     align-items: center;
-
 }
 
 /* example styling for the section title, unused */
@@ -204,13 +251,79 @@ This lines up the contents of the container, and sets other rules.*/
     box-shadow: 2px 0 6px rgba(0,0,0,0.5);
 }
 
+
+
+
+.param-scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    padding-block: 8px;
+    overflow-x: hidden;
+}
+
+.param-scroll > * {
+    width: auto;
+    max-width: 100%;
+}
+
+.param-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.param-scroll::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 3px;
+}
+
+.param-scroll::-webkit-scrollbar-track{
+    background: transparent;
+    margin-block: 6px;
+    display: none;
+}
+
+
+/*rows in the parameter section*/
+.upload-object-files,
+.musthave-pdecide-prio-sup,
+.repeat-obj-ref-limit,
+.extend-align-overlap,
+.width-lengths,
+.shape-uncut,
+.ns-mode-center-λ-ex-ord,
+.detector-range,
+.wavelength-settings,
+.filter-order-ha,
+.instrument-disperser,
+.equinox-slit-angle,
+.ra-declination,
+.observer-settings,
+.file-options {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.ns-mode-center-λ-ex-ord  .mantine-Switch-root{
+    display:flex;
+    align-items:center;
+    height: 100%;
+}
+
 /*settings for the bottom section*/
 .bottom-area {
     grid-area: blank;
+    background-color: #333842;
     position: relative;
     color: #f5f5f5;
     text-align: center;
-    box-shadow: 0 0 12px 4px rgba(0,0,0,0.15);
+    box-shadow: 0 -4px 6px -4px rgba(0,0,0,.6);
     padding: 2rem;
     display: flex;
     flex-direction: column;
@@ -218,6 +331,8 @@ This lines up the contents of the container, and sets other rules.*/
     align-items: center;
     gap: 1rem;
 }
+
+
 
 .first-row-controls,
 .second-row-controls {
@@ -285,9 +400,18 @@ This lines up the contents of the container, and sets other rules.*/
 
 /*settings for the list of uploaded object files*/
 .param-controls ul.uploaded-files {
-    padding-left: 12vh;
     list-style-position: inside;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    align-items: center;
+}
+
+.param-controls ul.uploaded-files > * {
+    width: auto;
+    max-width: 100%;
 }
 
 svg.JS9Regions {
@@ -363,7 +487,29 @@ div.JS9Progress {
     display: none;
 }
 
-/* to make wait cursor override other element cursors (e.g. fabric.js canvas) */
+
 body.waiting, body.waiting * {
     cursor: wait !important;
+}
+
+.param-controls input[type="file"] {
+    display: none !important;
+}
+
+.app-shell {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.table-panel{
+    flex:1 1 auto;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+}
+
+.table-panel > .mantine-ScrollArea-root{
+    flex: 1 1 auto;
+    min-height: 0;
 }
