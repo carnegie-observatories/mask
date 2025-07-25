@@ -13,16 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from maskgen_api.views import MaskViewSet, ObjectViewSet
-router = DefaultRouter()
-
-router.register(r"masks", MaskViewSet, basename="mask")
-router.register(r"objects", ObjectViewSet, basename="object")
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("api/", include(router.urls), name="api"),
-]
+    path("admin/", admin.site.urls),
+    path("api/", include("maskgen_api.urls")),
+    # add new app paths here
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
