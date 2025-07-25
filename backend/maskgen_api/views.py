@@ -33,7 +33,6 @@ API_FOLDER = "maskgen_api/"
 class ProjectViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="create")
     def upload(self, request):
-        print(request.headers)
         user_id = request.headers.get("user-id")
         proj_name = request.data.get("project_name")
         existing = Project.objects.filter(name=proj_name, user_id=user_id).first()
@@ -97,7 +96,6 @@ class InstrumentViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=["post"], url_path="uploadconfig")
     def upload(self, request):
-        print(request.data)
         data = request.data
         existing = (
             InstrumentConfig.objects.filter(instrument=data["instrument"])
@@ -128,7 +126,6 @@ class ImageViewSet(viewsets.ViewSet):
         user_id = request.headers.get("user-id")
         img_name = request.query_params.get("img_name")
         proj_name = request.query_params.get("project_name")
-        print(proj_name)
         project = get_object_or_404(Project, name=proj_name, user_id=user_id)
         img_obj = project.images.get(name=img_name)
         img_path = img_obj.image.path
@@ -280,7 +277,6 @@ class MaskViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         proj_name = request.query_params.get("project_name")
         user_id = request.headers.get("user-id")
-        print(proj_name, user_id)
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=pk)
 
