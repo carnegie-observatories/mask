@@ -21,6 +21,11 @@ function StartScreen() {
         console.log("Guest button clicked");
         navigate('/MainScreen', { replace: true });
     };
+    const AladinTest = () => {
+        //When Guest button is clicked
+        console.log("Aladin clicked");
+        navigate('/AladinTest', { replace: true });
+    };
 
     return (
         <div>
@@ -29,6 +34,7 @@ function StartScreen() {
                 <Button text = "Login"          onClick = {handleLogin} />
                 <Button text = "Register"       onClick = {handleRegister} />
                 <Button text = "Guest Login"    onClick = {handleGuest} />
+                <Button text = "Aladin"    onClick = {AladinTest} />
             </div>
         </div>
     );
