@@ -3,7 +3,7 @@ from threading import Timer
 import os
 
 
-def run_maskgen(command):
+def run_maskgen(command, override):
     def _run_with_input(input_text=None):
         proc = subprocess.Popen(
             command.split(" "),
@@ -25,10 +25,12 @@ def run_maskgen(command):
         finally:
             timer.cancel()
 
-    # First try, no input
     success, output = _run_with_input()
     print(output)
-    print(success)
+    while override and "Do you wish to continue" in output:
+
+        success, output = _run_with_input(input_text="yes\n")
+        print(output)
 
     return success, output
 
