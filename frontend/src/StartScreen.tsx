@@ -22,6 +22,12 @@ function StartScreen() {
         navigate('/MainScreen', { replace: true });
     };
 
+    const handleAladin = () => {
+        //When Guest button is clicked
+        console.log("Guest button clicked");
+        navigate('/AladinTest', { replace: true });
+    };
+
     return (
         <div>
             <h1 className = "title">SlitMask Interface</h1>
@@ -29,6 +35,7 @@ function StartScreen() {
                 <Button text = "Login"          onClick = {handleLogin} />
                 <Button text = "Register"       onClick = {handleRegister} />
                 <Button text = "Guest Login"    onClick = {handleGuest} />
+                <Button text = "Aladin"    onClick = {handleAladin} />
             </div>
         </div>
     );

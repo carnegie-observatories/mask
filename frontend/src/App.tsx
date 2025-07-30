@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import StartScreen from './StartScreen';
 import MainScreen  from './MainScreen';
+import AladinTest from './AladinTest';
 import {Routes, Route, Navigate} from 'react-router-dom';
 
 //different "screens" in the program
@@ -28,6 +29,7 @@ export default function Program() {
             <Route index element = {<Navigate to = "/StartScreen" replace />} />
             <Route path = "/StartScreen" element = {<StartScreen />} />
             <Route path = "/MainScreen" element = {<MainScreen />} />
+            <Route path = "/AladinTest" element = {<AladinTest />} />
         </Routes>
     );
 }

@@ -70,7 +70,6 @@ function MainScreen() {
     }
 
 
-
     // essential control button handlers
     const handleGenExport = () => {
         //When Generate and Export button is clicked
@@ -143,7 +142,7 @@ function MainScreen() {
 
 
 
-    // when user uploads object file, sends to API and awaits return
+    // when user uploads object file, sends to API and awaits return in console
     async function uploadObjectFiles(files: File[],  listName: string) {
         console.log("Upload initiated for: ", files);
         if (!files.length) return;
@@ -177,18 +176,6 @@ function MainScreen() {
             setLoading(false);
         }
     }
-
-
-    // handler for submit button (for object file upload)
-    const handleSubmitFiles = () => {
-        console.log("Submit Files button clicked");
-        let objectFileTitle = prompt("Title: ");
-        if (!objectFileTitle) return;
-        uploadObjectFiles(selectedFiles, objectFileTitle);
-    }
-
-
-
 
     // creating a chart based off data received from API, opened as a table in new tab
     async function getTableData(name: string) {
@@ -227,16 +214,19 @@ function MainScreen() {
         }
     }
 
-    // handler for create table button
-    const handleCreateTable = () => {
-        console.log("Create Object Data Table button clicked");
-        if (!lastListName) {
-            alert('You must upload a list first.');
-            return;
-        }
-        // @ts-ignore
-        getTableData(lastListName);
-        setActiveTab('table');
+    // handler for submit button (for object file upload)
+    const handleSubmitFiles = () => {
+        console.log("Submit Files button clicked");
+        let objectFileTitle = prompt("Title: ");
+        if (!objectFileTitle) return;
+        uploadObjectFiles(selectedFiles, objectFileTitle);
+
+        setTimeout(() => {
+            // @ts-ignore
+            getTableData(lastListName);
+            setActiveTab('table');
+        }, 3000);
+
     }
 
 
@@ -703,8 +693,6 @@ function MainScreen() {
                                     )}
                                 </div>
 
-                                <Button onClick={handleCreateTable}>Create Object Data Table</Button>
-
                             </div>
                         </aside>
 
@@ -721,7 +709,7 @@ function MainScreen() {
                             <EssentialControlButtons text="Undo" onClick={handleUndo} icon={<IconArrowBackUp stroke={1.8} />}/>
                             <EssentialControlButtons text="Redo" onClick={handleRedo} icon={<IconArrowForwardUp stroke={1.8} />}/>
                             <EssentialControlButtons text="Parameter History" onClick={handleParameterHistory} icon={<IconHistory stroke={1.8} />}/>
-                            <EssentialControlButtons text="Generate & Export" onClick={handleGenExport} icon={<IconPackageExport stroke={1.8} />}/>
+                            <EssentialControlButtons text="Submit" onClick={handleGenExport} icon={<IconPackageExport stroke={1.8} />}/>
                             <EssentialControlButtons text="Log Out" onClick={handleLogOut} icon={<IconLogout stroke={1.8} />}/>
                             <EssentialControlButtons text="Quit" onClick={handleQuit} icon={<IconDeviceImacCancel stroke={1.8} />}/>
 
