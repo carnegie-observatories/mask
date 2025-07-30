@@ -3,34 +3,46 @@ from threading import Timer
 import os
 
 
+def run_with_input(command, input_text=None):
+    proc = subprocess.Popen(
+        command.split(" "),
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    timer = Timer(5, proc.kill)  # kill if hung
+    try:
+        timer.start()
+        stdout, stderr = proc.communicate(input=input_text)
+        if proc.returncode == 0:
+            return True, stdout.strip()
+        else:
+            return False, (stdout + "\n" + stderr).strip()
+    except Exception as e:
+        return False, str(e)
+    finally:
+        timer.cancel()
+
+
 def run_maskgen(command, override):
-    def _run_with_input(input_text=None):
-        proc = subprocess.Popen(
-            command.split(" "),
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-        )
-        timer = Timer(5, proc.kill)  # kill if hung
-        try:
-            timer.start()
-            stdout, stderr = proc.communicate(input=input_text)
-            if proc.returncode == 0:
-                return True, stdout.strip()
-            else:
-                return False, (stdout + "\n" + stderr).strip()
-        except Exception as e:
-            return False, str(e)
-        finally:
-            timer.cancel()
-
-    success, output = _run_with_input()
+    success, output = run_with_input(command)
     print(output)
-    while override and "Do you wish to continue" in output:
+    while override and ("Do you wish to continue" in output or "Overwrite?" in output):
+        success, output = run_with_input(command, input_text="yes\n")
+        print("new", output)
 
-        success, output = _run_with_input(input_text="yes\n")
-        print(output)
+    return success, output
+
+
+def run_maskcut(command, override):
+    success, output = run_with_input(command)
+    print(output)
+    while override and ("Do you wish to continue" in output or "Overwrite?" in output):
+        success, output = run_with_input(command, input_text="yes\n")
+        if "Estimated cutting time" in output:
+            break
+        print("new", output)
 
     return success, output
 

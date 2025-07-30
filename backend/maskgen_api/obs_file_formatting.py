@@ -102,9 +102,13 @@ def generate_obj_file(user_id, proj_name, filename, objects):
     Returns:
         str: path to obj file
     """
-    print("generate obj file")
+
     script_dir = os.path.dirname(__file__)
     path = os.path.join(script_dir, "obj_files", user_id, proj_name, f"{filename}.obj")
+    os.makedirs(os.path.join(script_dir, "obj_files", user_id), exist_ok=True)
+    os.makedirs(
+        os.path.join(script_dir, "obj_files", user_id, proj_name), exist_ok=True
+    )
     with open(path, "w") as file:
         file.write("&RADEGREE\n")
         if not isinstance(objects, list):
@@ -156,7 +160,11 @@ def generate_obs_file(user_id, proj_name, instrument_setup, obj_file_paths):
     Returns:
         str: path to obs file
     """
-    print("generate obs file")
+    script_dir = os.path.dirname(__file__)
+    os.makedirs(os.path.join(script_dir, "obs_files", user_id), exist_ok=True)
+    os.makedirs(
+        os.path.join(script_dir, "obs_files", user_id, proj_name), exist_ok=True
+    )
     obs_header = f"""#Obs file ({instrument_setup['filename']}.obs)
 # Written By:  IntGui 4.70 
 ! Edited {instrument_setup['edit_date']} By Observer Interface GUI version 4.70.31

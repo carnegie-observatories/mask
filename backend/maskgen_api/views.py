@@ -17,7 +17,7 @@ from .obs_file_formatting import (
     categorize_objs,
     to_deg,
 )
-from backend.terminal_helper import run_maskgen, remove_file, run_command
+from backend.terminal_helper import run_maskgen, run_maskcut, remove_file
 
 import json
 import os
@@ -366,6 +366,13 @@ class MaskViewSet(viewsets.ViewSet):
         filename = data["filename"]
         proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        if project.masks.filter(name=filename).exists():
+            return Response(
+                {"error": "mask name already exists for project"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         generate_obj_file(user_id, proj_name, filename, data["objects"])
         generate_obs_file(user_id, proj_name, data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
@@ -379,7 +386,20 @@ class MaskViewSet(viewsets.ViewSet):
             f"{MASKGEN_DIRECTORY}{filename}.obs",
         )
 
-        result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
+        result, feedback = run_maskgen(
+            f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs",
+            bool(data["override"] == "true"),
+        )
+        os.makedirs(
+            os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id),
+            exist_ok=True,
+        )
+        os.makedirs(
+            os.path.join(
+                f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id, proj_name
+            ),
+            exist_ok=True,
+        )
         os.rename(
             f"{PROJECT_DIRECTORY}{filename}.SMF",
             f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
@@ -412,7 +432,7 @@ class MaskViewSet(viewsets.ViewSet):
                 mask, f"{PROJECT_DIRECTORY}{filename}.obw"
             )
             self._file_cleanup(filename)
-            project = Project.objects.get(name=proj_name, user_id=user_id)
+
             project.masks.add(mask)
             project.save()
 
@@ -460,21 +480,22 @@ class MaskViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-    @action(detail=False, methods=["get"], url_path="preview")
-    def get_preview(self, request):
-        user_id = request.headers.get("user-id")
-        mask_name = request.query_params.get("mask_name")
-        proj_name = request.query_params.get("project_name")
-        shutil.copy(
-            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
-            f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
-        )
-        run_command(f"{MASKGEN_DIRECTORY}/smdfps {mask_name}", False)
-        remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
-        return FileResponse(
-            open(f"{MASKGEN_DIRECTORY}/{mask_name}.PS", "rb"),
-            content_type="application/postscript",
-        )
+    # unneeded feature
+    # @action(detail=False, methods=["get"], url_path="preview")
+    # def get_preview(self, request):
+    #     user_id = request.headers.get("user-id")
+    #     mask_name = request.query_params.get("mask_name")
+    #     proj_name = request.query_params.get("project_name")
+    #     shutil.copy(
+    #         f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
+    #         f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
+    #     )
+    #     run_command(f"{MASKGEN_DIRECTORY}/smdfps {mask_name}", False)
+    #     remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
+    #     return FileResponse(
+    #         open(f"{MASKGEN_DIRECTORY}/{mask_name}.PS", "rb"),
+    #         content_type="application/postscript",
+    #     )
 
     @action(detail=False, methods=["delete"], url_path="delete")
     def delete_mask(self, request):
@@ -523,6 +544,7 @@ class MachineViewSet(viewsets.ViewSet):
         proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
+        overwrite = bool(data["overwrite"] == "true")
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask.status == Status.FINALIZED:
@@ -531,12 +553,21 @@ class MachineViewSet(viewsets.ViewSet):
                 f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
                 f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
             )
-            result, feedback = run_maskgen(
-                f"{MASKGEN_DIRECTORY}/maskcut {mask_name}",
-                bool(data["override"] == "true"),
+            result, feedback = run_maskcut(
+                f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
             )
             if result and "Estimated cutting time" in feedback:
                 remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
+                os.makedirs(
+                    os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id),
+                    exist_ok=True,
+                )
+                os.makedirs(
+                    os.path.join(
+                        f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
+                    ),
+                    exist_ok=True,
+                )
                 os.rename(
                     f"{PROJECT_DIRECTORY}I{mask_name}.nc",
                     f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
