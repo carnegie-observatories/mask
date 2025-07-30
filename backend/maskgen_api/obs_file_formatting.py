@@ -90,6 +90,7 @@ output_path.write_text(json.dumps(parsed_objects, indent=2))
 
 
 def generate_obj_file(user_id, proj_name, filename, objects):
+
     """
     Generates a .obj file following Carnegie OBS formatting
 
@@ -102,13 +103,13 @@ def generate_obj_file(user_id, proj_name, filename, objects):
     Returns:
         str: path to obj file
     """
-
     script_dir = os.path.dirname(__file__)
     path = os.path.join(script_dir, "obj_files", user_id, proj_name, f"{filename}.obj")
     os.makedirs(os.path.join(script_dir, "obj_files", user_id), exist_ok=True)
     os.makedirs(
         os.path.join(script_dir, "obj_files", user_id, proj_name), exist_ok=True
     )
+
     with open(path, "w") as file:
         file.write("&RADEGREE\n")
         if not isinstance(objects, list):
@@ -207,6 +208,7 @@ DATE {instrument_setup['date']}
     for obj_path in obj_file_paths:
         obs_header += f"OBJFILE  {obj_path}\n"
     script_dir = os.path.dirname(__file__)
+
     path = os.path.join(
         script_dir,
         "obs_files",
@@ -214,6 +216,7 @@ DATE {instrument_setup['date']}
         proj_name,
         f"{instrument_setup['filename']}.obs",
     )
+
     with open(path, "w") as file:
         file.write(obs_header)
     return path

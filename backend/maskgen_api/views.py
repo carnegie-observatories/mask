@@ -85,7 +85,6 @@ class ProjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
-
 class InstrumentViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         version = request.query_params.get("version")
@@ -365,6 +364,7 @@ class MaskViewSet(viewsets.ViewSet):
         data = request.data
         filename = data["filename"]
         proj_name = data["project_name"]
+
         user_id = request.headers.get("user-id")
         project = Project.objects.get(name=proj_name, user_id=user_id)
         if project.masks.filter(name=filename).exists():
@@ -435,7 +435,6 @@ class MaskViewSet(viewsets.ViewSet):
 
             project.masks.add(mask)
             project.save()
-
             return Response(
                 {
                     "created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF"
@@ -508,7 +507,6 @@ class MaskViewSet(viewsets.ViewSet):
                 {"error": "missing required parameters"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
         project = get_object_or_404(Project, name=proj_name, user_id=user_id)
 
         try:
@@ -597,7 +595,6 @@ class MachineViewSet(viewsets.ViewSet):
                 {"error": "missing required query parameters or headers."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
 

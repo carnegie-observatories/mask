@@ -2,7 +2,6 @@ import subprocess
 from threading import Timer
 import os
 
-
 def run_with_input(command, input_text=None):
     proc = subprocess.Popen(
         command.split(" "),

@@ -79,7 +79,6 @@ class ProjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
-
 # don't need to change if not modifying project setup
 class ImageViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["get"], url_path="getimg")
