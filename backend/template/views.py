@@ -68,6 +68,16 @@ class ProjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
+    @action(detail=False, methods=["delete"], url_path="delete")
+    def delete_project(self, request):
+        user_id = request.headers.get("user-id")
+        proj_name = request.data.get("project_name")
+        existing = Project.objects.filter(name=proj_name, user_id=user_id).first()
+        existing.delete()
+        return Response(
+            {"message": "project deleted"},
+            status=status.HTTP_200_OK,
+        )
 
 # don't need to change if not modifying project setup
 class ImageViewSet(viewsets.ViewSet):
@@ -171,7 +181,44 @@ class ObjectViewSet(viewsets.ViewSet):
 
         return Response(results)
 
-    # TODO: delete obj
+    @action(detail=False, methods=["delete"], url_path="delete")
+    def delete_obj(self, request):
+        list_name = request.query_params.get("list_name")
+        obj_name = request.query_params.get("obj_name")
+        user_id = request.headers.get("user-id")
+        obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
+        obj = obj_list.objects.get(name=obj_name)
+        obj_list.objects_list.remove(obj)
+        return Response(
+            {"message": f"object '{obj_name}' removed from list '{list_name}'"},
+            status=status.HTTP_200_OK,
+        )
+
+    @action(detail=False, methods=["patch"], url_path="edit")
+    def edit_obj(self, request):
+        list_name = request.data.pop("list_name")
+        obj_name = request.data.pop("obj_name")
+        user_id = request.headers.get("user-id")
+
+        obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
+        obj = obj_list.objects_list.get(name=obj_name)
+
+        if "type" in request.data:
+            obj.type = request.data.pop("type")
+        if "ra" in request.data:
+            obj.right_ascension = float(request.data.pop("ra"))
+        if "dec" in request.data:
+            obj.declination = float(request.data.pop("dec"))
+        if "priority" in request.data:
+            obj.priority = int(request.data.pop("priority"))
+        if request.data:
+            obj.aux.update(request.data)
+
+        obj.save()
+
+        return Response(
+            {"message": f"Object '{obj_name}' updated"}, status=status.HTTP_200_OK
+        )
 
 
 class MaskViewSet(viewsets.ViewSet):
