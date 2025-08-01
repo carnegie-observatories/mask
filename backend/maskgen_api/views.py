@@ -238,7 +238,13 @@ class ObjectViewSet(viewsets.ViewSet):
         obj_name = request.query_params.get("obj_name")
         user_id = request.headers.get("user-id")
         obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
-        obj = obj_list.objects.get(name=obj_name)
+        try:
+            obj = obj_list.objects.get(name=obj_name)
+        except Object.DoesNotExist:
+            return Response(
+                {"error": f"Object '{obj_name}' not found in list '{list_name}'"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
         obj_list.objects_list.remove(obj)
         return Response(
             {"message": f"object '{obj_name}' removed from list '{list_name}'"},
