@@ -18,7 +18,7 @@ from .obs_file_formatting import (
     to_deg,
 )
 from backend.terminal_helper import run_maskgen, run_maskcut, remove_file
-
+from .validator import validate
 import json
 import os
 import re
@@ -79,11 +79,19 @@ class ProjectViewSet(viewsets.ViewSet):
         user_id = request.headers.get("user-id")
         proj_name = request.data.get("project_name")
         existing = Project.objects.filter(name=proj_name, user_id=user_id).first()
+        if not existing:
+            return Response(
+                {
+                    "error": f"Project '{proj_name}' does not exist for user '{user_id}'."
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
         existing.delete()
         return Response(
             {"message": "project deleted"},
             status=status.HTTP_200_OK,
         )
+
 
 class InstrumentViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
@@ -186,13 +194,12 @@ class ObjectViewSet(viewsets.ViewSet):
             )
 
         obj_list = ObjectList.objects.create(name=list_name, user_id=user_id)
-        created_objects = []
 
         for row in data:
             # convert hours to degs if in hrs
             ra, dec = to_deg(row.pop("ra"), row.pop("dec"))
 
-            obj, _ = Object.objects.get_or_create(
+            obj, _ = Object.objects.create(
                 name=row.pop("name"),
                 user_id=request.headers.get("user-id"),
                 defaults={
@@ -203,7 +210,6 @@ class ObjectViewSet(viewsets.ViewSet):
                     "aux": row,
                 },
             )
-            created_objects.append(obj.id)
             obj_list.objects_list.add(obj)
 
         project.obj_list = obj_list
@@ -238,10 +244,11 @@ class ObjectViewSet(viewsets.ViewSet):
         obj_name = request.query_params.get("obj_name")
         user_id = request.headers.get("user-id")
         obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
-        obj = obj_list.objects.get(name=obj_name)
+        obj = get_object_or_404(obj_list.objects, name=obj_name)
         obj_list.objects_list.remove(obj)
+        obj.delete()
         return Response(
-            {"message": f"object '{obj_name}' removed from list '{list_name}'"},
+            {"message": f"object '{obj_name}' deleted"},
             status=status.HTTP_200_OK,
         )
 
@@ -373,10 +380,16 @@ class MaskViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+        valid, feedback = validate(data)
+        if not valid:
+            return Response(
+                {"error": feedback},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         generate_obj_file(user_id, proj_name, filename, data["objects"])
         generate_obs_file(user_id, proj_name, data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
-        # TODO: change to os
         shutil.copy(
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
             f"{MASKGEN_DIRECTORY}{filename}.obj",
@@ -388,7 +401,7 @@ class MaskViewSet(viewsets.ViewSet):
 
         result, feedback = run_maskgen(
             f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs",
-            bool(data["override"] == "true"),
+            data["override"] == "true",
         )
         os.makedirs(
             os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id),
@@ -479,23 +492,6 @@ class MaskViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-    # unneeded feature
-    # @action(detail=False, methods=["get"], url_path="preview")
-    # def get_preview(self, request):
-    #     user_id = request.headers.get("user-id")
-    #     mask_name = request.query_params.get("mask_name")
-    #     proj_name = request.query_params.get("project_name")
-    #     shutil.copy(
-    #         f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
-    #         f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
-    #     )
-    #     run_command(f"{MASKGEN_DIRECTORY}/smdfps {mask_name}", False)
-    #     remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
-    #     return FileResponse(
-    #         open(f"{MASKGEN_DIRECTORY}/{mask_name}.PS", "rb"),
-    #         content_type="application/postscript",
-    #     )
-
     @action(detail=False, methods=["delete"], url_path="delete")
     def delete_mask(self, request):
         user_id = request.headers.get("user-id")
@@ -542,7 +538,7 @@ class MachineViewSet(viewsets.ViewSet):
         proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
-        overwrite = bool(data["overwrite"] == "true")
+        overwrite = data["overwrite"] == "true"
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask.status == Status.FINALIZED:

@@ -90,7 +90,6 @@ output_path.write_text(json.dumps(parsed_objects, indent=2))
 
 
 def generate_obj_file(user_id, proj_name, filename, objects):
-
     """
     Generates a .obj file following Carnegie OBS formatting
 
@@ -145,7 +144,7 @@ def generate_obj_file(user_id, proj_name, filename, objects):
 
                 file.write(new_line + "\n")
 
-    return f"obj_files/{user_id}/{proj_name}/{filename}.obj/"
+    return f"obj_files/{user_id}/{proj_name}/{filename}.obj"
 
 
 def generate_obs_file(user_id, proj_name, instrument_setup, obj_file_paths):

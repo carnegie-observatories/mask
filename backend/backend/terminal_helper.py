@@ -2,6 +2,7 @@ import subprocess
 from threading import Timer
 import os
 
+
 def run_with_input(command, input_text=None):
     proc = subprocess.Popen(
         command.split(" "),
@@ -27,21 +28,32 @@ def run_with_input(command, input_text=None):
 def run_maskgen(command, override):
     success, output = run_with_input(command)
     print(output)
-    while override and ("Do you wish to continue" in output or "Overwrite?" in output):
+    max_retries = 0
+    while (
+        override
+        and ("Do you wish to continue" in output or "Overwrite?" in output)
+        and max_retries < 5
+    ):
         success, output = run_with_input(command, input_text="yes\n")
-        print("new", output)
+        if "Writing object file with use counts to" in output:
+            break
+        max_retries += 1
 
     return success, output
 
 
 def run_maskcut(command, override):
     success, output = run_with_input(command)
-    print(output)
-    while override and ("Do you wish to continue" in output or "Overwrite?" in output):
+    max_retries = 0
+    while (
+        override
+        and ("Do you wish to continue" in output or "Overwrite?" in output)
+        and max_retries < 0
+    ):
         success, output = run_with_input(command, input_text="yes\n")
         if "Estimated cutting time" in output:
             break
-        print("new", output)
+        max_retries += 1
 
     return success, output
 
