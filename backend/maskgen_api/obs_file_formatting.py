@@ -89,7 +89,7 @@ output_path.write_text(json.dumps(parsed_objects, indent=2))
 """
 
 
-def generate_obj_file(filename, objects):
+def generate_obj_file(user_id, proj_name, filename, objects):
     """
     Generates a .obj file following Carnegie OBS formatting
 
@@ -102,9 +102,13 @@ def generate_obj_file(filename, objects):
     Returns:
         str: path to obj file
     """
-    print("generate obj file")
     script_dir = os.path.dirname(__file__)
-    path = os.path.join(script_dir, "obj_files", f"{filename}.obj")
+    path = os.path.join(script_dir, "obj_files", user_id, proj_name, f"{filename}.obj")
+    os.makedirs(os.path.join(script_dir, "obj_files", user_id), exist_ok=True)
+    os.makedirs(
+        os.path.join(script_dir, "obj_files", user_id, proj_name), exist_ok=True
+    )
+
     with open(path, "w") as file:
         file.write("&RADEGREE\n")
         if not isinstance(objects, list):
@@ -140,10 +144,10 @@ def generate_obj_file(filename, objects):
 
                 file.write(new_line + "\n")
 
-    return f"obj_files/{filename}.obj/"
+    return f"obj_files/{user_id}/{proj_name}/{filename}.obj"
 
 
-def generate_obs_file(instrument_setup, obj_file_paths):
+def generate_obs_file(user_id, proj_name, instrument_setup, obj_file_paths):
     """
     Generates a .obs file following Carnegie OBS formatting
 
@@ -156,7 +160,11 @@ def generate_obs_file(instrument_setup, obj_file_paths):
     Returns:
         str: path to obs file
     """
-    print("generate obs file")
+    script_dir = os.path.dirname(__file__)
+    os.makedirs(os.path.join(script_dir, "obs_files", user_id), exist_ok=True)
+    os.makedirs(
+        os.path.join(script_dir, "obs_files", user_id, proj_name), exist_ok=True
+    )
     obs_header = f"""#Obs file ({instrument_setup['filename']}.obs)
 # Written By:  IntGui 4.70 
 ! Edited {instrument_setup['edit_date']} By Observer Interface GUI version 4.70.31
@@ -199,7 +207,15 @@ DATE {instrument_setup['date']}
     for obj_path in obj_file_paths:
         obs_header += f"OBJFILE  {obj_path}\n"
     script_dir = os.path.dirname(__file__)
-    path = os.path.join(script_dir, "obs_files", f"{instrument_setup['filename']}.obs")
+
+    path = os.path.join(
+        script_dir,
+        "obs_files",
+        user_id,
+        proj_name,
+        f"{instrument_setup['filename']}.obs",
+    )
+
     with open(path, "w") as file:
         file.write(obs_header)
     return path

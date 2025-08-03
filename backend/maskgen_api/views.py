@@ -17,8 +17,8 @@ from .obs_file_formatting import (
     categorize_objs,
     to_deg,
 )
-from backend.terminal_helper import run_maskgen, remove_file
-
+from backend.terminal_helper import run_maskgen, run_maskcut, remove_file
+from .validator import validate
 import json
 import os
 import re
@@ -71,6 +71,24 @@ class ProjectViewSet(viewsets.ViewSet):
                 "images": image_names,
                 "masks": mask_names,
             },
+            status=status.HTTP_200_OK,
+        )
+
+    @action(detail=False, methods=["delete"], url_path="delete")
+    def delete_project(self, request):
+        user_id = request.headers.get("user-id")
+        proj_name = request.data.get("project_name")
+        existing = Project.objects.filter(name=proj_name, user_id=user_id).first()
+        if not existing:
+            return Response(
+                {
+                    "error": f"Project '{proj_name}' does not exist for user '{user_id}'."
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        existing.delete()
+        return Response(
+            {"message": "project deleted"},
             status=status.HTTP_200_OK,
         )
 
@@ -176,13 +194,12 @@ class ObjectViewSet(viewsets.ViewSet):
             )
 
         obj_list = ObjectList.objects.create(name=list_name, user_id=user_id)
-        created_objects = []
 
         for row in data:
             # convert hours to degs if in hrs
             ra, dec = to_deg(row.pop("ra"), row.pop("dec"))
 
-            obj, _ = Object.objects.get_or_create(
+            obj, _ = Object.objects.create(
                 name=row.pop("name"),
                 user_id=request.headers.get("user-id"),
                 defaults={
@@ -193,7 +210,6 @@ class ObjectViewSet(viewsets.ViewSet):
                     "aux": row,
                 },
             )
-            created_objects.append(obj.id)
             obj_list.objects_list.add(obj)
 
         project.obj_list = obj_list
@@ -222,7 +238,45 @@ class ObjectViewSet(viewsets.ViewSet):
 
         return Response(results)
 
-    # TODO: delete obj
+    @action(detail=False, methods=["delete"], url_path="delete")
+    def delete_obj(self, request):
+        list_name = request.query_params.get("list_name")
+        obj_name = request.query_params.get("obj_name")
+        user_id = request.headers.get("user-id")
+        obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
+        obj = get_object_or_404(obj_list.objects, name=obj_name)
+        obj_list.objects_list.remove(obj)
+        obj.delete()
+        return Response(
+            {"message": f"object '{obj_name}' deleted"},
+            status=status.HTTP_200_OK,
+        )
+
+    @action(detail=False, methods=["patch"], url_path="edit")
+    def edit_obj(self, request):
+        list_name = request.data.pop("list_name")
+        obj_name = request.data.pop("obj_name")
+        user_id = request.headers.get("user-id")
+
+        obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
+        obj = obj_list.objects_list.get(name=obj_name)
+
+        if "type" in request.data:
+            obj.type = request.data.pop("type")
+        if "ra" in request.data:
+            obj.right_ascension = float(request.data.pop("ra"))
+        if "dec" in request.data:
+            obj.declination = float(request.data.pop("dec"))
+        if "priority" in request.data:
+            obj.priority = int(request.data.pop("priority"))
+        if request.data:
+            obj.aux.update(request.data)
+
+        obj.save()
+
+        return Response(
+            {"message": f"Object '{obj_name}' updated"}, status=status.HTTP_200_OK
+        )
 
 
 class MaskViewSet(viewsets.ViewSet):
@@ -317,29 +371,62 @@ class MaskViewSet(viewsets.ViewSet):
         data = request.data
         filename = data["filename"]
         proj_name = data["project_name"]
-        generate_obj_file(filename, data["objects"])
-        generate_obs_file(data, [f"{filename}.obj"])
+
+        user_id = request.headers.get("user-id")
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        if project.masks.filter(name=filename).exists():
+            return Response(
+                {"error": "mask name already exists for project"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        valid, feedback = validate(data)
+        if not valid:
+            return Response(
+                {"error": feedback},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        generate_obj_file(user_id, proj_name, filename, data["objects"])
+        generate_obs_file(user_id, proj_name, data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
-        # TODO: change to os
         shutil.copy(
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{filename}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
             f"{MASKGEN_DIRECTORY}{filename}.obj",
         )
         shutil.copy(
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{filename}.obs",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{MASKGEN_DIRECTORY}{filename}.obs",
         )
 
-        result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs")
+        result, feedback = run_maskgen(
+            f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs",
+            data["override"] == "true",
+        )
+        os.makedirs(
+            os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id),
+            exist_ok=True,
+        )
+        os.makedirs(
+            os.path.join(
+                f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id, proj_name
+            ),
+            exist_ok=True,
+        )
         os.rename(
             f"{PROJECT_DIRECTORY}{filename}.SMF",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
         )
 
         if result and "Writing object file with use counts to" in feedback:
             # process features from SMF
             filepath = os.path.join(
-                PROJECT_DIRECTORY, API_FOLDER, "smf_files", f"{filename}.SMF"
+                PROJECT_DIRECTORY,
+                API_FOLDER,
+                "smf_files",
+                user_id,
+                proj_name,
+                f"{filename}.SMF",
             )
             mask = Mask.objects.create(
                 name=filename,
@@ -358,14 +445,13 @@ class MaskViewSet(viewsets.ViewSet):
                 mask, f"{PROJECT_DIRECTORY}{filename}.obw"
             )
             self._file_cleanup(filename)
-            project = Project.objects.get(
-                name=proj_name, user_id=request.headers.get("user-id")
-            )
+
             project.masks.add(mask)
             project.save()
-
             return Response(
-                {"created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{filename}.SMF"},
+                {
+                    "created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF"
+                },
                 status=status.HTTP_201_CREATED,
             )
         else:
@@ -417,7 +503,6 @@ class MaskViewSet(viewsets.ViewSet):
                 {"error": "missing required parameters"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
         project = get_object_or_404(Project, name=proj_name, user_id=user_id)
 
         try:
@@ -429,10 +514,10 @@ class MaskViewSet(viewsets.ViewSet):
             )
 
         file_paths = [
-            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{mask_name}.obs",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{mask_name}.obj",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
         ]
         for file_path in file_paths:
             remove_file(file_path)
@@ -453,20 +538,33 @@ class MachineViewSet(viewsets.ViewSet):
         proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
+        overwrite = data["overwrite"] == "true"
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask.status == Status.FINALIZED:
             os.environ["MGPATH"] = MASKGEN_DIRECTORY
             shutil.copy(
-                f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{mask_name}.SMF",
+                f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
                 f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
             )
-            result, feedback = run_maskgen(f"{MASKGEN_DIRECTORY}/maskcut {mask_name}")
+            result, feedback = run_maskcut(
+                f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
+            )
             if result and "Estimated cutting time" in feedback:
                 remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
+                os.makedirs(
+                    os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id),
+                    exist_ok=True,
+                )
+                os.makedirs(
+                    os.path.join(
+                        f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
+                    ),
+                    exist_ok=True,
+                )
                 os.rename(
                     f"{PROJECT_DIRECTORY}I{mask_name}.nc",
-                    f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc",
+                    f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                 )
 
                 mask.status = Status.COMPLETED
@@ -493,12 +591,11 @@ class MachineViewSet(viewsets.ViewSet):
                 {"error": "missing required query parameters or headers."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
 
         if mask.status == Status.FINALIZED:
-            file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/I{mask_name}.nc"
+            file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
             return FileResponse(
                 open(file_path, "rb"), content_type="application/x-netcdf"
             )
