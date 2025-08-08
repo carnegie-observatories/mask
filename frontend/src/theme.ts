@@ -53,5 +53,13 @@ export const theme = createTheme({
             })
         },
 
+        Group: {
+            styles: () => ({
+                root: {
+                    padding: 10,
+                },
+            })
+        },
+
     }
 });

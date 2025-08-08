@@ -1,13 +1,29 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {useNavigate} from "react-router-dom";
 import { IMaskInput } from 'react-imask';
+import { supabase } from './supabase';
 
 import EssentialControlButtons from './EssentialControlButtons';
-import JS9ControlButton from "./JS9ControlButton";
-import JS9Viewer from "./JS9Viewer";
+import PreviewControlButton from "./PreviewControlButton";
+import AladinTest from "./AladinTest";
 
 // Mantine imports
-import {FileButton, Button, TextInput, Select, NumberInput, Switch, Menu, Text, InputBase, Tabs, Table, ScrollArea } from "@mantine/core";
+import {
+    FileButton,
+    Button,
+    TextInput,
+    Select,
+    NumberInput,
+    Switch,
+    Menu,
+    Text,
+    InputBase,
+    Tabs,
+    Table,
+    Stack,
+    Group,
+    Fieldset, TableOfContents
+} from "@mantine/core";
 import { DateTimePicker } from '@mantine/dates';
 
 
@@ -28,25 +44,36 @@ import {
     IconLogout,
     IconDeviceImacCancel,
     IconEdit,
-    IconTable,
+    IconTable, IconLibraryPlus, IconFolderOpen, IconCopy, IconFileExport, IconHome,
 } from '@tabler/icons-react';
 
 
 function MainScreen() {
     const navigate = useNavigate();
-    const exampleFits = "casa.fits";
+    // const exampleFits = "casa.fits";
 
     // variables
     let successMessage = false;
 
     // state
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-    const [apiResponse, setApiResponse] = useState<any | null>(null);
     const [loading, setLoading] = useState(false);
     const [error,   setError]   = useState<string | null>(null);
     const [lastListName, setLastListName] = useState<string | null>(null);
     const [tableRowsData, setTableRowsData] = useState<any[]>([]);
-    const [activeTab, setActiveTab] = useState<'mask' | 'table' | 'settings'>('mask');
+    const [activeTab, setActiveTab] = useState<'home' | 'mask' | 'table' | 'settings'>('home');
+    const [editing, setEditing] = useState(false);
+    const [draftRows, setDraftRows] = useState(tableRowsData);
+    const [tableReady, setTableReady] = useState(false);
+    const [userId, setUserId] = useState<string>('guest');
+    const [projectName, setProjectName] = useState<string>('');
+    const [mode, setMode] = useState<'new project' | 'open project' | null>(null);
+    const [centerRA, setCenterRA] = useState<string>('');
+    const [centerDec, setCenterDec] = useState<string>('');
+    const [showMaskTab,  setShowMaskTab]  = useState(false);
+    const [showTableTab, setShowTableTab] = useState(false);
+    const [showSettingsTab,  setShowSettingsTab]  = useState(false);
+
 
 
     // escape key function
@@ -60,6 +87,18 @@ function MainScreen() {
         window.addEventListener('keydown', onEsc);
         return () => window.removeEventListener('keydown', onEsc);
     }, [navigate]);
+
+
+    useEffect(() => {
+        (async () => {
+            const { data, error } = await supabase.auth.getUser();
+            if (error) {
+                console.error('Could not get user →', error.message);
+                return;
+            }
+            if (data.user?.email) setUserId(data.user.email);
+        })();
+    }, []);
 
 
     // adds object files to array, to be implemented whenever the Upload Object Files button is used
@@ -86,22 +125,33 @@ function MainScreen() {
         console.log("Redo button clicked");
     }
 
-    const handleLogOut = () => {
-        //When log out button is clicked
-        console.log("Logout button clicked");
-        navigate('/', { replace: true });
-    }
+    const handleLogOut = async () => {
+        try {
+            // tell Supabase to invalidate the session on the server
+            const { error } = await supabase.auth.signOut();
+            if (error) {
+                console.error('Supabase sign-out failed →', error.message);
+                return;
+            }
+
+            // optional: clear any user-specific state you keep client-side
+            setUserId('guest');
+            setTableRowsData([]);
+            setActiveTab('home');
+            setShowMaskTab(false);
+            setShowTableTab(false);
+            setShowSettingsTab(false);
+
+            // send the user back to the start screen
+            navigate('/', { replace: true });
+        } catch (err) {
+            console.error('Unexpected sign-out error →', err);
+        }
+    };
 
     const handleReset = () => {
         //when reset button is clicked
         console.log("Reset button clicked");
-    }
-
-    const handleQuit = () => {
-        //when user quits
-        console.log("Quit button clicked");
-        window.open('', '_self');
-        window.close();
     }
 
     const handleParameterHistory = () => {
@@ -124,7 +174,7 @@ function MainScreen() {
         const file = e.target.files?.[0];
         if (file) {
             console.log("Loading: ", file.name);
-            window.JS9.Load(file);
+            // window.JS9.Load(file);
         }
     }
 
@@ -132,18 +182,19 @@ function MainScreen() {
 
     // zooming
     const handleZoom = (value: string) => {
-        window.JS9.SetZoom(value);
+        console.log("Zoom: ", value);
+        // window.JS9.SetZoom(value);
     }
 
     // drawing regions
     const drawRegion = (shape: string) => {
-        window.JS9.AddRegions(shape,{color:"cyan"})
+        // window.JS9.AddRegions(shape,{color:"cyan"})
     }
 
 
 
     // when user uploads object file, sends to API and awaits return in console
-    async function uploadObjectFiles(files: File[],  listName: string) {
+    async function uploadObjectFiles(files: File[], listName: string) {
         console.log("Upload initiated for: ", files);
         if (!files.length) return;
         setLastListName(listName);
@@ -153,7 +204,7 @@ function MainScreen() {
         try {
             const form = new FormData();
             form.append('file', files[0]);
-            form.append("user_id", "tester2");
+            form.append("user_id", userId);
             form.append("list_name", listName);
 
             // actually sending the request
@@ -179,9 +230,9 @@ function MainScreen() {
 
     // creating a chart based off data received from API, opened as a table in new tab
     async function getTableData(name: string) {
-        console.log('Getting chart data…');
+        console.log('Getting table data…');
         const cleanName = name.trim();
-        if (!cleanName) return;                 // nothing to do
+        if (!cleanName) return;
 
         try {
             // request
@@ -201,12 +252,13 @@ function MainScreen() {
                 return;
             }
 
-            const flatRows = entry.objects.map((obj: any) => ({
-                ...obj,
-                ...obj.aux
-            }));
+            const flatRows = (entry.objects as any[]).map(o => {
+                const { aux = {}, ...rest } = o;
+                return { ...rest, ...aux };
+            });
 
             setTableRowsData(flatRows);
+            setTableReady(true);
             setLastListName(typeof entry.list_name === 'string' ? entry.list_name : cleanName);
             console.log(`Rows stored: ${flatRows.length}`);
         } catch (err) {
@@ -217,16 +269,15 @@ function MainScreen() {
     // handler for submit button (for object file upload)
     const handleSubmitFiles = () => {
         console.log("Submit Files button clicked");
-        let objectFileTitle = prompt("Title: ");
-        if (!objectFileTitle) return;
-        uploadObjectFiles(selectedFiles, objectFileTitle);
+        let objectListTitle = prompt("Title: ");
+        if (!objectListTitle) return;
+        uploadObjectFiles(selectedFiles, objectListTitle);
 
         setTimeout(() => {
             // @ts-ignore
-            getTableData(lastListName);
+            getTableData(objectListTitle);
             setActiveTab('table');
-        }, 3000);
-
+        }, 1000);
     }
 
 
@@ -243,7 +294,7 @@ function MainScreen() {
         b_len?: number;
     };
 
-    // importing the daya
+    // importing the data
     const rows = React.useMemo(() => {
         return tableRowsData.map((obj: ObjectRecords, index: number) => (
             <Table.Tr key={obj.id ?? index}>
@@ -260,84 +311,223 @@ function MainScreen() {
         ));
     }, [tableRowsData]);
 
+
+
+    // editing and saving the table
+    const handleEditToggle = () => {
+        if (!editing) setDraftRows(tableRowsData);   // enter edit → take a fresh copy
+        setEditing((e) => !e);
+    };
+
+    const handleSave = () => {
+        // When save button pressed, lock-in the edited data
+        setTableRowsData(draftRows);
+        // send back to API
+        const blob     = new Blob([JSON.stringify(draftRows, null, 2)],
+            { type: 'application/json' });
+        const url      = URL.createObjectURL(blob);
+        const tmpLink  = document.createElement('a');
+        tmpLink.href   = url;
+        tmpLink.download = 'edited-objects.json';
+        tmpLink.click();
+        URL.revokeObjectURL(url);
+
+        setEditing(false);
+    };
+
+    const columns = [
+        'id',
+        'name',
+        'type',
+        'a_len',
+        'b_len',
+        'declination',
+        'right_ascension',
+        'priority',
+    ] as const;
+
+
+    const handleNavigateSettings = () => {
+        setShowSettingsTab(true);
+        setActiveTab('settings');
+    };
+
+    const handleCreateProject = () => {
+        console.log('Create new project button clicked');
+        setMode('new project');
+    }
+
+    const handleCreateProjectConfirm = () => {
+        setShowMaskTab(true);
+        setShowTableTab(true);
+        console.log('Create new project button clicked');
+        setActiveTab('mask');
+    }
+
+    const handleOpenProject = () => {
+        console.log('Open project button clicked');
+        setMode('open project');
+    }
+
+
     //rendering
     return (
         <div className="app-shell">
             {/*@ts-ignore*/}
-            <Tabs value={activeTab} onChange={setActiveTab} defaultValue="mask" keepMounted>
+            <Tabs value={activeTab} onChange={setActiveTab} keepMounted>
                 <Tabs.List className="tabs-header">
-                    <Tabs.Tab value="mask" leftSection={<IconEdit size={12} />}>
-                        Mask
-                    </Tabs.Tab>
-                    <Tabs.Tab value="table" leftSection={<IconTable size={12} />}>
-                        Table
-                    </Tabs.Tab>
-                    <Tabs.Tab value="settings" leftSection={<IconSettings size={12} />}>
-                        Settings
-                    </Tabs.Tab>
+                    <Tabs.Tab value="home" leftSection={<IconHome size={12} />}>Home</Tabs.Tab>
+
+                    {showMaskTab  && (
+                        <Tabs.Tab value="mask" leftSection={<IconEdit size={12} />}>Mask</Tabs.Tab>
+                    )}
+                    {showTableTab && (
+                        <Tabs.Tab value="table" leftSection={<IconTable size={12} />}>Table</Tabs.Tab>
+                    )}
+                    {showSettingsTab && (
+                        <Tabs.Tab value="settings" leftSection={<IconSettings size={12} />}>Settings</Tabs.Tab>
+                    )}
                 </Tabs.List>
 
+                {/*stuff that goes in the Home tab*/}
+                <Tabs.Panel value="home">
+                    <Text ta="center" mt="md" size="xl">
+                        Welcome,&nbsp;{userId}!
+                    </Text>
+
+                    <Group justify="center" gap="18vh" align="start">
+
+                        {/*config*/}
+                        <div className="home-column">
+                            <Text ta="center" mt="md" size="xl">
+                                Config
+                            </Text>
+                            <Button w={300} onClick={handleNavigateSettings}>
+                                Upload Instrument Configurations
+                            </Button>
+                        </div>
+
+                        {/*projects*/}
+                        <div className="home-column">
+                            <Text ta="center" mt="md" size="xl">
+                                Projects
+                            </Text>
+                            <Button w={300} onClick={handleCreateProject}>Create New Project</Button>
+                            <Button w={300} onClick={handleOpenProject}>Open Existing Project</Button>
+                        </div>
+
+                        {/*options*/}
+                        <div className="home-column">
+                            <Text ta="center" mt="md" size="xl">
+                                Options
+                            </Text>
+                            <Button w={300} onClick={handleNavigateSettings}>Settings</Button>
+                        </div>
+
+                    </Group>
+
+                    {mode === 'new project' && (
+                        <Group justify='center'>
+                            <div className="auth-panel">
+                                <Fieldset legend="Create New Project" radius="lg" w={400} mt="10vh">
+                                    <TextInput styles={{input: {borderColor: '#586072'}}} label="Project Name" placeholder="Name your project" value={projectName} onChange={(e) => setProjectName(e.target.value)} />
+                                    <Text ta="center" mt="lg" size="md">
+                                        Center Coordinates
+                                    </Text>
+                                    <TextInput styles={{input: {borderColor: '#586072'}}} label="Right Ascension" placeholder="Enter" value={centerRA} onChange={(e) => setCenterRA(e.target.value)} />
+                                    <TextInput styles={{input: {borderColor: '#586072'}}} label="Declination" placeholder="Enter" mt="md" value={centerDec} onChange={(e) => setCenterDec(e.target.value)} />
+                                    <Button mt="xl" fullWidth onClick={handleCreateProjectConfirm}>Create</Button>
+                                </Fieldset>
+                            </div>
+                        </Group>
+                    )}
+
+                    {mode === 'open project' && (
+                        <Group justify='center'>
+                            <div className="auth-panel">
+                                <Fieldset legend="Project List" radius="lg" w={400} mt="10vh">
+                                    <Text ta="center" size="md">
+                                        uhhhhhh
+                                    </Text>
+                                </Fieldset>
+                            </div>
+                        </Group>
+                    )}
+                </Tabs.Panel>
+
                 {/*stuff that goes in the mask tab*/}
-                <Tabs.Panel value="mask" className="tab-body">
+                <Tabs.Panel value="mask">
                     <div className="main-screen">
                         {/* Parameter controls and inputs */}
                         <aside className="param-controls">
-                            {/*everything that should be scrollable goes in here (pretty much everything)*/}
-                            <div className="param-scroll">
+                            <div className="param-header">
+
+                            Project Name:&nbsp;{projectName}
 
                                 <div className="file-options">
                                     <Menu shadow="md" width={200}>
                                         <Menu.Target>
-                                            <Button w={150}>File</Button>
+                                            <Button w={150} mt="sm">File</Button>
                                         </Menu.Target>
 
                                         <Menu.Dropdown>
-                                            <Menu.Label>Application</Menu.Label>
-                                            <Menu.Item leftSection={<IconSettings size={14}/>}>
-                                                Settings
+                                            <Menu.Label>Projects</Menu.Label>
+
+                                            <Menu.Item leftSection={<IconLibraryPlus size={14}/>}>
+                                                New Project
                                             </Menu.Item>
-                                            <Menu.Item leftSection={<IconMessageCircle size={14}/>}>
-                                                Messages
+
+                                            <Menu.Item leftSection={<IconFolderOpen size={14}/>}>
+                                                Open Project
                                             </Menu.Item>
-                                            <Menu.Item leftSection={<IconPhoto size={14}/>}>
-                                                Gallery
+
+                                            <Menu.Item leftSection={<IconPhoto size={14}/>}
+                                                       rightSection={
+                                                           <Text size="xs" c="dimmed">
+                                                               ⌘S
+                                                           </Text>
+                                                       }
+                                            >
+                                                Save Project
                                             </Menu.Item>
+
+                                            <Menu.Item leftSection={<IconCopy size={14}/>}>
+                                                Copy Project
+                                            </Menu.Item>
+
                                             <Menu.Item
-                                                leftSection={<IconSearch size={14}/>}
+                                                leftSection={<IconFileExport size={14}/>}
                                                 rightSection={
                                                     <Text size="xs" c="dimmed">
-                                                        ⌘K
+                                                        ⌘J
                                                     </Text>
                                                 }
                                             >
-                                                Search
+                                                Export as JSON
                                             </Menu.Item>
 
                                             <Menu.Divider/>
 
                                             <Menu.Label>Danger zone</Menu.Label>
-                                            <Menu.Item
-                                                leftSection={<IconArrowsLeftRight size={14}/>}
-                                            >
-                                                Transfer my data
-                                            </Menu.Item>
+
                                             <Menu.Item
                                                 color="red"
                                                 leftSection={<IconTrash size={14}/>}
                                             >
-                                                Delete my account
+                                                Delete this project
                                             </Menu.Item>
+
                                         </Menu.Dropdown>
                                     </Menu>
 
                                     <Menu shadow="md" width={200}>
                                         <Menu.Target>
-                                            <Button w={150}>Options</Button>
+                                            <Button w={150} mt="sm">Options</Button>
                                         </Menu.Target>
 
                                         <Menu.Dropdown>
                                             <Menu.Label>Application</Menu.Label>
-                                            <Menu.Item leftSection={<IconSettings size={14}/>}>
+                                            <Menu.Item onClick={handleNavigateSettings} leftSection={<IconSettings size={14}/>}>
                                                 Settings
                                             </Menu.Item>
                                             <Menu.Item leftSection={<IconMessageCircle size={14}/>}>
@@ -377,14 +567,17 @@ function MainScreen() {
 
                                 <h2>MaskGen Parameters</h2>
 
+                            </div>
+
+                            {/*everything that should be scrollable goes in here (pretty much everything)*/}
+                            <div className="param-scroll">
                                 {/*title*/}
                                 <TextInput
                                     radius="md"
                                     label="Title"
-                                    // description="e.g. Mask A"
                                     placeholder="e.g. Mask A"
                                     style={{width: 352}}
-                                    styles={{ input: { borderColor: '#586072' } }}
+                                    styles={{input: {borderColor: '#586072'}}}
                                 />
 
                                 <div className="observer-settings">
@@ -395,7 +588,7 @@ function MainScreen() {
                                         // description="burger"
                                         placeholder="Enter observer name"
                                         style={{width: 170}}
-                                        styles={{ input: { borderColor: '#586072' } }}
+                                        styles={{input: {borderColor: '#586072'}}}
                                     />
 
                                     {/*observation date picker*/}
@@ -421,7 +614,7 @@ function MainScreen() {
                                         mask="00:00:00.000"
                                         placeholder="e.g. 24:00:00.000"
                                         style={{width: 170}}
-                                        styles={{ input: { borderColor: '#586072' } }}
+                                        styles={{input: {borderColor: '#586072'}}}
                                     />
 
                                     <InputBase
@@ -430,7 +623,7 @@ function MainScreen() {
                                         mask="00:00:00.000"
                                         placeholder="e.g. +/- 90:00:00.000"
                                         style={{width: 170}}
-                                        styles={{ input: { borderColor: '#586072' } }}
+                                        styles={{input: {borderColor: '#586072'}}}
                                     />
                                 </div>
 
@@ -441,14 +634,14 @@ function MainScreen() {
                                         placeholder="Select"
                                         data={['2000', 'hm', 'hm?', 'hmm??']}
                                         style={{width: 170}}
-                                        styles={{ input: { borderColor: '#586072' } }}
+                                        styles={{input: {borderColor: '#586072'}}}
                                     />
 
                                     <NumberInput
                                         label="Slit Position Angle"
                                         placeholder="0.0"
                                         style={{width: 170}}
-                                        styles={{ input: { borderColor: '#586072' } }}
+                                        styles={{input: {borderColor: '#586072'}}}
                                     />
                                 </div>
 
@@ -460,7 +653,7 @@ function MainScreen() {
                                         label="Instrument"
                                         placeholder="Select"
                                         data={['uhh', 'idk', 'LDSS', 'Magellan']}
-                                        styles={{ input: { borderColor: '#586072' } }}
+                                        styles={{input: {borderColor: '#586072'}}}
                                     />
 
                                     {/*selecting a disperser*/}
@@ -468,7 +661,7 @@ function MainScreen() {
                                         label="Disperser"
                                         placeholder="Select"
                                         data={['what', 'are', 'dispersers', 'even?']}
-                                        styles={{ input: { borderColor: '#586072' } }}
+                                        styles={{input: {borderColor: '#586072'}}}
                                     />
                                 </div>
 
@@ -696,9 +889,9 @@ function MainScreen() {
                             </div>
                         </aside>
 
-                        {/* → Where the JS9 panel goes */}
+                        {/* → Where the Aladin panel goes */}
                         <div className="preview-area">
-                            {/*<JS9Viewer fitsUrl={exampleFits} options={{colormap: "cool"}}/>*/}
+                            <AladinTest></AladinTest>
                         </div>
 
                         {/* → fixed-width sidebar for essential controls */}
@@ -711,7 +904,7 @@ function MainScreen() {
                             <EssentialControlButtons text="Parameter History" onClick={handleParameterHistory} icon={<IconHistory stroke={1.8} />}/>
                             <EssentialControlButtons text="Submit" onClick={handleGenExport} icon={<IconPackageExport stroke={1.8} />}/>
                             <EssentialControlButtons text="Log Out" onClick={handleLogOut} icon={<IconLogout stroke={1.8} />}/>
-                            <EssentialControlButtons text="Quit" onClick={handleQuit} icon={<IconDeviceImacCancel stroke={1.8} />}/>
+                            {/*<EssentialControlButtons text="Quit" onClick={handleQuit} icon={<IconDeviceImacCancel stroke={1.8} />}/>*/}
 
                             {/*accepting FIT files for loading*/}
                             <input
@@ -724,42 +917,63 @@ function MainScreen() {
 
                         </aside>
 
-                        {/* → area below the JS9 panel */}
+                        {/* → area below the Aladin panel */}
                         <div className="bottom-area">
                             <div className="first-row-controls">
-                                <JS9ControlButton text="Zoom In" onClick={() => handleZoom('in')}/>
-                                <JS9ControlButton text="Zoom Out" onClick={() => handleZoom('out')}/>
-                                <JS9ControlButton text="Reset Zoom" onClick={() => handleZoom('1')}/>
+                                <PreviewControlButton text="Zoom In" onClick={() => handleZoom('in')}/>
+                                <PreviewControlButton text="Zoom Out" onClick={() => handleZoom('out')}/>
+                                <PreviewControlButton text="Reset Zoom" onClick={() => handleZoom('1')}/>
                             </div>
 
                             <div className="second-row-controls">
-                                <JS9ControlButton text="Draw Annulus" onClick={() => drawRegion('annulus')}/>
-                                <JS9ControlButton text="Draw Circle" onClick={() => drawRegion('circle')}/>
-                                <JS9ControlButton text="Draw Rectangle" onClick={() => drawRegion('box')}/>
-                                <JS9ControlButton text="Draw Oval" onClick={() => drawRegion('ellipse')}/>
-                                <JS9ControlButton text="Draw Line" onClick={() => drawRegion('cross')}/>
-                                <JS9ControlButton text="Draw Triangle" onClick={() => drawRegion('polygon')}/>
-                                <JS9ControlButton text="Add Text" onClick={() => drawRegion('text')}/>
+                                <PreviewControlButton text="Draw Annulus" onClick={() => drawRegion('annulus')}/>
+                                <PreviewControlButton text="Draw Circle" onClick={() => drawRegion('circle')}/>
+                                <PreviewControlButton text="Draw Rectangle" onClick={() => drawRegion('box')}/>
+                                <PreviewControlButton text="Draw Oval" onClick={() => drawRegion('ellipse')}/>
+                                <PreviewControlButton text="Draw Line" onClick={() => drawRegion('cross')}/>
+                                <PreviewControlButton text="Draw Triangle" onClick={() => drawRegion('polygon')}/>
+                                <PreviewControlButton text="Add Text" onClick={() => drawRegion('text')}/>
                             </div>
                         </div>
                     </div>
                 </Tabs.Panel>
 
                 {/*stuff that goes in the Table tab*/}
-                <Tabs.Panel value="table" className="tab-body table-panel">
+                <Tabs.Panel value="table">
+
+                    {/*information and options up top*/}
+                    <Group justify='center'>
+                        <Text size="md" fw={500}>
+                            User ID:&nbsp;{userId}
+                        </Text>
+
+                        <Text size="md" fw={500}>
+                            Object List Title:&nbsp;{lastListName}
+                        </Text>
+
+                        <Button onClick={handleEditToggle} disabled={!tableReady} w={150}>
+                            {editing ? 'Cancel edit' : 'Edit'}
+                        </Button>
+
+                        <Button onClick={handleSave} disabled={!editing} w={150}>
+                            Save changes
+                        </Button>
+                    </Group>
+
+                    {/*actual table*/}
                     {tableRowsData.length === 0 ? (
                         <Text c="dimmed" ta="center" mt="md">
-                            No data loaded yet. Upload an object file list and click “Create Object Data Table”.
+                            No data loaded yet. Upload an object file list and submit it.
                         </Text>
                     ) : (
-                        <ScrollArea scrollbars="y" scrollbarSize={8} className="flex-1" style={{ flex: 1, minHeight: 0 }}>
+                        <Table.ScrollContainer minWidth={500} type="native" maxHeight={1000}>
                             <Table
+                                tabularNums
                                 stickyHeader
                                 striped
                                 highlightOnHover
                                 withTableBorder
                                 withColumnBorders
-                                tabularNums
                             >
                                 <Table.Thead>
                                     <Table.Tr>
@@ -774,17 +988,54 @@ function MainScreen() {
                                         <Table.Th>Priority</Table.Th>
                                     </Table.Tr>
                                 </Table.Thead>
-                                <Table.Tbody>{rows}</Table.Tbody>
+                                <Table.Tbody>
+                                    {(editing ? draftRows : tableRowsData).map((row, rIdx) => (
+                                        <Table.Tr key={rIdx}>
+                                            <Table.Td>{rIdx}</Table.Td>
+
+                                            {columns.map((key) => (
+                                                <Table.Td key={key}>
+                                                    {editing ? (
+                                                        <TextInput
+                                                            variant="unstyled"
+                                                            size="xxs"
+                                                            value={String(row[key] ?? '')}
+                                                            onChange={(e) =>
+                                                                setDraftRows(prev =>
+                                                                    prev.map((r, i) =>
+                                                                        i === rIdx ? { ...r, [key]: e.currentTarget.value } : r
+                                                                    )
+                                                                )
+                                                            }
+                                                        />
+                                                    ) : (
+                                                        row[key]
+                                                    )}
+                                                </Table.Td>
+                                            ))}
+                                        </Table.Tr>
+                                    ))}
+                                </Table.Tbody>
                             </Table>
-                        </ScrollArea>
+                        </Table.ScrollContainer>
                     )}
                 </Tabs.Panel>
 
                 {/*stuff that goes in the Settings tab*/}
                 <Tabs.Panel value="settings">
-                    <Text c="dimmed" ta="center" mt="md">
-                        Settings will be filled out eventually...
-                    </Text>
+                    <TableOfContents
+                        variant="light"
+                        color="blue"
+                        size="sm"
+                        radius="md"
+                        scrollSpyOptions={{
+                            selector: '#mdx :is(h1, h2, h3, h4, h5, h6)',
+                        }}
+                        getControlProps={({ data }) => ({
+                            onClick: () => data.getNode().scrollIntoView(),
+                            children: data.value,
+                        })}
+                    />
                 </Tabs.Panel>
             </Tabs>
         </div>

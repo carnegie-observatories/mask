@@ -42,6 +42,11 @@ html, body, #root {
     }
 }
 
+/*disabled button settings*/
+button[data-disabled='true'] {
+    background-color: black !important;
+    color: #e6e6e6 !important;
+}
 
 /*background*/
 body {
@@ -52,7 +57,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/*no need to tweak*/
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -81,22 +86,50 @@ code {
     transform: scale(1.05);
 }
 
+/* full-height column */
+.start-screen {
+    min-height: 100vh;            /* fill viewport */
+    display: flex;
+    flex-direction: column;
+    align-items: center;          /* center title & panels horizontally */
+}
+
 /*Creates a "container", which the buttons are then added to.
 This lines up the contents of the container, and sets other rules.*/
 .start-screen-container {
+    margin-top: auto;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
-    height: 80vh;
+    width: 100%;
+    padding-bottom: 15vh;
 }
 
+/* ---- fly-in keyframe ---- */
+@keyframes flyInUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ---- class for mount ---- */
+.auth-panel {
+    animation: flyInUp 350ms ease-out both;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 /*title settings*/
 .title {
     font-size: 4.5em;
     color: white;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 10vh;
 }
 
 /* right sidebar button settings (no longer working, switched to Mantine; settings moved to .ecb) */
@@ -169,8 +202,8 @@ This lines up the contents of the container, and sets other rules.*/
     white-space: normal;
 }
 
-/*settings for js9 control buttons in the bottom section*/
-.JS9-control-button {
+/*settings for preview control buttons in the bottom section*/
+.preview-control-button {
     background-color: #586072;
     font-family: 'Cabin', sans-serif;
     color: #f5f5f5;
@@ -185,7 +218,7 @@ This lines up the contents of the container, and sets other rules.*/
 
 }
 
-.JS9-control-button:hover {
+.preview-control-button:hover {
     transform: scale(1.05);
 }
 
@@ -220,7 +253,8 @@ This lines up the contents of the container, and sets other rules.*/
 /* 3) right sidebar settings: fixed width + slight lighten */
 .sidebar {
     grid-area: sidebar;
-    padding: 24px;
+    padding-top: 3vh;
+    padding-bottom: 5vh;
     background-color: #333842;
     box-shadow: -2px 0 6px rgba(0,0,0,0.5);
     color: #f5f5f5;
@@ -243,16 +277,20 @@ This lines up the contents of the container, and sets other rules.*/
 /*settings for the parameter controls section*/
 .param-controls {
     grid-area: params;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     padding: 16px;
     background-color: #333842;
     color: #f5f5f5;
     text-align: center;
     box-shadow: 2px 0 6px rgba(0,0,0,0.5);
+    align-items: center;
 }
 
-
-
+.param-header{
+    flex: 0 0 auto;
+}
 
 .param-scroll {
     flex: 1 1 auto;
@@ -261,7 +299,7 @@ This lines up the contents of the container, and sets other rules.*/
     flex-direction: column;
     gap: 12px;
     align-items: center;
-    padding-block: 8px;
+    padding-bottom: 3vh;
     overflow-x: hidden;
 }
 
@@ -342,61 +380,6 @@ This lines up the contents of the container, and sets other rules.*/
     gap: 1rem;
 }
 
-.preview-area .JS9,
-.preview-area .JS9 table,
-.preview-area .JS9 table td,
-.preview-area .JS9 canvas {
-    width:  100% !important;
-    height: 100% !important;
-}
-
-/* styling the JS9 menubar and toolbar */
-.JS9Menubar,
-.JS9Toolbar {
-    position: absolute;
-    left: 0;
-    right: 0;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.JS9Menubar {
-    top: 0;
-    height: 32px;
-}
-
-.JS9Toolbar {
-    top: 32px;
-    height: 32px;
-}
-
-/* target the region‐drawing icons and the color‐map buttons */
-.JS9 .JS9regionTools,
-.JS9 .JS9colorTools {
-    display: flex         !important;  /* lay their children out in a row */
-    flex-direction: row   !important;  /* force a single row */
-    flex-wrap: wrap       !important;  /* if there are too many, let them wrap down */
-    justify-content: center !important;
-    width: 100%           !important;  /* make the container span the full panel */
-    margin: 4px 0         !important;  /* just a bit of breathing room */
-}
-
-/* nudge the regionTools down underneath the toolbar */
-.JS9Menubar + .JS9Toolbar + .JS9regionTools {
-    top: 64px;   /* menubar is 32px tall, toolbar is 32px tall */
-    position: absolute;
-    left: 0; right: 0;
-}
-
-/* nudge the colorTools down underneath the regionTools */
-.JS9Menubar + .JS9Toolbar + .JS9regionTools + .JS9colorTools {
-    top: 96px;  /* menubar + toolbar + regionTools heights */
-    position: absolute;
-    left: 0; right: 0;
-}
 
 /*settings for the list of uploaded object files*/
 .param-controls ul.uploaded-files {
@@ -413,80 +396,6 @@ This lines up the contents of the container, and sets other rules.*/
     width: auto;
     max-width: 100%;
 }
-
-svg.JS9Regions {
-    stroke: #00d9ff !important;
-    stroke-width: 2px !important;
-    fill: none !important;
-}
-
-/*More JS9 settings (imported from JS9 website)*/
-
-/*coordinates in upper left corner*/
-canvas.JS9Image, canvas.JS9Panner, canvas.JS9Magnifier, canvas.JS9Info {
-    /* absolute positioning of canvas is required to overlay/align with
-       graphics canvas (which is positioned relative) */
-    position:absolute;
-    top:  0px;
-    left: 0px;
-}
-
-/*
-Canvas element for transparent layers.
-This enables the regions to appear.
- */
-canvas.JS9Layer {
-    /* absolute positioning of canvas is required to overlay/align with
-       graphics canvas (which is positioned relative) */
-    position:absolute;
-    top:  0px;
-    left: 0px;
-    background-color: transparent;
-}
-
-/* message display */
-div.JS9Message {
-    width: 100%;
-    padding-top: 10px;
-    padding-left: 10px;
-    font-family: Cabin, sans-serif;
-    font-size: 10pt;
-    font-weight: 300;
-}
-
-/* div enclosing progress bar in message area */
-div.JS9Progress {
-    display: none;
-}
-
-/* used by menubar, panner, magnifier */
-.JS9Button, .JS9Button-classic {
-    font: normal 12px Cabin, sans-serif;
-    background: #F6F6F6;
-    border: none;
-    border-radius: 4px;
-    padding: 3px 6px 3px 6px;
-    /* back off left margin or else Linux menubar Help button wraps ... */
-    margin: 6px 4px 6px 3px;
-    outline: none;
-}
-
-.JS9Button:hover, .JS9Button-classic:hover {
-    background-color: #C0C0C0;
-}
-
-/* searchbar see: https://markjs.io/ */
-.JS9Searchbar{
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    background: #E9E9E9;
-    padding: 8px;
-    outline: none;
-    display: none;
-}
-
 
 body.waiting, body.waiting * {
     cursor: wait !important;
@@ -512,4 +421,19 @@ body.waiting, body.waiting * {
 .table-panel > .mantine-ScrollArea-root{
     flex: 1 1 auto;
     min-height: 0;
+}
+
+/* Make a Tabs.Panel fill the space under the tabs list */
+.tab-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }

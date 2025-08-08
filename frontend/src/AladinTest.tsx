@@ -26,7 +26,7 @@ const AladinLite: React.FC = () => {
       if (window.A && window.A.init) {
         window.A.init.then(() => {
           const aladin = window.A.aladin("#aladin-lite-div", {
-            fullScreen: true,
+            fullScreen: false,
             cooFrame: "ICRSd",
             showSimbadPointerControl: true,
             showShareControl: true,
@@ -70,7 +70,7 @@ const AladinLite: React.FC = () => {
     }
   }, []);
 
-  return <div id="aladin-lite-div" style={{ width: "500px", height: "500px" }} />;
+  return <div id="aladin-lite-div" style={{ width: '100%', height: '100%' }} />;
 };
 
 export default AladinLite;

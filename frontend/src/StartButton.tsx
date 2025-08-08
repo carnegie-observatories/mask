@@ -5,7 +5,7 @@ interface ButtonProps {
     onClick: () => void;
 }
 
-function Button({ text, onClick }: ButtonProps) {
+function StartButton({ text, onClick }: ButtonProps) {
     return (
         <button className = "primaryButton" onClick = {onClick}>
             {text}
@@ -13,4 +13,4 @@ function Button({ text, onClick }: ButtonProps) {
     );
 }
 
-export default Button;
+export default StartButton;

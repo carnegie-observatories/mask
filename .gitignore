@@ -51,9 +51,14 @@ Thumbs.db
 # EXCEPT for these test files
 except !tests/data/
 
+frontend/node_modules/
 
 # IDE
 .idea
 
 # FITS files
 **fits**
+
+frontend.zip
+
+uv.lock
