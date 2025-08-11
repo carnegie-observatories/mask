@@ -1,24 +1,41 @@
 import subprocess
 from threading import Timer
+import os
+
 
 def run_maskgen(command):
-    proc = subprocess.Popen(command.split(" "),
-                               stdin=subprocess.PIPE,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE,
-                               text=True)
-    timer = Timer(5, proc.kill) # if application doesn't return within 5 sec, return error
-    try:
-        timer.start()
-        stdout, stderr = proc.communicate()
-        if proc.returncode == 0:
-            return True, stdout.strip()
-        else:
-            return False, stderr.strip()
-    except Exception as e:
-        return False, str(e)
-    finally:
-        timer.cancel()
+    def _run_with_input(input_text=None):
+        proc = subprocess.Popen(
+            command.split(" "),
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        timer = Timer(5, proc.kill)  # kill if hung
+        try:
+            timer.start()
+            stdout, stderr = proc.communicate(input=input_text)
+            if proc.returncode == 0:
+                return True, stdout.strip()
+            else:
+                return False, (stdout + "\n" + stderr).strip()
+        except Exception as e:
+            return False, str(e)
+        finally:
+            timer.cancel()
+
+    # First try, no input
+    success, output = _run_with_input()
+    print(output)
+    print(success)
+
+    return success, output
+
+
+def remove_file(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)
 
 
 def run_command(command):
@@ -30,10 +47,7 @@ def run_command(command):
     """
     try:
         result = subprocess.run(
-            command.split(" "),
-            check=True,
-            capture_output=True,
-            text=True
+            command.split(" "), check=True, capture_output=True, text=True
         )
         return True, result.stdout.strip()
     except subprocess.CalledProcessError as e:

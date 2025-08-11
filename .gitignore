@@ -1,3 +1,5 @@
+.pytest_cache
+.ruff_cache
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -27,7 +29,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-
+media/uploads/
 # Django stuff
 *.log
 *.pot
@@ -38,6 +40,8 @@ db.sqlite3
 local_settings.py
 instance/
 .webassets-cache
+frontend/node_modules
+backend/media
 
 # System files
 .DS_Store
@@ -47,6 +51,10 @@ Thumbs.db
 *.obs
 *.obj
 *.SMF
+*.nc
+.loc_mgvers.dat
+.loc_ociw214.pem
+*.obw
 
 # EXCEPT for these test files
 except !tests/data/
