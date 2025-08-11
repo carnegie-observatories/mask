@@ -3,32 +3,57 @@ from threading import Timer
 import os
 
 
-def run_maskgen(command):
-    def _run_with_input(input_text=None):
-        proc = subprocess.Popen(
-            command.split(" "),
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-        )
-        timer = Timer(5, proc.kill)  # kill if hung
-        try:
-            timer.start()
-            stdout, stderr = proc.communicate(input=input_text)
-            if proc.returncode == 0:
-                return True, stdout.strip()
-            else:
-                return False, (stdout + "\n" + stderr).strip()
-        except Exception as e:
-            return False, str(e)
-        finally:
-            timer.cancel()
+def run_with_input(command, input_text=None):
+    proc = subprocess.Popen(
+        command.split(" "),
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    timer = Timer(5, proc.kill)  # kill if hung
+    try:
+        timer.start()
+        stdout, stderr = proc.communicate(input=input_text)
+        if proc.returncode == 0:
+            return True, stdout.strip()
+        else:
+            return False, (stdout + "\n" + stderr).strip()
+    except Exception as e:
+        return False, str(e)
+    finally:
+        timer.cancel()
 
-    # First try, no input
-    success, output = _run_with_input()
+
+def run_maskgen(command, override):
+    success, output = run_with_input(command)
     print(output)
-    print(success)
+    max_retries = 0
+    while (
+        override
+        and ("Do you wish to continue" in output or "Overwrite?" in output)
+        and max_retries < 5
+    ):
+        success, output = run_with_input(command, input_text="yes\n")
+        if "Writing object file with use counts to" in output:
+            break
+        max_retries += 1
+
+    return success, output
+
+
+def run_maskcut(command, override):
+    success, output = run_with_input(command)
+    max_retries = 0
+    while (
+        override
+        and ("Do you wish to continue" in output or "Overwrite?" in output)
+        and max_retries < 0
+    ):
+        success, output = run_with_input(command, input_text="yes\n")
+        if "Estimated cutting time" in output:
+            break
+        max_retries += 1
 
     return success, output
 
