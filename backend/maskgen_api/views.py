@@ -92,6 +92,22 @@ class ProjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
+    @action(detail=False, methods=["get"], url_path="list")
+    def list_projects(self, request):
+        user_id = request.headers.get("user-id")
+        if not user_id:
+            return Response(
+                {"error": "missing user-id header"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        projects = Project.objects.filter(user_id=user_id).values("name")
+
+        return Response(
+            {"projects": list(projects)},
+            status=status.HTTP_200_OK,
+        )
+
 
 class InstrumentViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
@@ -199,16 +215,14 @@ class ObjectViewSet(viewsets.ViewSet):
             # convert hours to degs if in hrs
             ra, dec = to_deg(row.pop("ra"), row.pop("dec"))
 
-            obj, _ = Object.objects.create(
+            obj = Object.objects.create(
                 name=row.pop("name"),
                 user_id=request.headers.get("user-id"),
-                defaults={
-                    "type": row.pop("type"),
-                    "right_ascension": ra,
-                    "declination": dec,
-                    "priority": int(row.pop("priority")),
-                    "aux": row,
-                },
+                type=row.pop("type"),
+                right_ascension=ra,
+                declination=dec,
+                priority=int(row.pop("priority")),
+                aux=row,
             )
             obj_list.objects_list.add(obj)
 
@@ -237,6 +251,22 @@ class ObjectViewSet(viewsets.ViewSet):
         results.append({"list_name": obj_list.name, "objects": serialized_objects.data})
 
         return Response(results)
+
+    @action(detail=False, methods=["get"], url_path="list_all")
+    def list_obj_lists(self, request):
+        user_id = request.headers.get("user-id")
+        if not user_id:
+            return Response(
+                {"error": "missing user-id header"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        obj_lists = ObjectList.objects.filter(user_id=user_id).values("name")
+
+        return Response(
+            {"object lists": list(obj_lists)},
+            status=status.HTTP_200_OK,
+        )
 
     @action(detail=False, methods=["delete"], url_path="delete")
     def delete_obj(self, request):

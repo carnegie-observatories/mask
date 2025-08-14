@@ -29,15 +29,20 @@ Almost all endpoints require a `user-id` header
 - Body: project_name (string), center_ra (string/number), center_dec (string/number)
 #### GET `/api/project/{project_name}/`
 - Retrieve high‑level project info: listed image names and mask names.
+#### GET `/api/project/list/`
+- Retrieve a list of project associated with the user-id sent in headers
 
 ### Object API (/api/objects/)
-#### POST `/api/objects/<project>/upload/`
+#### POST `/api/objects/upload/`
 - Upload a file (.obj or JSON) to create a new object list for a user.
 - Request data: file, user_id, list_name
 - Returns IDs of created objects and the list name.
 
 #### GET `/api/objects/viewlist/?list_name=<name>`
 - Retrieve the object lists and the objects it contains.
+
+#### GET `/api/objects/list_all/`
+- Retrieve a list of all object lists associated with the user-id sent in headers
 
 ### Mask API (/api/masks/)
 #### GET `/api/masks/{name}/`
