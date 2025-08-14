@@ -79,6 +79,7 @@ class ProjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
+
 # don't need to change if not modifying project setup
 class ImageViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["get"], url_path="getimg")
@@ -187,10 +188,11 @@ class ObjectViewSet(viewsets.ViewSet):
         obj_name = request.query_params.get("obj_name")
         user_id = request.headers.get("user-id")
         obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
-        obj = obj_list.objects.get(name=obj_name)
+        obj = get_object_or_404(obj_list.objects, name=obj_name)
         obj_list.objects_list.remove(obj)
+        obj.delete()
         return Response(
-            {"message": f"object '{obj_name}' removed from list '{list_name}'"},
+            {"message": f"object '{obj_name}' deleted"},
             status=status.HTTP_200_OK,
         )
 

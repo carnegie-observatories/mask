@@ -366,26 +366,8 @@ class MaskViewSet(viewsets.ViewSet):
             }
         )
 
-    @action(detail=False, methods=["post"], url_path="generate")
-    def generate_mask(self, request):
-        data = request.data
+    def _generate_single_mask(self, user_id, proj_name, data, project):
         filename = data["filename"]
-        proj_name = data["project_name"]
-
-        user_id = request.headers.get("user-id")
-        project = Project.objects.get(name=proj_name, user_id=user_id)
-        if project.masks.filter(name=filename).exists():
-            return Response(
-                {"error": "mask name already exists for project"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        valid, feedback = validate(data)
-        if not valid:
-            return Response(
-                {"error": feedback},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
 
         generate_obj_file(user_id, proj_name, filename, data["objects"])
         generate_obs_file(user_id, proj_name, data, [f"{filename}.obj"])
@@ -448,11 +430,15 @@ class MaskViewSet(viewsets.ViewSet):
 
             project.masks.add(mask)
             project.save()
-            return Response(
-                {
-                    "created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF"
-                },
-                status=status.HTTP_201_CREATED,
+            return (
+                True,
+                Response(
+                    {
+                        "created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF"
+                    },
+                    status=status.HTTP_201_CREATED,
+                ),
+                mask.excluded_obj_list.count(),
             )
         else:
             self._file_cleanup(filename)
@@ -469,8 +455,68 @@ class MaskViewSet(viewsets.ViewSet):
             clean_lines = [line.strip(" *") for line in error_block.splitlines()]
             cleaned = [s for s in clean_lines if re.search(r"[a-zA-Z]", s)]
             if len(cleaned) != 0:
-                return Response({"error": cleaned}, status=status.HTTP_400_BAD_REQUEST)
-            return Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
+                return False, Response(
+                    {"error": cleaned}, status=status.HTTP_400_BAD_REQUEST
+                )
+            return False, Response(
+                {"error": feedback}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+    @action(detail=False, methods=["post"], url_path="generate")
+    def generate_masks(self, request):
+        data = request.data
+        filename = data["filename"]
+        proj_name = data["project_name"]
+        user_id = request.headers.get("user-id")
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+
+        if project.masks.filter(name=filename).exists():
+            return Response(
+                {"error": "mask name already exists for project"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        valid, feedback = validate(data)
+        if not valid:
+            return Response(
+                {"error": feedback},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        generate_until_all = data.get("generate_until_all_included", False)
+        vary_rotator = data.get("vary_rotator_range")
+        generated = []
+        if vary_rotator:
+            for angle in range(
+                vary_rotator["start"], vary_rotator["end"] + 1, vary_rotator["step"]
+            ):
+                data["rotator_angle"] = angle
+                data["filename"] = filename + f"_rot{angle}"
+                result, response, _ = self._generate_single_mask(
+                    self, user_id, proj_name, data, project
+                )
+                if result:
+                    generated.append(data["filename"])
+                else:
+                    return response
+        elif generate_until_all:
+            suffix_count = 1
+            excluded_count = 1
+            while excluded_count > 0:
+                data["filename"] = filename + f"_v{suffix_count}"
+                result, response, excluded_count = self._generate_single_mask(
+                    self, user_id, proj_name, data, project
+                )
+                if not result:
+                    return response
+                generated.append(data["filename"])
+                suffix_count += 1
+        else:
+            result, response, _ = self._generate_single_mask(user_id, proj_name, data)
+            if result:
+                generated.append(data["filename"])
+            else:
+                return response
 
     @action(detail=False, methods=["post"], url_path="finalize")
     def finalize_mask(self, request):

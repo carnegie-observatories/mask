@@ -7,11 +7,11 @@ import astropy.units as u
 
 
 def to_deg(ra, dec):
-    if "." not in str(ra):
+    if ":" in str(ra):
         ra = Angle(ra, unit=u.hourangle).degree
     else:
         ra = float(ra)
-    if "." not in str(dec):
+    if ":" in str(dec):
         dec = Angle(dec, unit=u.degree).degree
     else:
         dec = float(dec)
