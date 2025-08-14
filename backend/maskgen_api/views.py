@@ -413,6 +413,8 @@ class MaskViewSet(viewsets.ViewSet):
             mask = Mask.objects.create(
                 name=filename,
                 status=Status.DRAFT,
+                center_ra=data["center_ra"],
+                center_dec=data["center_dec"],
                 instrument_setup=data,
                 instrument_version=InstrumentConfig.objects.filter(
                     instrument=data["instrument"]

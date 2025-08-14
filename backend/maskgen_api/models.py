@@ -58,6 +58,8 @@ class InstrumentConfig(models.Model):
 class Mask(models.Model):
     name = models.CharField(max_length=20)
     user_id = models.CharField(max_length=100)
+    center_ra = models.FloatField()
+    center_dec = models.FloatField()
     status = models.CharField(
         max_length=100, choices=Status.choices, default=Status.DRAFT
     )
