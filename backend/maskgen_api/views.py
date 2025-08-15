@@ -404,9 +404,11 @@ class MaskViewSet(viewsets.ViewSet):
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
         shutil.copy(
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
             f"{MASKGEN_DIRECTORY}{filename}.obj",
         )
         shutil.copy(
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{MASKGEN_DIRECTORY}{filename}.obs",
         )
@@ -425,14 +427,35 @@ class MaskViewSet(viewsets.ViewSet):
             ),
             exist_ok=True,
         )
+        result, feedback = run_maskgen(
+            f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs",
+            data["override"] == "true",
+        )
+        os.makedirs(
+            os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id),
+            exist_ok=True,
+        )
+        os.makedirs(
+            os.path.join(
+                f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id, proj_name
+            ),
+            exist_ok=True,
+        )
         os.rename(
             f"{PROJECT_DIRECTORY}{filename}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
             f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
         )
 
         if result and "Writing object file with use counts to" in feedback:
             # process features from SMF
             filepath = os.path.join(
+                PROJECT_DIRECTORY,
+                API_FOLDER,
+                "smf_files",
+                user_id,
+                proj_name,
+                f"{filename}.SMF",
                 PROJECT_DIRECTORY,
                 API_FOLDER,
                 "smf_files",
@@ -596,6 +619,10 @@ class MaskViewSet(viewsets.ViewSet):
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
             f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
         ]
         for file_path in file_paths:
             remove_file(file_path)
@@ -617,6 +644,7 @@ class MachineViewSet(viewsets.ViewSet):
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
         overwrite = data["overwrite"] == "true"
+        overwrite = data["overwrite"] == "true"
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask.status == Status.FINALIZED:
@@ -624,6 +652,9 @@ class MachineViewSet(viewsets.ViewSet):
             shutil.copy(
                 f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
                 f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
+            )
+            result, feedback = run_maskcut(
+                f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
             )
             result, feedback = run_maskcut(
                 f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
@@ -640,8 +671,19 @@ class MachineViewSet(viewsets.ViewSet):
                     ),
                     exist_ok=True,
                 )
+                os.makedirs(
+                    os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id),
+                    exist_ok=True,
+                )
+                os.makedirs(
+                    os.path.join(
+                        f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
+                    ),
+                    exist_ok=True,
+                )
                 os.rename(
                     f"{PROJECT_DIRECTORY}I{mask_name}.nc",
+                    f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                     f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                 )
 
@@ -673,6 +715,7 @@ class MachineViewSet(viewsets.ViewSet):
         mask = project.masks.get(name=mask_name)
 
         if mask.status == Status.FINALIZED:
+            file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
             file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
             return FileResponse(
                 open(file_path, "rb"), content_type="application/x-netcdf"
