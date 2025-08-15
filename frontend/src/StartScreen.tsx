@@ -14,6 +14,7 @@ function StartScreen() {
     const [loginPasswordValue, setLoginPasswordValue] = useState('');
     const [registerUsernameValue, setRegisterUsernameValue] = useState('');
     const [registerPasswordValue, setRegisterPasswordValue] = useState('');
+    const [guestUser, setGuestUser] = useState('');
 
     const handleLogin = () => {
         //When Login button is clicked
@@ -55,7 +56,24 @@ function StartScreen() {
         setMode('guest');
     };
 
-    const handleGuestSubmit = () => {
+    async function handleGuestSubmit(tempUser: string) {
+        const username = tempUser.trim();
+
+        try { await supabase.auth.signOut(); } catch {}
+
+        const { data, error } = await supabase.auth.signInAnonymously();
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        const { error: updErr } = await supabase.auth.updateUser({
+            data: { display_name: username, is_guest: true },
+        });
+        if (updErr) {
+            console.warn('Guest signed in, but failed to set display name:', updErr.message);
+        }
+
         navigate('/MainScreen', { replace: true });
     }
 
@@ -92,8 +110,8 @@ function StartScreen() {
                 <Group justify='center'>
                     <div className="auth-panel">
                         <Fieldset legend="Guest Login" radius="lg" w={400}>
-                            <TextInput styles={{input: {borderColor: '#586072'}}} label="Username" placeholder="Enter a temporary username" />
-                            <Button mt="xl" fullWidth onClick={handleGuestSubmit}>Submit</Button>
+                            <TextInput styles={{input: {borderColor: '#586072'}}} label="Username" placeholder="Enter a temporary username" value={guestUser} onChange={(event) => setGuestUser(event.currentTarget.value)}/>
+                            <Button mt="xl" fullWidth disabled={!guestUser} onClick={() => handleGuestSubmit(guestUser)}>Submit</Button>
                         </Fieldset>
                     </div>
                 </Group>
