@@ -23,13 +23,13 @@ run `pytest`
 
 ## Interacting with the API using terminal
 <pre> curl {PROTOCOL} "{URL}"\ 
--H "Content-Type: application/json" \ 
--H "user-id: my_user" \ -d '{"json_obj":"here"}' </pre>
+  -H "Content-Type: application/json" \ 
+  -H "user-id: my_user" \ -d '{"json_obj":"here"}' </pre>
 - PROTOCOL = GET, POST, etc
 - URL = "BASE_URL/api/project/create/" etc
 - replace user-id value with your email
-- if you're sending an .obj or .csv file, replace Content-Type with "text/plain" and "application/csv" respectively. \
-If you're ever unclear as to what a curl command for an endpoint should look like, send the description to an LLM and ask it to generate a description.
+- if you're sending an .obj or .csv file, replace Content-Type with "text/plain" and "application/csv" respectively.<br/>
+If you're ever unclear as to what a curl command for an endpoint should look like, send the description or this [file](https://github.com/carnegie-observatories/mask/blob/main/backend/maskgen_api/views.py) to an LLM and ask it to generate a curl command for that endpoint.
 #### Examples:
 #### Uploading Images
 <pre> curl -X POST http://127.0.0.1:8000/api/images/uploadimg/ \
@@ -39,9 +39,9 @@ If you're ever unclear as to what a curl command for an endpoint should look lik
  </pre>
 #### Uploading object list
 <pre> curl -X POST http://127.0.0.1:8000/api/objects/upload/ \ 
--H "user-id: my_user" \ 
--F "file=/path/to/obj/file" \
--F "list_name=my_objects"</pre>
+  -H "user-id: my_user" \ 
+  -F "file=/path/to/obj/file" \
+  -F "list_name=my_objects"</pre>
 #### Uploading Instrument Setup
 <pre> curl -X POST http://127.0.0.1:8000/api/masks/generate/ \
   -H "Content-Type: application/json" \
@@ -54,7 +54,7 @@ If you're ever unclear as to what a curl command for an endpoint should look lik
 ## API Endpoints
 Almost all endpoints require a `user-id` header
 ### Project API (/api/project/)
-POST `/api/project/create/`
+#### POST `/api/project/create/`
 - Projects group images, masks, and an (optional) associated object list. 
 - Body: project_name (string), center_ra (string/number), center_dec (string/number)
 #### GET `/api/project/{project_name}/`
