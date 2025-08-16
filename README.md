@@ -22,34 +22,39 @@ To get less warnings in vscode using the venv, do `which python` to get interpre
 run `pytest`
 
 ## Interacting with the API using terminal
-<pre> ```bash curl {PROTOCOL} "{URL}"\ -H "Content-Type: application/json" \ -H "user-id: my_user" \ -d '{"json_obj":"here"}'``` </pre>
+<pre> curl {PROTOCOL} "{URL}"\ 
+-H "Content-Type: application/json" \ 
+-H "user-id: my_user" \ -d '{"json_obj":"here"}' </pre>
 - PROTOCOL = GET, POST, etc
 - URL = "BASE_URL/api/project/create/" etc
 - replace user-id value with your email
-- if you're sending an .obj or .csv file, replace Content-Type with "text/plain" and "application/csv" respectively
+- if you're sending an .obj or .csv file, replace Content-Type with "text/plain" and "application/csv" respectively. \
 If you're ever unclear as to what a curl command for an endpoint should look like, send the description to an LLM and ask it to generate a description.
-Examples:
+#### Examples:
 #### Uploading Images
-<pre> ```bash curl -X POST http://127.0.0.1:8000/api/images/uploadimg/ \
+<pre> curl -X POST http://127.0.0.1:8000/api/images/uploadimg/ \
   -H "user-id: user@gmail.com" \
   -F "project_name=proj1" \
   -F "image=/path/to/image/file"
-``` </pre>
+ </pre>
 #### Uploading object list
-<pre> ```curl -X POST http://127.0.0.1:8000/api/objects/upload/ \ -H "user-id: my_user" \ -F "file=/path/to/obj/file" \-F "list_name=my_objects"``` </pre>
+<pre> curl -X POST http://127.0.0.1:8000/api/objects/upload/ \ 
+-H "user-id: my_user" \ 
+-F "file=/path/to/obj/file" \
+-F "list_name=my_objects"</pre>
 #### Uploading Instrument Setup
-<pre> ```curl -X POST http://127.0.0.1:8000/api/masks/generate/ \
+<pre> curl -X POST http://127.0.0.1:8000/api/masks/generate/ \
   -H "Content-Type: application/json" \
   -H "user-id: my_user" \
   -d '{"filename": "mask001", "objects": {"list_name": "my_objects"}, "instrument": "IMACS"}'
-``` </pre>
+</pre>
 [See a full example of what to include in an instrument setup json](https://github.com/carnegie-observatories/mask/blob/main/backend/tests/test_files/instrum_setup_works_ex.json)
 
 
 ## API Endpoints
 Almost all endpoints require a `user-id` header
 ### Project API (/api/project/)
-#### POST `/api/project/create/`
+POST `/api/project/create/`
 - Projects group images, masks, and an (optional) associated object list. 
 - Body: project_name (string), center_ra (string/number), center_dec (string/number)
 #### GET `/api/project/{project_name}/`
