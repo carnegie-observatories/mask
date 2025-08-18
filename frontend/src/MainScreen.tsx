@@ -4,7 +4,7 @@ import { IMaskInput } from 'react-imask';
 import { supabase } from './supabase';
 import EssentialControlButtons from './EssentialControlButtons';
 import PreviewControlButton from "./PreviewControlButton";
-import AladinTest from "./AladinTest";
+import AladinSlits from "./AladinSlits";
 
 // Mantine imports
 import {
@@ -510,8 +510,8 @@ function MainScreen() {
     }
 
 
-
-
+    // store variables
+    const [maskName, setMaskName] = useState("");
     /* <--------------------------Rendering (this is where everything comes together)----------------------------> */
 
     return (
@@ -1285,8 +1285,9 @@ function MainScreen() {
 
                             {/* → Where the Aladin panel goes */}
                             <div className="preview-area">
-                                <AladinTest></AladinTest>
+                                <AladinSlits userId="u123"  projectName="galaxySurvey"  maskName="mask001"/>
                             </div>
+
 
                             {/* → fixed-width sidebar for essential controls */}
                             <aside className="sidebar">
@@ -1319,23 +1320,6 @@ function MainScreen() {
                             </aside>
 
                             {/* → area below the Aladin panel */}
-                            <div className="bottom-area">
-                                <div className="first-row-controls">
-                                    <PreviewControlButton text="Zoom In" onClick={() => handleZoom('in')}/>
-                                    <PreviewControlButton text="Zoom Out" onClick={() => handleZoom('out')}/>
-                                    <PreviewControlButton text="Reset Zoom" onClick={() => handleZoom('1')}/>
-                                </div>
-
-                                <div className="second-row-controls">
-                                    <PreviewControlButton text="Draw Annulus" onClick={() => drawRegion('annulus')}/>
-                                    <PreviewControlButton text="Draw Circle" onClick={() => drawRegion('circle')}/>
-                                    <PreviewControlButton text="Draw Rectangle" onClick={() => drawRegion('box')}/>
-                                    <PreviewControlButton text="Draw Oval" onClick={() => drawRegion('ellipse')}/>
-                                    <PreviewControlButton text="Draw Line" onClick={() => drawRegion('cross')}/>
-                                    <PreviewControlButton text="Draw Triangle" onClick={() => drawRegion('polygon')}/>
-                                    <PreviewControlButton text="Add Text" onClick={() => drawRegion('text')}/>
-                                </div>
-                            </div>
                         </div>
                     </Tabs.Panel>
 
