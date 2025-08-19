@@ -91,7 +91,7 @@ class Object(models.Model):
 
     name = models.CharField(max_length=100)
     user_id = models.CharField(max_length=100)
-    type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    type = models.CharField(max_length=10)
     right_ascension = models.FloatField()
     declination = models.FloatField()
     priority = models.IntegerField(default=0.0)
@@ -104,12 +104,13 @@ class Object(models.Model):
 # object list: user_id, name, id, objects
 class ObjectList(models.Model):
     user_id = models.CharField(max_length=100)
+    project_name = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     objects_list = models.ManyToManyField("Object", blank=True)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["name", "user_id"], name="unique_obj_list_per_user"
+                fields=["name", "project_name"], name="unique_obj_list_per_project"
             )
         ]

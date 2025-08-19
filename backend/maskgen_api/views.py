@@ -9,7 +9,7 @@ from django.http import FileResponse
 from astropy.table import Table
 
 from .models import Object, Mask, ObjectList, InstrumentConfig, Status, Project, Image
-from .serializers import ObjectSerializer
+from .serializers import ObjectSerializer, MaskSerializer
 from .obs_file_formatting import (
     generate_obj_file,
     generate_obs_file,
@@ -21,7 +21,6 @@ from backend.terminal_helper import run_maskgen, run_maskcut, remove_file
 from .validator import validate
 import json
 import os
-import re
 import io
 import shutil
 
@@ -209,7 +208,9 @@ class ObjectViewSet(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        obj_list = ObjectList.objects.create(name=list_name, user_id=user_id)
+        obj_list = ObjectList.objects.create(
+            name=list_name, user_id=user_id, project_name=proj_name
+        )
 
         for row in data:
             # convert hours to degs if in hrs
@@ -268,7 +269,7 @@ class ObjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
-    @action(detail=False, methods=["delete"], url_path="delete")
+    @action(detail=False, methods=["delete"], url_path="delete_obj")
     def delete_obj(self, request):
         list_name = request.query_params.get("list_name")
         obj_name = request.query_params.get("obj_name")
@@ -279,6 +280,17 @@ class ObjectViewSet(viewsets.ViewSet):
         obj.delete()
         return Response(
             {"message": f"object '{obj_name}' deleted"},
+            status=status.HTTP_200_OK,
+        )
+
+    @action(detail=False, methods=["delete"], url_path="delete_list")
+    def delete_obj_list(self, request):
+        list_name = request.query_params.get("list_name")
+        user_id = request.headers.get("user-id")
+        obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
+        obj_list.delete()
+        return Response(
+            {"message": f"object list '{list_name}' deleted"},
             status=status.HTTP_200_OK,
         )
 
@@ -404,11 +416,9 @@ class MaskViewSet(viewsets.ViewSet):
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
         shutil.copy(
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
             f"{MASKGEN_DIRECTORY}{filename}.obj",
         )
         shutil.copy(
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{MASKGEN_DIRECTORY}{filename}.obs",
         )
@@ -444,7 +454,6 @@ class MaskViewSet(viewsets.ViewSet):
         os.rename(
             f"{PROJECT_DIRECTORY}{filename}.SMF",
             f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
         )
 
         if result and "Writing object file with use counts to" in feedback:
@@ -465,6 +474,7 @@ class MaskViewSet(viewsets.ViewSet):
             )
             mask = Mask.objects.create(
                 name=filename,
+                user_id=user_id,
                 status=Status.DRAFT,
                 center_ra=data["center_ra"],
                 center_dec=data["center_dec"],
@@ -497,22 +507,6 @@ class MaskViewSet(viewsets.ViewSet):
             )
         else:
             self._file_cleanup(filename)
-            pattern_with_error = r"""
-            (?<=\n)
-            (?:
-                \s*\*\*.*?\*\*\s*\n       # lines starting and ending with "**"
-            )+
-            """
-            matches = re.findall(
-                pattern_with_error, feedback, re.MULTILINE | re.VERBOSE
-            )
-            error_block = matches[0] if matches else ""
-            clean_lines = [line.strip(" *") for line in error_block.splitlines()]
-            cleaned = [s for s in clean_lines if re.search(r"[a-zA-Z]", s)]
-            if len(cleaned) != 0:
-                return False, Response(
-                    {"error": cleaned}, status=status.HTTP_400_BAD_REQUEST
-                )
             return False, Response(
                 {"error": feedback}, status=status.HTTP_400_BAD_REQUEST
             )
@@ -554,6 +548,10 @@ class MaskViewSet(viewsets.ViewSet):
                     generated.append(data["filename"])
                 else:
                     return response
+            return Response(
+                {"created": generated},
+                status=status.HTTP_201_CREATED,
+            )
         elif generate_until_all:
             suffix_count = 1
             excluded_count = 1
@@ -566,12 +564,17 @@ class MaskViewSet(viewsets.ViewSet):
                     return response
                 generated.append(data["filename"])
                 suffix_count += 1
+            return Response(
+                {"created": generated},
+                status=status.HTTP_201_CREATED,
+            )
         else:
-            result, response, _ = self._generate_single_mask(user_id, proj_name, data)
+            result, response, _ = self._generate_single_mask(
+                user_id, proj_name, data, project
+            )
             if result:
                 generated.append(data["filename"])
-            else:
-                return response
+            return response
 
     @action(detail=False, methods=["post"], url_path="finalize")
     def finalize_mask(self, request):
@@ -586,6 +589,48 @@ class MaskViewSet(viewsets.ViewSet):
             mask.save()
             return Response(
                 {"message": "Mask marked as FINALIZED"}, status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"error": "mask does not exist in this project"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    @action(detail=False, methods=["post"], url_path="complete")
+    def complete_mask(self, request):
+        data = request.data
+        proj_name = data["project_name"]
+        user_id = request.headers.get("user-id")
+        mask_name = data["mask_name"]
+        print(user_id, proj_name, mask_name)
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        mask = project.masks.get(name=mask_name)
+        if mask:
+            mask.status = Status.COMPLETED
+            mask.save()
+            return Response(
+                {"message": "Mask marked as COMPLETED"}, status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {"error": "mask does not exist in this project"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    @action(detail=False, methods=["post"], url_path="draft")
+    def draft_mask(self, request):
+        data = request.data
+        proj_name = data["project_name"]
+        user_id = request.headers.get("user-id")
+        mask_name = data["mask_name"]
+        print(user_id, proj_name, mask_name)
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+        mask = project.masks.get(name=mask_name)
+        if mask:
+            mask.status = Status.DRAFT
+            mask.save()
+            return Response(
+                {"message": "Mask marked as COMPLETED"}, status=status.HTTP_200_OK
             )
         else:
             return Response(
@@ -619,10 +664,6 @@ class MaskViewSet(viewsets.ViewSet):
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
             f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
-            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
         ]
         for file_path in file_paths:
             remove_file(file_path)
@@ -635,15 +676,37 @@ class MaskViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
+    @action(detail=False, methods=["get"], url_path="finalized_masks")
+    def get_finalized_masks(self, request):
+        """
+        Return all masks whose status is FINALIZED
+        """
+        masks = Mask.objects.filter(status="finalized")
+        serializer = MaskSerializer(masks, many=True)
+        print(serializer.data)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"], url_path="completed_masks")
+    def get_completed_masks(self, request):
+        """
+        Return all masks whose status is COMPLETED
+        """
+        masks = Mask.objects.filter(status="completed")
+        serializer = MaskSerializer(masks, many=True)
+        print(serializer.data)
+        return Response(serializer.data)
+
 
 class MachineViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="generate")
     def generate_machine_code(self, request):
         data = request.data
         proj_name = data["project_name"]
+        print(proj_name)
+        print(data)
         user_id = request.headers.get("user-id")
+        print(user_id)
         mask_name = data["mask_name"]
-        overwrite = data["overwrite"] == "true"
         overwrite = data["overwrite"] == "true"
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
@@ -656,25 +719,8 @@ class MachineViewSet(viewsets.ViewSet):
             result, feedback = run_maskcut(
                 f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
             )
-            result, feedback = run_maskcut(
-                f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
-            )
+            print(feedback)
             if result and "Estimated cutting time" in feedback:
-                remove_file(f"{MASKGEN_DIRECTORY}{mask_name}.SMF")
-                os.makedirs(
-                    os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id),
-                    exist_ok=True,
-                )
-                os.makedirs(
-                    os.path.join(
-                        f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
-                    ),
-                    exist_ok=True,
-                )
-                os.makedirs(
-                    os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id),
-                    exist_ok=True,
-                )
                 os.makedirs(
                     os.path.join(
                         f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
@@ -683,7 +729,6 @@ class MachineViewSet(viewsets.ViewSet):
                 )
                 os.rename(
                     f"{PROJECT_DIRECTORY}I{mask_name}.nc",
-                    f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                     f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                 )
 
@@ -711,17 +756,15 @@ class MachineViewSet(viewsets.ViewSet):
                 {"error": "missing required query parameters or headers."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        project = Project.objects.get(name=proj_name, user_id=user_id)
-        mask = project.masks.get(name=mask_name)
 
-        if mask.status == Status.FINALIZED:
-            file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
-            file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
+        file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
+
+        if os.path.exists(file_path):
             return FileResponse(
                 open(file_path, "rb"), content_type="application/x-netcdf"
             )
         else:
             return Response(
-                {"error": "Mask is not finalized."},
+                {"error": "Machine code has not been generated."},
                 status=status.HTTP_400_BAD_REQUEST,
             )

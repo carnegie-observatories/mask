@@ -113,9 +113,9 @@ def generate_obj_file(user_id, proj_name, filename, objects):
         file.write("&RADEGREE\n")
         if not isinstance(objects, list):
             objects = list(
-                ObjectList.objects.get(name=objects).objects_list.values_list(
-                    "id", flat=True
-                )
+                ObjectList.objects.get(
+                    name=objects, project_name=proj_name
+                ).objects_list.values_list("id", flat=True)
             )
         for id in objects:
             obj = Object.objects.get(id=id)
