@@ -5,6 +5,7 @@ import StartButton from "./StartButton";
 import { supabase } from "./supabase";
 import MaskManager from './Technician';
 
+
 function StartScreen() {
 
     const navigate = useNavigate();
@@ -56,11 +57,9 @@ function StartScreen() {
         console.log("Guest button clicked");
         setMode('guest');
     };
-
     const handleTechnician = () => {
         navigate('/Technician', { replace: true });
     };
-
     async function handleGuestSubmit(tempUser: string) {
         const username = tempUser.trim();
 

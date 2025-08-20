@@ -275,7 +275,7 @@ class ObjectViewSet(viewsets.ViewSet):
             {"object lists": list(obj_lists)},
             status=status.HTTP_200_OK,
         )
-
+      
     @action(detail=False, methods=["delete"], url_path="delete_obj")
     def delete_obj(self, request):
         list_name = request.query_params.get("list_name")
@@ -423,9 +423,11 @@ class MaskViewSet(viewsets.ViewSet):
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
         shutil.copy(
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
             f"{MASKGEN_DIRECTORY}{filename}.obj",
         )
         shutil.copy(
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{MASKGEN_DIRECTORY}{filename}.obs",
         )
@@ -460,6 +462,7 @@ class MaskViewSet(viewsets.ViewSet):
         )
         os.rename(
             f"{PROJECT_DIRECTORY}{filename}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
             f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
         )
 
@@ -669,6 +672,10 @@ class MaskViewSet(viewsets.ViewSet):
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
             f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
         ]
         for file_path in file_paths:
             remove_file(file_path)
@@ -708,6 +715,7 @@ class MachineViewSet(viewsets.ViewSet):
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
         overwrite = data["overwrite"] == "true"
+        overwrite = data["overwrite"] == "true"
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
@@ -727,7 +735,20 @@ class MachineViewSet(viewsets.ViewSet):
             result, feedback = run_maskcut(
                 f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
             )
+            result, feedback = run_maskcut(
+                f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
+            )
             if result and "Estimated cutting time" in feedback:
+                os.makedirs(
+                    os.path.join(
+                        f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
+                    ),
+                    exist_ok=True,
+                )
+                os.makedirs(
+                    os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id),
+                    exist_ok=True,
+                )
                 os.makedirs(
                     os.path.join(
                         f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
@@ -736,6 +757,7 @@ class MachineViewSet(viewsets.ViewSet):
                 )
                 os.rename(
                     f"{PROJECT_DIRECTORY}I{mask_name}.nc",
+                    f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                     f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                 )
 
@@ -767,6 +789,7 @@ class MachineViewSet(viewsets.ViewSet):
         file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
 
         if os.path.exists(file_path):
+
             return FileResponse(
                 open(file_path, "rb"), content_type="application/x-netcdf"
             )
