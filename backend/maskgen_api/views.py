@@ -92,6 +92,22 @@ class ProjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
+    @action(detail=False, methods=["get"], url_path="list")
+    def list_projects(self, request):
+        user_id = request.headers.get("user-id")
+        if not user_id:
+            return Response(
+                {"error": "missing user-id header"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        projects = Project.objects.filter(user_id=user_id).values("name")
+
+        return Response(
+            {"projects": list(projects)},
+            status=status.HTTP_200_OK,
+        )
+
 
 class InstrumentViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
@@ -199,16 +215,14 @@ class ObjectViewSet(viewsets.ViewSet):
             # convert hours to degs if in hrs
             ra, dec = to_deg(row.pop("ra"), row.pop("dec"))
 
-            obj, _ = Object.objects.create(
+            obj = Object.objects.create(
                 name=row.pop("name"),
                 user_id=request.headers.get("user-id"),
-                defaults={
-                    "type": row.pop("type"),
-                    "right_ascension": ra,
-                    "declination": dec,
-                    "priority": int(row.pop("priority")),
-                    "aux": row,
-                },
+                type=row.pop("type"),
+                right_ascension=ra,
+                declination=dec,
+                priority=int(row.pop("priority")),
+                aux=row,
             )
             obj_list.objects_list.add(obj)
 
@@ -237,6 +251,22 @@ class ObjectViewSet(viewsets.ViewSet):
         results.append({"list_name": obj_list.name, "objects": serialized_objects.data})
 
         return Response(results)
+
+    @action(detail=False, methods=["get"], url_path="list_all")
+    def list_obj_lists(self, request):
+        user_id = request.headers.get("user-id")
+        if not user_id:
+            return Response(
+                {"error": "missing user-id header"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        obj_lists = ObjectList.objects.filter(user_id=user_id).values("name")
+
+        return Response(
+            {"object lists": list(obj_lists)},
+            status=status.HTTP_200_OK,
+        )
 
     @action(detail=False, methods=["delete"], url_path="delete")
     def delete_obj(self, request):
@@ -366,35 +396,19 @@ class MaskViewSet(viewsets.ViewSet):
             }
         )
 
-    @action(detail=False, methods=["post"], url_path="generate")
-    def generate_mask(self, request):
-        data = request.data
+    def _generate_single_mask(self, user_id, proj_name, data, project):
         filename = data["filename"]
-        proj_name = data["project_name"]
-
-        user_id = request.headers.get("user-id")
-        project = Project.objects.get(name=proj_name, user_id=user_id)
-        if project.masks.filter(name=filename).exists():
-            return Response(
-                {"error": "mask name already exists for project"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        valid, feedback = validate(data)
-        if not valid:
-            return Response(
-                {"error": feedback},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
 
         generate_obj_file(user_id, proj_name, filename, data["objects"])
         generate_obs_file(user_id, proj_name, data, [f"{filename}.obj"])
         os.environ["MGPATH"] = MASKGEN_DIRECTORY
         shutil.copy(
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{filename}.obj",
             f"{MASKGEN_DIRECTORY}{filename}.obj",
         )
         shutil.copy(
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{filename}.obs",
             f"{MASKGEN_DIRECTORY}{filename}.obs",
         )
@@ -413,8 +427,23 @@ class MaskViewSet(viewsets.ViewSet):
             ),
             exist_ok=True,
         )
+        result, feedback = run_maskgen(
+            f"{MASKGEN_DIRECTORY}/maskgen -s {filename}.obs",
+            data["override"] == "true",
+        )
+        os.makedirs(
+            os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id),
+            exist_ok=True,
+        )
+        os.makedirs(
+            os.path.join(
+                f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files", user_id, proj_name
+            ),
+            exist_ok=True,
+        )
         os.rename(
             f"{PROJECT_DIRECTORY}{filename}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
             f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF",
         )
 
@@ -427,10 +456,18 @@ class MaskViewSet(viewsets.ViewSet):
                 user_id,
                 proj_name,
                 f"{filename}.SMF",
+                PROJECT_DIRECTORY,
+                API_FOLDER,
+                "smf_files",
+                user_id,
+                proj_name,
+                f"{filename}.SMF",
             )
             mask = Mask.objects.create(
                 name=filename,
                 status=Status.DRAFT,
+                center_ra=data["center_ra"],
+                center_dec=data["center_dec"],
                 instrument_setup=data,
                 instrument_version=InstrumentConfig.objects.filter(
                     instrument=data["instrument"]
@@ -448,11 +485,15 @@ class MaskViewSet(viewsets.ViewSet):
 
             project.masks.add(mask)
             project.save()
-            return Response(
-                {
-                    "created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF"
-                },
-                status=status.HTTP_201_CREATED,
+            return (
+                True,
+                Response(
+                    {
+                        "created": f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{filename}.SMF"
+                    },
+                    status=status.HTTP_201_CREATED,
+                ),
+                mask.excluded_obj_list.count(),
             )
         else:
             self._file_cleanup(filename)
@@ -469,8 +510,68 @@ class MaskViewSet(viewsets.ViewSet):
             clean_lines = [line.strip(" *") for line in error_block.splitlines()]
             cleaned = [s for s in clean_lines if re.search(r"[a-zA-Z]", s)]
             if len(cleaned) != 0:
-                return Response({"error": cleaned}, status=status.HTTP_400_BAD_REQUEST)
-            return Response({"error": feedback}, status=status.HTTP_400_BAD_REQUEST)
+                return False, Response(
+                    {"error": cleaned}, status=status.HTTP_400_BAD_REQUEST
+                )
+            return False, Response(
+                {"error": feedback}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+    @action(detail=False, methods=["post"], url_path="generate")
+    def generate_masks(self, request):
+        data = request.data
+        filename = data["filename"]
+        proj_name = data["project_name"]
+        user_id = request.headers.get("user-id")
+        project = Project.objects.get(name=proj_name, user_id=user_id)
+
+        if project.masks.filter(name=filename).exists():
+            return Response(
+                {"error": "mask name already exists for project"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        valid, feedback = validate(data)
+        if not valid:
+            return Response(
+                {"error": feedback},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        generate_until_all = data.get("generate_until_all_included", False)
+        vary_rotator = data.get("vary_rotator_range")
+        generated = []
+        if vary_rotator:
+            for angle in range(
+                vary_rotator["start"], vary_rotator["end"] + 1, vary_rotator["step"]
+            ):
+                data["rotator_angle"] = angle
+                data["filename"] = filename + f"_rot{angle}"
+                result, response, _ = self._generate_single_mask(
+                    self, user_id, proj_name, data, project
+                )
+                if result:
+                    generated.append(data["filename"])
+                else:
+                    return response
+        elif generate_until_all:
+            suffix_count = 1
+            excluded_count = 1
+            while excluded_count > 0:
+                data["filename"] = filename + f"_v{suffix_count}"
+                result, response, excluded_count = self._generate_single_mask(
+                    self, user_id, proj_name, data, project
+                )
+                if not result:
+                    return response
+                generated.append(data["filename"])
+                suffix_count += 1
+        else:
+            result, response, _ = self._generate_single_mask(user_id, proj_name, data)
+            if result:
+                generated.append(data["filename"])
+            else:
+                return response
 
     @action(detail=False, methods=["post"], url_path="finalize")
     def finalize_mask(self, request):
@@ -518,6 +619,10 @@ class MaskViewSet(viewsets.ViewSet):
             f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
             f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
             f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obs_files/{user_id}/{proj_name}/{mask_name}.obs",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}obj_files/{user_id}/{proj_name}/{mask_name}.obj",
+            f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
         ]
         for file_path in file_paths:
             remove_file(file_path)
@@ -539,6 +644,7 @@ class MachineViewSet(viewsets.ViewSet):
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
         overwrite = data["overwrite"] == "true"
+        overwrite = data["overwrite"] == "true"
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask.status == Status.FINALIZED:
@@ -546,6 +652,9 @@ class MachineViewSet(viewsets.ViewSet):
             shutil.copy(
                 f"{PROJECT_DIRECTORY}{API_FOLDER}smf_files/{user_id}/{proj_name}/{mask_name}.SMF",
                 f"{MASKGEN_DIRECTORY}{mask_name}.SMF",
+            )
+            result, feedback = run_maskcut(
+                f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
             )
             result, feedback = run_maskcut(
                 f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
@@ -562,8 +671,19 @@ class MachineViewSet(viewsets.ViewSet):
                     ),
                     exist_ok=True,
                 )
+                os.makedirs(
+                    os.path.join(f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id),
+                    exist_ok=True,
+                )
+                os.makedirs(
+                    os.path.join(
+                        f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files", user_id, proj_name
+                    ),
+                    exist_ok=True,
+                )
                 os.rename(
                     f"{PROJECT_DIRECTORY}I{mask_name}.nc",
+                    f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                     f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc",
                 )
 
@@ -595,6 +715,7 @@ class MachineViewSet(viewsets.ViewSet):
         mask = project.masks.get(name=mask_name)
 
         if mask.status == Status.FINALIZED:
+            file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
             file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
             return FileResponse(
                 open(file_path, "rb"), content_type="application/x-netcdf"
