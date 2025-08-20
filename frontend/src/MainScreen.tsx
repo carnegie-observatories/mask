@@ -48,7 +48,7 @@ import {
     IconPackageExport,
     IconLogout,
     IconEdit,
-    IconTable, IconLibraryPlus, IconFolderOpen, IconCopy, IconFileExport, IconHome,
+    IconTable, IconLibraryPlus, IconFolderOpen, IconCopy, IconFileExport, IconHome, IconSend,
 } from '@tabler/icons-react';
 
 
@@ -77,7 +77,25 @@ function MainScreen() {
     const [showFinalizeTab,  setShowFinalizeTab]  = useState(false);
     const [projectOptions, setProjectOptions] = useState<string[]>([]);
     const [loadingProjects, setLoadingProjects] = useState(false);
-    const [configFile, setConfigFile] = useState<File | null>(null);
+    const [instrument, setInstrument] = useState<string | null>(null);
+    const [filterOptions, setFilterOptions] = useState<string[]>([]);
+    const [disperserOptions, setDisperserOptions] = useState<string[]>([]);
+    const [disperser, setDisperser] = useState<string | null>(null);
+    const [maskTitle, setMaskTitle] = useState<string>('');
+    const [maskFileTitle, setMaskFileTitle] = useState<string>('');
+    const [observer, setObserver] = useState<string>('');
+    const [equinox, setEquinox] = useState<string | null>(null);
+    const [slitAngle, setSlitAngle] = useState<number | null>(null);
+    const [HA, setHA] = useState<number | null>(null);
+    const [lowerWave, setLowerWave] = useState<number | null>(null);
+    const [upperWave, setUpperWave] = useState<number | null>(null);
+    const [pdecide, setPdecide] = useState<number | null>(null);
+    const [slitWidth, setSlitWidth] = useState<number | null>(null);
+    const [overlapPixels, setOverlapPixels] = useState<number | null>(null);
+    const [isMaskGenerated, setIsMaskGenerated] = useState(false);
+    const [isMaskCompleted, setIsMaskCompleted] = useState(false);
+
+
 
 
 
@@ -93,6 +111,8 @@ function MainScreen() {
     const sectionWidth = 18;
     const theme = useMantineTheme();
     const seperatorHeight = 18;
+    const NUMERIC_COLS = ['a_len', 'b_len', 'declination', 'right_ascension', 'priority'] as const;
+    type NumericKey = typeof NUMERIC_COLS[number];
 
 
 
@@ -100,8 +120,12 @@ function MainScreen() {
     /* <----------------------------------Essential Control Button handlers------------------------------------> */
 
     const handleGenExport = () => {
-        //When Generate and Export button is clicked
-        console.log("GenEx button clicked");
+        //When Finalize and Submit button is clicked
+        console.log("Finalize and submit button clicked");
+        setShowFinalizeTab(true);
+        setShowTableTab(false);
+        setShowMaskTab(false);
+        setActiveTab('finalize');
     };
 
     const handleUndo= () => {
@@ -159,7 +183,7 @@ function MainScreen() {
         setSelectedFiles((prev) => [...prev, ...fileArray]);
     }
 
-    // when user uploads object file, sends to API and awaits return in console
+    // when user uploads object files, sends to API and awaits return in console
     async function uploadObjectFiles(files: File[], listName: string) {
         console.log("Upload initiated for: ", files);
         if (!files.length) return;
@@ -193,7 +217,7 @@ function MainScreen() {
         }
     }
 
-    // creating a chart based off data received from API, opened as a table in new tab
+    // creating a chart based off object list data received from API, opened as a table in new tab
     async function getTableData(name: string) {
         console.log('Getting table data…');
         const cleanName = name.trim();
@@ -247,7 +271,7 @@ function MainScreen() {
             getTableData(objectListTitle);
             setShowTableTab(true);
             setActiveTab('table');
-        }, 1000);
+        }, 2000);
     }
 
     // table column headers
@@ -293,26 +317,96 @@ function MainScreen() {
 
     // editing the table
     const handleEditToggle = () => {
-        if (!editing) setDraftRows(tableRowsData);   // enter edit → take a fresh copy
+        setLoading(true);
+        if (!editing) setDraftRows(tableRowsData);
         setEditing((e) => !e);
+        setLoading(false);
     };
 
-    // saving changes and saving as a file (TODO: send back to API)
-    const handleSave = () => {
-        // When save button pressed, lock-in the edited data
-        setTableRowsData(draftRows);
-        // send back to API
-        const blob     = new Blob([JSON.stringify(draftRows, null, 2)],
-            { type: 'application/json' });
-        const url      = URL.createObjectURL(blob);
-        const tmpLink  = document.createElement('a');
-        tmpLink.href   = url;
-        tmpLink.download = 'edited-objects.json';
-        tmpLink.click();
-        URL.revokeObjectURL(url);
+    async function postObjectEdits(edits: any[], userId: string) {
+        if (!edits.length) return;
+        await Promise.all(
+            edits.map((payload) =>
+                fetch('/api/objects/edit/', {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json', 'user-id': userId },
+                    body: JSON.stringify(payload),
+                }).then((r) => {
+                    if (!r.ok) return r.text().then((t) => Promise.reject(new Error(`${r.status}: ${t}`)));
+                })
+            )
+        );
+    }
 
-        setEditing(false);
+    // saving changes and saving as a file
+    const handleSave = async () => {
+        if (!lastListName) {
+            alert('No list name found; cannot update on server.');
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const cleaned = draftRows.map((row: any) => {
+                const r: any = { ...row };
+                (NUMERIC_COLS as readonly NumericKey[]).forEach((k) => {
+                    r[k] = coerceForKey(k, r[k]);
+                });
+                return r;
+            });
+
+            const edits: any[] = [];
+            cleaned.forEach((rowAfter: any, i: number) => {
+                const rowBefore: any = tableRowsData[i] ?? {};
+                const changes: Record<string, number> = {};
+
+                (NUMERIC_COLS as readonly NumericKey[]).forEach((k) => {
+                    const before =
+                        typeof rowBefore[k] === 'string' ? parseFloat(rowBefore[k]) : rowBefore[k];
+                    const after =
+                        typeof rowAfter[k] === 'string' ? parseFloat(rowAfter[k]) : rowAfter[k];
+
+                    // treat NaN !== NaN as "not equal"
+                    const equal = Number.isFinite(before) && Number.isFinite(after)
+                        ? before === after
+                        : before === after;
+
+                    if (!equal) changes[k] = after as number;
+                });
+
+                if (Object.keys(changes).length > 0) {
+                    edits.push({
+                        list_name: lastListName,
+                        obj_name: rowAfter.name,
+                        user_id: userId,
+                        ...changes,
+                    });
+                }
+            });
+
+            await postObjectEdits(edits, userId);
+
+            setTableRowsData(cleaned);
+
+            // 5) (Optional) let user download a copy
+            const blob = new Blob([JSON.stringify(cleaned, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const tmpLink = document.createElement('a');
+            tmpLink.href = url;
+            tmpLink.download = 'edited-objects.json';
+            tmpLink.click();
+            URL.revokeObjectURL(url);
+
+            setEditing(false);
+        } catch (err) {
+            console.error(err);
+            alert((err as Error).message || 'Failed to save changes');
+        } finally {
+            setLoading(false);
+        }
     };
+
+
 
 
 
@@ -464,23 +558,13 @@ function MainScreen() {
         }
     }
 
-    // zooming
-    const handleZoom = (value: string) => {
-        console.log("Zoom: ", value);
-        // window.JS9.SetZoom(value);
-    }
-
-    // drawing regions
-    const drawRegion = (shape: string) => {
-        // window.JS9.AddRegions(shape,{color:"cyan"})
-    }
-
     // closable tabs
     function closeTab(tab: ClosableTab) {
         if (activeTab === tab) setActiveTab('home');
         if (tab === 'mask') setShowMaskTab(false);
         if (tab === 'table') setShowTableTab(false);
         if (tab === 'settings') setShowSettingsTab(false);
+        if (tab === 'finalize') setShowFinalizeTab(false);
     }
 
     // setting the user ID to the email address from Supabase (or the guest username if logged in as guest, or "guest" if n/a)
@@ -504,10 +588,316 @@ function MainScreen() {
         })();
     }, []);
 
-    async function handleUploadConfig ()  {
+    async function handleUploadConfig(file: File | null) {
+        if (!file) return;
         setLoading(true);
+        try {
+            const text = await file.text();           // ← use the param
+            const parsed = JSON.parse(text);
+            const items = Array.isArray(parsed) ? parsed : [parsed];
 
+            for (const cfg of items) {
+                const res = await fetch('/api/instruments/uploadconfig/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify(cfg),
+                });
+                if (!res.ok) throw new Error(`Upload failed (${res.status}): ${await res.text()}`);
+            }
+
+            if (instrument && items.some(c => c.instrument === instrument)) {
+                await loadInstrumentConfig(instrument);
+            }
+            alert('Instrument configuration successfully uploaded.');
+        } catch (err) {
+            console.error(err);
+            alert((err as Error).message || 'Upload failed');
+        } finally {
+            setLoading(false);
+        }
     }
+
+    async function loadInstrumentConfig(name: string) {
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/instruments/${encodeURIComponent(name)}/`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json'},
+            });
+            if (!res.ok) throw new Error(`Server responded ${res.status}`);
+            const json = await res.json();
+
+            // Normalize to string arrays (defensive)
+            const filters    = Array.isArray(json?.filters)    ? json.filters.map(String)    : [];
+            const dispersers = Array.isArray(json?.dispersers) ? json.dispersers.map(String) : [];
+
+            setFilterOptions(filters);
+            setDisperserOptions(dispersers);
+        } catch (err) {
+            console.error('Instrument config fetch failed:', err);
+            setFilterOptions([]);
+            setDisperserOptions([]);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function handleGenerateMask() {
+        try {
+            setLoading(true);
+
+            const today = new Date().toISOString().slice(0, 10);
+            const payload = {
+                user_id: userId,
+                project_name: projectName || 'untitled',
+                override: true,
+                filename: maskFileTitle || `mask_${Date.now()}`,
+                edit_date: today,
+                observer: observer || 'anonymous',
+                title: maskTitle || 'untitled',
+                center_ra: centerRA || 1,
+                center_dec: centerDec || 1,
+                equinox: equinox ? Number(equinox) : 2000.0,
+                position: slitAngle,
+                dref: 1,
+                hangle: HA || 1,
+
+                guide_stars: [
+                    {
+                        "name": "GS1",
+                        "ra": "10.002168",
+                        "dec": "2.61311",
+                        "equinox": 2000.0,
+                        "id": "GS101"
+                    },
+                    {
+                        "name": "GS2",
+                        "ra": "10.002909",
+                        "dec": "2.10239",
+                        "equinox": 2000.0,
+                        "id": "GS102"
+                    }
+                ],
+
+
+                // instrument setup
+                telescope: "Magellan",
+                instrument: instrument || "IMACS_sc",
+                disperser:  disperser  || "IMACS_grism_400",
+
+
+                wlimit_low: lowerWave || 3000,
+                wlimit_high: upperWave || 5000,
+                wavelength: 4731.46,
+                pdecide: pdecide || 1,
+                slit_width: slitWidth || 1,
+                a_len: 3.0,
+                b_len: 3.0,
+                slit_tilt: 0.0,
+                refhole_width: 5.0,
+                refhole_shape: 1,
+                refhole_a_len: 2.5,
+                refhole_b_len: 2.5,
+                refhole_orient_deg: 0.0,
+                overlap: overlapPixels || -2,
+                exorder: 0,
+                date: today,
+
+
+                objects: lastListName,
+            };
+
+            const res = await fetch('/api/masks/generate/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'user-id': userId },
+                body: JSON.stringify(payload),
+            });
+
+            if (!res.ok) {
+                const t = await res.text();
+                throw new Error(`Generate failed: ${res.status} ${t}`);
+            }
+
+
+            const ct = res.headers.get('Content-Type') || '';
+            let blob: Blob;
+            let filename = `${payload.filename || 'mask'}.smf`;
+
+            if (ct.includes('application/json')) {
+                const j = await res.json();
+                const fileUrl = j?.path || j?.file || j?.url;
+                if (!fileUrl || typeof fileUrl !== 'string') {
+                    throw new Error('Generate succeeded but no file path returned');
+                }
+                const fileRes = await fetch(fileUrl, { headers: { 'user-id': userId } });
+                if (!fileRes.ok) throw new Error(`Download failed: ${fileRes.status}`);
+                blob = await fileRes.blob();
+
+                const cd = fileRes.headers.get('Content-Disposition');
+                if (cd && cd.includes('filename=')) {
+                    filename = cd.split('filename=')[1].replace(/["']/g, '');
+                }
+            } else {
+                blob = await res.blob();
+                const cd = res.headers.get('Content-Disposition');
+                if (cd && cd.includes('filename=')) {
+                    filename = cd.split('filename=')[1].replace(/["']/g, '');
+                }
+            }
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            setIsMaskGenerated(true)
+        } catch (err) {
+            console.error(err);
+            alert((err as Error).message || 'Failed to generate mask');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const handleBackFromFinalize = () => {
+        setShowMaskTab(true)
+        setShowTableTab(true)
+        setShowFinalizeTab(false)
+        setActiveTab('mask')
+    }
+
+    async function handleFinalizeMask() {
+        if (!projectName || !maskTitle) {
+            alert('Enter a project name and mask title first.');
+            return;
+        }
+
+        try {
+            setLoading(true);
+
+            const res = await fetch('/api/masks/complete/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'user-id': userId,
+                },
+                body: JSON.stringify({
+                    project_name: projectName,
+                    mask_name: maskTitle,
+                }),
+            });
+
+            if (!res.ok) {
+                const ct = res.headers.get('content-type') || '';
+                const text = await res.text();
+                let msg = `Mask completion failed: ${res.status}`;
+                if (ct.includes('application/json')) {
+                    try { const j = JSON.parse(text); msg = j.detail || j.error || msg; } catch {}
+                } else {
+                    const m = text.match(/<pre class="exception_value">([^<]+)/i);
+                    if (m) msg = m[1];
+                }
+                throw new Error(msg);
+            }
+
+            alert('Mask marked as complete.');
+            setIsMaskCompleted(true)
+        } catch (err) {
+            console.error(err);
+            alert((err as Error).message || 'Failed to finalize mask');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    function coerceForKey(key: NumericKey, v: unknown) {
+        if (typeof v === 'number') return v;
+        if (typeof v !== 'string') return v;
+
+        const t = v.trim();
+        if (!t) return v;
+
+
+        const n = key === 'priority' ? parseInt(t, 10) : parseFloat(t);
+        return Number.isFinite(n) ? n : v;
+    }
+
+    async function handleGenerateMachineCode() {
+
+        try {
+            setLoading(true);
+
+            const form = new FormData();
+            form.append('project_name', projectName);
+            form.append('mask_name', maskTitle);
+
+            const genRes = await fetch('/api/machine/generate/', {
+                method: 'POST',
+                headers: { 'user-id': userId },
+                body: form,
+            });
+            if (!genRes.ok) {
+                const t = await genRes.text();
+                throw new Error(`Generate machine code failed: ${genRes.status} ${t}`);
+            }
+
+            const qs =
+                `project_name=${encodeURIComponent(projectName)}` +
+                `&mask_name=${encodeURIComponent(maskTitle)}`;
+
+            const codeRes = await fetch(`/api/machine/get-machine-code/?${qs}`, {
+                method: 'GET',
+                headers: { 'user-id': userId },
+            });
+            if (!codeRes.ok) {
+                const t = await codeRes.text();
+                throw new Error(`Fetch machine code failed: ${codeRes.status} ${t}`);
+            }
+
+            // 3) Download it (robust to different server responses)
+            const ct = codeRes.headers.get('Content-Type') || '';
+            let blob: Blob;
+
+            if (ct.includes('application/json')) {
+                const j = await codeRes.json();
+                const fileUrl = j?.path || j?.file || j?.url;
+                if (!fileUrl) throw new Error('No machine code path in JSON response');
+                const fileRes = await fetch(fileUrl, { headers: { 'user-id': userId } });
+                if (!fileRes.ok) throw new Error(`Download failed: ${fileRes.status}`);
+                blob = await fileRes.blob();
+            } else if (ct.includes('text/plain')) {
+                const text = await codeRes.text();
+                blob = new Blob([text], { type: 'text/plain' });
+            } else {
+                blob = await codeRes.blob();
+            }
+
+
+            let filename = `${maskTitle || 'mask'}_machine_code.txt`;
+            const cd = codeRes.headers.get('Content-Disposition');
+            if (cd && cd.includes('filename=')) {
+                filename = cd.split('filename=')[1].replace(/["']/g, '');
+            }
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error(err);
+            alert((err as Error).message || 'Machine code generation failed');
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
 
 
@@ -681,7 +1071,7 @@ function MainScreen() {
                         {showFinalizeTab && (
                             <Tabs.Tab
                                 value="finalize"
-                                leftSection={<IconSettings size={12}/>}
+                                leftSection={<IconSend size={12}/>}
                                 /* vvv absolutely pin the close button on the right vvv */
                                 rightSection={
                                     <div
@@ -724,15 +1114,15 @@ function MainScreen() {
                                     Config
                                 </Text>
 
-                                <FileButton onChange={setConfigFile} accept=".json">
+                                <FileButton
+                                    onChange={(file) => {
+                                        if (!file) return;
+                                        void handleUploadConfig(file);
+                                    }}
+                                    accept=".json"
+                                >
                                     {(props) => <Button w={300} {...props}>Upload Instrument Configurations</Button>}
                                 </FileButton>
-
-                                {configFile && (
-                                    <Text size="sm" ta="center" mt="sm">
-                                        Picked file: {configFile.name}
-                                    </Text>
-                                )}
                             </div>
 
                             {/*projects*/}
@@ -808,13 +1198,6 @@ function MainScreen() {
                             <Group justify='center'>
                                 <div className="auth-panel">
                                     <Fieldset legend="Open Project" radius="lg" w={400} mt="10vh">
-                                        {/*<TextInput*/}
-                                        {/*    styles={{input: {borderColor: '#586072'}}}*/}
-                                        {/*    label="Enter Project Name" placeholder="Enter your project's name (case-sensitive)"*/}
-                                        {/*    value={projectName}*/}
-                                        {/*    onChange={(e) => setProjectName(e.target.value)}*/}
-                                        {/*/>*/}
-
                                         <Select
                                             placeholder={
                                                 loadingProjects
@@ -967,10 +1350,12 @@ function MainScreen() {
                                     {/*title*/}
                                     <TextInput
                                         radius="md"
-                                        label="Title"
+                                        label="Mask Title"
                                         placeholder="e.g. Mask A"
                                         style={{width: 352}}
                                         styles={{input: {borderColor: '#586072'}}}
+                                        value={maskTitle}
+                                        onChange={(e) => setMaskTitle(e.currentTarget.value)}
                                     />
 
                                     <div className="observer-settings">
@@ -978,10 +1363,11 @@ function MainScreen() {
                                         <TextInput
                                             radius="md"
                                             label="Observer"
-                                            // description="burger"
                                             placeholder="Enter observer name"
                                             style={{width: 170}}
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={observer}
+                                            onChange={(e) => setObserver(e.currentTarget.value)}
                                         />
 
                                         {/*observation date picker*/}
@@ -1002,7 +1388,7 @@ function MainScreen() {
 
                                     <div className="ra-declination">
                                         <InputBase
-                                            label="R.A."
+                                            label="Right Ascension"
                                             component={IMaskInput}
                                             mask="00:00:00.000"
                                             placeholder="e.g. 24:00:00.000"
@@ -1028,6 +1414,8 @@ function MainScreen() {
                                             data={['2000', 'hm', 'hm?', 'hmm??']}
                                             style={{width: 170}}
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={equinox}
+                                            onChange={setEquinox}
                                         />
 
                                         <NumberInput
@@ -1035,6 +1423,8 @@ function MainScreen() {
                                             placeholder="0.0"
                                             style={{width: 170}}
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={slitAngle ?? undefined}
+                                            onChange={(v) => setSlitAngle(typeof v === 'number' ? v : null)}
                                         />
                                     </div>
 
@@ -1045,15 +1435,28 @@ function MainScreen() {
                                         <Select
                                             label="Instrument"
                                             placeholder="Select"
-                                            data={['uhh', 'idk', 'LDSS', 'Magellan']}
+                                            data={['IMACS_sc', 'IMACS_f2', 'GISMO_f2', 'IMACS_f4', 'GISMO_f4', 'GISMO MNS', 'GISMO AP', 'LDSS', 'LDSS N&S Micro', 'LDSS N&S Macro']}
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={instrument}
+                                            onChange={(v) => {
+                                                setInstrument(v);
+                                                if (v) void loadInstrumentConfig(v);
+                                                else {
+                                                    setFilterOptions([]);
+                                                    setDisperserOptions([]);
+                                                }
+                                            }}
                                         />
 
                                         {/*selecting a disperser*/}
                                         <Select
                                             label="Disperser"
-                                            placeholder="Select"
-                                            data={['what', 'are', 'dispersers', 'even?']}
+                                            placeholder={(disperserOptions.length ? 'Select' : 'No dispersers found')}
+                                            nothingFoundMessage="No dispersers found; check your instrument configurations"
+                                            data={disperserOptions}
+                                            disabled={!instrument}
+                                            value={disperser}
+                                            onChange={setDisperser}
                                             styles={{input: {borderColor: '#586072'}}}
                                         />
                                     </div>
@@ -1062,8 +1465,10 @@ function MainScreen() {
                                         {/*light filter?*/}
                                         <Select
                                             label="Filter"
-                                            placeholder="Select"
-                                            data={['Clear', 'Dirty']}
+                                            placeholder={(filterOptions.length ? 'Select' : 'No filters found')}
+                                            nothingFoundMessage="No filters found; check your instrument configurations"
+                                            data={filterOptions}
+                                            disabled={!instrument}
                                             styles={{input: {borderColor: '#586072'}}}
                                         />
 
@@ -1079,6 +1484,8 @@ function MainScreen() {
                                             label="H.A."
                                             placeholder="0.0"
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={HA ?? undefined}
+                                            onChange={(v) => setHA(typeof v === 'number' ? v : null)}
                                         />
                                     </div>
 
@@ -1089,6 +1496,8 @@ function MainScreen() {
                                             label=" Lower λ"
                                             placeholder="0"
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={lowerWave ?? undefined}
+                                            onChange={(v) => setLowerWave(typeof v === 'number' ? v : null)}
                                         />
 
                                         -
@@ -1097,6 +1506,8 @@ function MainScreen() {
                                             label="Upper λ"
                                             placeholder="0"
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={upperWave ?? undefined}
+                                            onChange={(v) => setUpperWave(typeof v === 'number' ? v : null)}
                                         />
                                     </div>
 
@@ -1171,6 +1582,8 @@ function MainScreen() {
                                             label="Width"
                                             placeholder="0.00"
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={slitWidth ?? undefined}
+                                            onChange={(v) => setSlitWidth(typeof v === 'number' ? v : null)}
                                         />
 
                                         <NumberInput
@@ -1241,6 +1654,8 @@ function MainScreen() {
                                             label="Pdecide"
                                             placeholder="0.0"
                                             styles={{input: {borderColor: '#586072'}}}
+                                            value={pdecide ?? undefined}
+                                            onChange={(v) => setPdecide(typeof v === 'number' ? v : null)}
                                         />
 
                                         <NumberInput
@@ -1301,11 +1716,10 @@ function MainScreen() {
                                                          icon={<IconArrowForwardUp stroke={1.8}/>}/>
                                 <EssentialControlButtons text="Parameter History" onClick={handleParameterHistory}
                                                          icon={<IconHistory stroke={1.8}/>}/>
-                                <EssentialControlButtons text="Submit" onClick={handleGenExport}
+                                <EssentialControlButtons text="Finalize and Submit" onClick={handleGenExport}
                                                          icon={<IconPackageExport stroke={1.8}/>}/>
                                 <EssentialControlButtons text="Log Out" onClick={handleLogOut}
                                                          icon={<IconLogout stroke={1.8}/>}/>
-                                {/*<EssentialControlButtons text="Quit" onClick={handleQuit} icon={<IconDeviceImacCancel stroke={1.8} />}/>*/}
 
                                 {/*accepting FIT files for loading*/}
                                 <input
@@ -1318,24 +1732,6 @@ function MainScreen() {
 
                             </aside>
 
-                            {/* → area below the Aladin panel */}
-                            <div className="bottom-area">
-                                <div className="first-row-controls">
-                                    <PreviewControlButton text="Zoom In" onClick={() => handleZoom('in')}/>
-                                    <PreviewControlButton text="Zoom Out" onClick={() => handleZoom('out')}/>
-                                    <PreviewControlButton text="Reset Zoom" onClick={() => handleZoom('1')}/>
-                                </div>
-
-                                <div className="second-row-controls">
-                                    <PreviewControlButton text="Draw Annulus" onClick={() => drawRegion('annulus')}/>
-                                    <PreviewControlButton text="Draw Circle" onClick={() => drawRegion('circle')}/>
-                                    <PreviewControlButton text="Draw Rectangle" onClick={() => drawRegion('box')}/>
-                                    <PreviewControlButton text="Draw Oval" onClick={() => drawRegion('ellipse')}/>
-                                    <PreviewControlButton text="Draw Line" onClick={() => drawRegion('cross')}/>
-                                    <PreviewControlButton text="Draw Triangle" onClick={() => drawRegion('polygon')}/>
-                                    <PreviewControlButton text="Add Text" onClick={() => drawRegion('text')}/>
-                                </div>
-                            </div>
                         </div>
                     </Tabs.Panel>
 
@@ -1427,20 +1823,89 @@ function MainScreen() {
 
                     {/*stuff that goes in the Settings tab*/}
                     <Tabs.Panel value="settings">
-                        <TableOfContents
-                            variant="light"
-                            color="blue"
-                            size="sm"
-                            radius="md"
-                            scrollSpyOptions={{
-                                selector: '#mdx :is(h1, h2, h3, h4, h5, h6)',
-                            }}
-                            getControlProps={({data}) => ({
-                                onClick: () => data.getNode().scrollIntoView(),
-                                children: data.value,
-                            })}
-                        />
+                        <div className="settings-layout">
+                            <aside className="settings-toc">
+                                <TableOfContents
+                                    variant="light"
+                                    color="blue"
+                                    size="sm"
+                                    radius="md"
+                                    scrollSpyOptions={{
+                                        selector: '.settings-content :is(h1, h2, h3, h4, h5, h6)',
+                                    }}
+                                    getControlProps={({ data }) => ({
+                                        onClick: () => data.getNode().scrollIntoView(),
+                                        children: data.value,
+                                    })}
+                                />
+                            </aside>
+
+                            <section className="settings-content">
+
+                                <h2 id="docs">Documentation</h2>
+                                <Button w={150}>View</Button>
+                                <Text c="dimmed" mt="xl">
+
+                                </Text>
+
+                                <h2 id="display">Display</h2>
+                                <Text c="dimmed">…display settings here…</Text>
+                                <Text c="dimmed" mt="xl">
+
+                                </Text>
+
+                                <h2 id="notifications">Notifications</h2>
+                                <Text c="dimmed">…notification settings here…</Text>
+                                <Text c="dimmed" mt="xl">
+
+                                </Text>
+
+                                <h1 id="account">Account Settings</h1>
+                                <Group justify="center" gap="xl">
+                                    <Button onClick={handleLogOut} w={150}>Manage Projects</Button>
+                                    <Button onClick={handleLogOut} w={150}>Manage Masks</Button>
+                                </Group>
+                                <Group justify="center" gap="xl">
+                                    <Button onClick={handleLogOut} w={150}>Log out</Button>
+                                    <Button onClick={handleLogOut} w={150}>Delete account</Button>
+                                </Group>
+
+                            </section>
+                        </div>
+
                     </Tabs.Panel>
+
+                    {/*stuff that goes in the Finalize tab*/}
+                    <Tabs.Panel value="finalize">
+                        <h2></h2>
+                        <Text ta="center" size="xl" fw={700}>Mask Options</Text>
+
+                        <Group justify="center">
+                            <TextInput
+                                radius="md"
+                                label="Mask file name"
+                                placeholder="Leave blank for mask_(today's date)"
+                                value={maskFileTitle}
+                                style={{width: 400}}
+                                styles={{input: {borderColor: '#586072'}}}
+                                onChange={(e) => setMaskFileTitle(e.target.value)}
+                            />
+                        </Group>
+
+                        <Group justify="center">
+                            <Button onClick={handleGenerateMask}>Generate Mask</Button>
+                            <Button onClick={handleFinalizeMask} disabled={!isMaskGenerated}>Mark as Complete</Button>
+                            <Button onClick={handleBackFromFinalize}>Back</Button>
+                        </Group>
+
+                        <h2></h2>
+                        <Text ta="center" size="xl" fw={700}>Machine Options (once mask is finalized)</Text>
+
+                        <Group justify="center">
+                            <Button onClick={handleGenerateMachineCode} disabled={!isMaskCompleted}>Generate Machine Code</Button>
+                        </Group>
+                    </Tabs.Panel>
+
                 </Tabs>
             </div>
         </Box>

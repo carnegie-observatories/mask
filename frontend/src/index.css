@@ -171,7 +171,7 @@ This lines up the contents of the container, and sets other rules.*/
     justify-content: space-evenly;
     gap: 0;
     padding-block: 0.75rem;
-    height: 140px;
+    height: 120px;
     width: 110px;
     padding-inline: 18px;
     font-size: 11px;
@@ -227,19 +227,17 @@ This lines up the contents of the container, and sets other rules.*/
     display: grid;
     height: 98vh;
     overflow: hidden;
+
     /*
     three columns: left params, center JS9, right essential controls.
     width of each is also defined here
     */
     grid-template-columns: 400px 1fr 175px;
 
-    /* two rows: top (JS9 row), bottom (tbd) */
-    grid-template-rows: 3fr 1fr;
+    /* single row: left params | center preview | right sidebar */
+    grid-template-rows: 1fr;
+    grid-template-areas: "params js9 sidebar";
 
-    /* name the areas for clarity */
-    grid-template-areas:
-    "params js9 sidebar"
-    "params blank sidebar";
     gap: 0;
 }
 
@@ -436,4 +434,42 @@ body.waiting, body.waiting * {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+}
+
+/* --- Settings split layout --- */
+.settings-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 1/3 : 2/3 */
+    gap: 24px;
+    align-items: start;
+}
+
+.settings-toc {
+    position: sticky;
+    top: 64px; /* keep TOC visible while scrolling */
+    max-height: calc(100vh - 88px);
+    overflow: auto;
+    padding-left: 16px;
+}
+
+.settings-content {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* centers all child blocks horizontally */
+    text-align: center;    /* centers headings / text */
+    gap: 16px;
+    padding: 24px;
+}
+
+/* Stack on small screens */
+@media (max-width: 900px) {
+    .settings-layout { grid-template-columns: 1fr; }
+    .settings-toc { position: static; max-height: none; }
+}
+
+.settings-content > * {
+    width: 100%;
+    max-width: 700px;      /* tune to taste */
+    margin: 0 auto;
 }
