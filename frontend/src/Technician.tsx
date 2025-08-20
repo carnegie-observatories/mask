@@ -101,7 +101,11 @@ export default function MaskManager() {
                 <Loader />
                 ) : (
                 finalizedMasks
-                    .filter((mask) => mask.status === "finalized")
+                    .filter(
+                        (mask) => 
+                            mask.status === "finalized" &&
+                            mask.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    )
                     .map((mask) => (
                     <Group key={mask.id} mb="xs">
                         <Text>{mask.name}</Text>
@@ -200,7 +204,7 @@ export function MaskDetail({ projectName, maskName, mask }: MaskDetailProps) {
   const handleGenerate = async () => {
     setGenerating(true);
     try {
-      await fetch("/api/machine/generate/", {
+      const res = await fetch("/api/machine/generate/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -212,8 +216,13 @@ export function MaskDetail({ projectName, maskName, mask }: MaskDetailProps) {
           overwrite: overwrite ? "true" : "false",
         }),
       });
-      setHasCode(true);
-      alert("Machine code generated!");
+      if (!res.ok) {
+        alert("Machine code already exists! Click overwrite to generate new code or simply download the existing code!")
+      } else {
+        setHasCode(true);
+        alert("Machine code generated!");
+      }
+      
     } catch (err) {
       console.error("Error generating machine code:", err);
     } finally {
@@ -317,8 +326,6 @@ export function MaskDetail({ projectName, maskName, mask }: MaskDetailProps) {
 
   return (
     <Group direction="column" spacing="md">
-      
-
       {mask.status === "completed" ? (
         
         <Stack>

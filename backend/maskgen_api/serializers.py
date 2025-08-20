@@ -33,5 +33,4 @@ class MaskSerializer(serializers.ModelSerializer):
 
     def get_project_name(self, obj):
         project = obj.project_set.first()
-        print(project.name)
         return project.name if project else None

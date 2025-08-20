@@ -28,7 +28,6 @@ import json
 class ProjectViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["post"], url_path="create")
     def upload(self, request):
-        print(request.headers)
         user_id = request.headers.get("user-id")
         proj_name = request.data.get("project_name")
         existing = ObjectList.objects.filter(name=proj_name, user_id=user_id).first()
@@ -103,9 +102,7 @@ class ImageViewSet(viewsets.ViewSet):
         user_id = request.headers.get("user-id")
         img_name = request.query_params.get("img_name")
         proj_name = request.query_params.get("project_name")
-        print(proj_name)
         project = Project.objects.get(name=proj_name, user_id=user_id)
-        print(project.images)
         if project:
             img_obj = project.images.get(name=img_name)
             img_path = img_obj.image.path
@@ -360,6 +357,11 @@ class InstrumentViewSet(viewsets.ViewSet):
                 .order_by("-version")
                 .first()
             )
+            if config:
+                return Response(
+                    {"error": f"No instrument config found with name '{pk}'"},
+                    status=404,
+                )
 
         return Response(
             {
@@ -372,7 +374,6 @@ class InstrumentViewSet(viewsets.ViewSet):
 
     @action(detail=False, methods=["post"], url_path="uploadconfig")
     def upload(self, request):
-        print(request.data)
         data = request.data
         existing = (
             InstrumentConfig.objects.filter(instrument=data["instrument"])

@@ -114,9 +114,16 @@ class InstrumentViewSet(viewsets.ViewSet):
         if version:
             config = get_object_or_404(InstrumentConfig, instrument=pk, version=version)
         else:
-            config = get_object_or_404(
-                InstrumentConfig.objects.order_by("-version"), instrument=pk
+            config = (
+                InstrumentConfig.objects.filter(instrument=pk)
+                .order_by("-version")
+                .first()
             )
+            if config:
+                return Response(
+                    {"error": f"No instrument config found with name '{pk}'"},
+                    status=404,
+                )
 
         return Response(
             {
@@ -602,7 +609,6 @@ class MaskViewSet(viewsets.ViewSet):
         proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
-        print(user_id, proj_name, mask_name)
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask:
@@ -623,7 +629,6 @@ class MaskViewSet(viewsets.ViewSet):
         proj_name = data["project_name"]
         user_id = request.headers.get("user-id")
         mask_name = data["mask_name"]
-        print(user_id, proj_name, mask_name)
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
         if mask:
@@ -683,7 +688,6 @@ class MaskViewSet(viewsets.ViewSet):
         """
         masks = Mask.objects.filter(status="finalized")
         serializer = MaskSerializer(masks, many=True)
-        print(serializer.data)
         return Response(serializer.data)
 
     @action(detail=False, methods=["get"], url_path="completed_masks")
@@ -693,7 +697,6 @@ class MaskViewSet(viewsets.ViewSet):
         """
         masks = Mask.objects.filter(status="completed")
         serializer = MaskSerializer(masks, many=True)
-        print(serializer.data)
         return Response(serializer.data)
 
 
@@ -702,14 +705,19 @@ class MachineViewSet(viewsets.ViewSet):
     def generate_machine_code(self, request):
         data = request.data
         proj_name = data["project_name"]
-        print(proj_name)
-        print(data)
         user_id = request.headers.get("user-id")
-        print(user_id)
         mask_name = data["mask_name"]
         overwrite = data["overwrite"] == "true"
         project = Project.objects.get(name=proj_name, user_id=user_id)
         mask = project.masks.get(name=mask_name)
+        file_path = f"{PROJECT_DIRECTORY}{API_FOLDER}nc_files/{user_id}/{proj_name}/I{mask_name}.nc"
+
+        if os.path.exists(file_path) and not overwrite:
+            return Response(
+                {"error": "machine code already generated"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         if mask.status == Status.FINALIZED:
             os.environ["MGPATH"] = MASKGEN_DIRECTORY
             shutil.copy(
@@ -719,7 +727,6 @@ class MachineViewSet(viewsets.ViewSet):
             result, feedback = run_maskcut(
                 f"{MASKGEN_DIRECTORY}/maskcut {mask_name}", overwrite
             )
-            print(feedback)
             if result and "Estimated cutting time" in feedback:
                 os.makedirs(
                     os.path.join(
