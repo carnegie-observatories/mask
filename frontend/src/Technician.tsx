@@ -92,61 +92,67 @@ export default function MaskManager() {
                 border: "1px solid #ccc",
                 }}
             />
-            <ScrollArea style={{ height: "calc(100vh - 120px)" }}>
-                {/* Finalized Masks Section */}
-                <Text fw={500} mb="xs" mt="sm">
-                Finalized Masks
+            <Text fw={500} mb="xs" mt="sm">
+                    Finalized Masks
                 </Text>
+            <ScrollArea style={{ height: "calc(50vh - 60px)" }}>
+                {/* Finalized Masks Section */}
+                
                 {loading ? (
-                <Loader />
+                    <Loader />
                 ) : (
-                finalizedMasks
+                    finalizedMasks
                     .filter(
-                        (mask) => 
-                            mask.status === "finalized" &&
-                            mask.name.toLowerCase().includes(searchQuery.toLowerCase())
+                        (mask) =>
+                        mask.status === "finalized" &&
+                        mask.name.toLowerCase().includes(searchQuery.toLowerCase())
                     )
                     .map((mask) => (
-                    <Group key={mask.id} mb="xs">
+                        <Group key={mask.id} mb="xs">
                         <Text>{mask.name}</Text>
                         <Button
-                        size="s"
-                        onClick={() =>
-                            setSelectedMask(
-                            selectedMask?.id === mask.id ? null : mask
-                            )
-                        }
+                            size="s"
+                            onClick={() =>
+                            setSelectedMask(selectedMask?.id === mask.id ? null : mask)
+                            }
                         >
-                        {selectedMask?.id === mask.id ? "Close" : "Open"}
+                            {selectedMask?.id === mask.id ? "Close" : "Open"}
                         </Button>
-
-                    </Group>
+                        </Group>
                     ))
                 )}
-
-                {/* Completed Masks Section */}
+                </ScrollArea>
                 <Text fw={500} mb="xs" mt="sm">
-                Completed Masks
+                    Completed Masks
                 </Text>
+                <ScrollArea style={{ height: "calc(50vh - 60px)" }}>
+                {/* Completed Masks Section */}
+                
                 {loading ? (
-                <Loader />
+                    <Loader />
                 ) : (
-                completedMasks
+                    completedMasks
                     .filter(
-                    (mask) =>
+                        (mask) =>
                         mask.status === "completed" &&
                         mask.name.toLowerCase().includes(searchQuery.toLowerCase())
                     )
                     .map((mask) => (
-                    <Group key={mask.id} mb="xs">
+                        <Group key={mask.id} mb="xs">
                         <Text>{mask.name}</Text>
-                        <Button size="s" onClick={() => setSelectedMask(mask)}>
-                        Open
+                        <Button
+                            size="s"
+                            onClick={() =>
+                            setSelectedMask(selectedMask?.id === mask.id ? null : mask)
+                            }
+                        >
+                            {selectedMask?.id === mask.id ? "Close" : "Open"}
                         </Button>
-                    </Group>
+                        </Group>
                     ))
                 )}
-            </ScrollArea>
+                </ScrollArea>
+
             </AppShell.Navbar>
 
 
@@ -222,7 +228,6 @@ export function MaskDetail({ projectName, maskName, mask }: MaskDetailProps) {
         setHasCode(true);
         alert("Machine code generated!");
       }
-      
     } catch (err) {
       console.error("Error generating machine code:", err);
     } finally {
