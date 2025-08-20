@@ -16,8 +16,8 @@ class Status(models.TextChoices):
 class Project(models.Model):
     name = models.CharField()
     user_id = models.CharField()
-    center_ra = models.FloatField()
-    center_dec = models.FloatField()
+    center_ra = models.CharField()
+    center_dec = models.CharField()
     obj_list = models.ForeignKey(
         "ObjectList", on_delete=models.SET_NULL, null=True, blank=True
     )
@@ -58,6 +58,8 @@ class InstrumentConfig(models.Model):
 class Mask(models.Model):
     name = models.CharField(max_length=20)
     user_id = models.CharField(max_length=100)
+    center_ra = models.CharField(max_length=20)
+    center_dec = models.CharField(max_length=20)
     status = models.CharField(
         max_length=100, choices=Status.choices, default=Status.DRAFT
     )
