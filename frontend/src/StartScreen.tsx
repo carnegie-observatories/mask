@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Fieldset, TextInput, Group, Button, Text } from '@mantine/core';
 import StartButton from "./StartButton";
 import { supabase } from "./supabase";
+import MaskManager from './Technician';
+
 
 function StartScreen() {
 
@@ -55,7 +57,9 @@ function StartScreen() {
         console.log("Guest button clicked");
         setMode('guest');
     };
-
+    const handleTechnician = () => {
+        navigate('/Technician', { replace: true });
+    };
     async function handleGuestSubmit(tempUser: string) {
         const username = tempUser.trim();
 
@@ -134,6 +138,7 @@ function StartScreen() {
                 <StartButton text = "Login"          onClick = {handleLogin} />
                 <StartButton text = "Register"       onClick = {handleRegister} />
                 <StartButton text = "Guest Login"    onClick = {handleGuest} />
+                <StartButton text = "Technician Portal"    onClick = {handleTechnician} />
             </div>
         </div>
     );

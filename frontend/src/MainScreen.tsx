@@ -4,7 +4,8 @@ import { IMaskInput } from 'react-imask';
 import { supabase } from './supabase';
 import EssentialControlButtons from './EssentialControlButtons';
 import PreviewControlButton from "./PreviewControlButton";
-import AladinTest from "./AladinTest";
+
+import AladinSlits from "./AladinSlits";
 
 // Mantine imports
 import {
@@ -94,8 +95,6 @@ function MainScreen() {
     const [overlapPixels, setOverlapPixels] = useState<number | null>(null);
     const [isMaskGenerated, setIsMaskGenerated] = useState(false);
     const [isMaskCompleted, setIsMaskCompleted] = useState(false);
-
-
 
 
 
@@ -408,9 +407,6 @@ function MainScreen() {
 
 
 
-
-
-
     /* <----------------------------------------Project Management------------------------------------------> */
 
     const handleCreateProject = () => {
@@ -557,7 +553,6 @@ function MainScreen() {
             // window.JS9.Load(file);
         }
     }
-
     // closable tabs
     function closeTab(tab: ClosableTab) {
         if (activeTab === tab) setActiveTab('home');
@@ -1113,7 +1108,6 @@ function MainScreen() {
                                 <Text ta="center" mt="md" size="xl">
                                     Config
                                 </Text>
-
                                 <FileButton
                                     onChange={(file) => {
                                         if (!file) return;
@@ -1700,9 +1694,8 @@ function MainScreen() {
 
                             {/* → Where the Aladin panel goes */}
                             <div className="preview-area">
-                                <AladinTest></AladinTest>
+                                <AladinSlits userId="u123"  projectName="galaxySurvey"  maskName="mask001"/>
                             </div>
-
                             {/* → fixed-width sidebar for essential controls */}
                             <aside className="sidebar">
                                 {/*<h2>Essential Controls</h2>*/}
@@ -1731,7 +1724,6 @@ function MainScreen() {
                                 />
 
                             </aside>
-
                         </div>
                     </Tabs.Panel>
 
@@ -1905,7 +1897,6 @@ function MainScreen() {
                             <Button onClick={handleGenerateMachineCode} disabled={!isMaskCompleted}>Generate Machine Code</Button>
                         </Group>
                     </Tabs.Panel>
-
                 </Tabs>
             </div>
         </Box>

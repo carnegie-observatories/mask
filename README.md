@@ -74,6 +74,12 @@ Almost all endpoints require a `user-id` header
 #### GET `/api/objects/list_all/`
 - Retrieve a list of all object lists associated with the user-id sent in headers
 
+#### DELETE `/api/masks/delete/?list_name=<list_name>
+- delete object list
+
+#### DELETE `/api/masks/delete/?list_name=<proj>&obj_name=<mask>`
+- delete object
+
 ### Mask API (/api/masks/)
 #### GET `/api/masks/{name}/`
 - Retrieve mask details by mask name. Includes status, instrument version, setup, object lists, excluded objects, and features.
@@ -85,14 +91,26 @@ Almost all endpoints require a `user-id` header
 - Returns path to the generated .SMF file if successful.
 
 #### POST `/api/masks/complete/`
-- Mark a mask as COMPLETED (required before machine code generation).
+- Mark a mask as COMPLETED (used by technicians to indicate a mask has been cut).
+
+#### POST `/api/masks/finalize/`
+- Mark a mask as FINALIZED (required before machine code generation).
+
+#### POST `/api/masks/draft/`
+- Mark a mask as DRAFT (used to return a mask for further revision by technicians).
+
+#### GET `/api/masks/finalized_masks/`
+- Get a list of all finalized masks in the database
+
+#### GET `/api/masks/completed_masks/`
+- Get a list of all completed masks in the database
 
 #### DELETE `/api/masks/delete/?project_name=<proj>&mask_name=<mask>`
 
 ### Machine API (/api/machine)
 #### POST `/api/machine/generate/`
 - Generate the machine code, mask must be marked as COMPLETED
-- Form Data: project_name (string), mask_name (string)
+- Form Data: project_name (string), mask_name (string), overwrite (bool if you want to rewrite existing code)
 #### GET `/api/machine/get-machine-code/?project_name=<proj>&mask_name=<mask>`
 - Get the generated machine code
 

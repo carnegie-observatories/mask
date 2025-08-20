@@ -27,7 +27,6 @@ def run_with_input(command, input_text=None):
 
 def run_maskgen(command, override):
     success, output = run_with_input(command)
-    print(output)
     max_retries = 0
     while (
         override
