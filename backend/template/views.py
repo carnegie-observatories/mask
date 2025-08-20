@@ -79,6 +79,23 @@ class ProjectViewSet(viewsets.ViewSet):
             status=status.HTTP_200_OK,
         )
 
+    @action(detail=False, methods=["get"], url_path="list")
+    def list_projects(self, request):
+        user_id = request.headers.get("user-id")
+        if not user_id:
+            return Response(
+                {"error": "missing user-id header"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        projects = Project.objects.filter(user_id=user_id).values("name")
+
+        return Response(
+            {"projects": list(projects)},
+            status=status.HTTP_200_OK,
+        )
+
+
 # don't need to change if not modifying project setup
 class ImageViewSet(viewsets.ViewSet):
     @action(detail=False, methods=["get"], url_path="getimg")
@@ -181,16 +198,33 @@ class ObjectViewSet(viewsets.ViewSet):
 
         return Response(results)
 
+    @action(detail=False, methods=["get"], url_path="list_all")
+    def list_obj_lists(self, request):
+        user_id = request.headers.get("user-id")
+        if not user_id:
+            return Response(
+                {"error": "missing user-id header"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        obj_lists = ObjectList.objects.filter(user_id=user_id).values("name")
+
+        return Response(
+            {"object lists": list(obj_lists)},
+            status=status.HTTP_200_OK,
+        )
+
     @action(detail=False, methods=["delete"], url_path="delete")
     def delete_obj(self, request):
         list_name = request.query_params.get("list_name")
         obj_name = request.query_params.get("obj_name")
         user_id = request.headers.get("user-id")
         obj_list = get_object_or_404(ObjectList, name=list_name, user_id=user_id)
-        obj = obj_list.objects.get(name=obj_name)
+        obj = get_object_or_404(obj_list.objects, name=obj_name)
         obj_list.objects_list.remove(obj)
+        obj.delete()
         return Response(
-            {"message": f"object '{obj_name}' removed from list '{list_name}'"},
+            {"message": f"object '{obj_name}' deleted"},
             status=status.HTTP_200_OK,
         )
 
